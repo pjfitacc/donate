@@ -17,7 +17,7 @@ import Info from './components/Info';
 import InfoMobile from './components/InfoMobile';
 import PaymentForm from './components/PaymentForm';
 import Review from './components/Review';
-import SitemarkIcon from './components/SitemarkIcon';
+import PHJLogo from './components/PHJLogo';
 import AppTheme from './shared-theme/AppTheme';
 import ColorModeIconDropdown from './shared-theme/ColorModeIconDropdown';
 
@@ -45,9 +45,9 @@ export default function Checkout(props) {
   return (
     <AppTheme {...props}>
       <CssBaseline enableColorScheme />
-      <Box sx={{ position: 'fixed', top: '1rem', right: '1rem' }}>
+      {/* <Box sx={{ position: 'fixed', top: '1rem', right: '1rem' }}>
         <ColorModeIconDropdown />
-      </Box>
+      </Box> */}
 
       <Grid
         container
@@ -76,7 +76,7 @@ export default function Checkout(props) {
             gap: 4,
           }}
         >
-          <SitemarkIcon />
+          <PHJLogo />
           <Box
             sx={{
               display: 'flex',
