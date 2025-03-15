@@ -22,7 +22,6 @@ export default function AddressForm() {
           id="first-name"
           name="first-name"
           type="name"
-          placeholder="John"
           autoComplete="first name"
           required
           size="small"
@@ -36,7 +35,6 @@ export default function AddressForm() {
           id="last-name"
           name="last-name"
           type="last-name"
-          placeholder="Snow"
           autoComplete="last name"
           required
           size="small"
@@ -104,7 +102,7 @@ export default function AddressForm() {
           id="zip"
           name="zip"
           type="zip"
-          placeholder="12345"
+          placeholder="10028"
           autoComplete="shipping postal-code"
           required
           size="small"

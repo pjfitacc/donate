@@ -21,7 +21,7 @@ import SitemarkIcon from './components/SitemarkIcon';
 import AppTheme from './shared-theme/AppTheme';
 import ColorModeIconDropdown from './shared-theme/ColorModeIconDropdown';
 
-const steps = ['Shipping address', 'Payment details', 'Review your order'];
+const steps = ['Donor Info', 'Payment details', 'Review your order'];
 function getStepContent(step) {
   switch (step) {
     case 0:
@@ -71,7 +71,7 @@ export default function Checkout(props) {
             borderRight: { sm: 'none', md: '1px solid' },
             borderColor: { sm: 'none', md: 'divider' },
             alignItems: 'start',
-            pt: 16,
+            pt: 4,
             px: 10,
             gap: 4,
           }}
@@ -98,9 +98,9 @@ export default function Checkout(props) {
             width: '100%',
             backgroundColor: { xs: 'transparent', sm: 'background.default' },
             alignItems: 'start',
-            pt: { xs: 0, sm: 16 },
+            pt: { xs: 0, sm: 4 },
             px: { xs: 2, sm: 10 },
-            gap: { xs: 4, md: 8 },
+            gap: { xs: 2, md: 4 },
           }}
         >
           <Box
@@ -109,7 +109,7 @@ export default function Checkout(props) {
               justifyContent: { sm: 'space-between', md: 'flex-end' },
               alignItems: 'center',
               width: '100%',
-              maxWidth: { sm: '100%', md: 600 },
+              maxWidth: { sm: '100%', md: '90%' },
             }}
           >
             <Box
@@ -163,9 +163,9 @@ export default function Checkout(props) {
               flexDirection: 'column',
               flexGrow: 1,
               width: '100%',
-              maxWidth: { sm: '100%', md: 600 },
+              maxWidth: { sm: '100%', md: '90%' },
               maxHeight: '720px',
-              gap: { xs: 5, md: 'none' },
+              gap: { xs: 2, md: 'none' },
             }}
           >
             <Stepper
