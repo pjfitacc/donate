@@ -64,7 +64,7 @@ function Info({ totalPrice }) {
   return (
     <React.Fragment>
       <Typography variant="subtitle2" sx={{ color: 'text.secondary' }}>
-        Total
+        Donation Total
       </Typography>
       <Typography variant="h4" gutterBottom>
         {totalPrice}

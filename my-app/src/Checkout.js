@@ -86,7 +86,7 @@ export default function Checkout(props) {
               maxWidth: 500,
             }}
           >
-            <Info totalPrice={activeStep >= 2 ? '$144.97' : '$134.98'} />
+            <Info totalPrice={activeStep >= 2 ? '10.00 USD' : '10.00 USD'} />
           </Box>
         </Grid>
         <Grid
@@ -151,10 +151,10 @@ export default function Checkout(props) {
                   Selected products
                 </Typography>
                 <Typography variant="body1">
-                  {activeStep >= 2 ? '$144.97' : '$134.98'}
+                  {activeStep >= 2 ? '10.00 USD' : '10.00 USD'}
                 </Typography>
               </div>
-              <InfoMobile totalPrice={activeStep >= 2 ? '$144.97' : '$134.98'} />
+              <InfoMobile totalPrice={activeStep >= 2 ? '10.00 USD' : '10.00 USD'} />
             </CardContent>
           </Card>
           <Box
