@@ -5,6 +5,7 @@ import FormLabel from '@mui/material/FormLabel';
 import Grid from '@mui/material/Grid2';
 import OutlinedInput from '@mui/material/OutlinedInput';
 import { styled } from '@mui/material/styles';
+import { Link } from '@mui/material';
 
 const FormGrid = styled(Grid)(() => ({
   display: 'flex',
@@ -40,9 +41,33 @@ export default function AddressForm() {
           size="small"
         />
       </FormGrid>
+      <FormGrid size={{ xs: 12, md: 6 }}>
+        <FormLabel htmlFor="email" required>Email</FormLabel>
+        <OutlinedInput
+          id="email"
+          name="email"
+          type="email"
+          placeholder="example@email.com"
+          autoComplete="shipping address-line2"
+          size="small"
+        />
+      </FormGrid>
+      <FormGrid size={{ xs: 12, md: 6 }}>
+
+        <FormLabel htmlFor="phone" >Phone</FormLabel>
+        <OutlinedInput
+          id="phone"
+          name="phone"
+          type="phone"
+          autoComplete="phone"
+          size="small"
+        />
+      </FormGrid>
+
+      
       <FormGrid size={{ xs: 12 }}>
         <FormLabel htmlFor="address1" required>
-          Address line 1
+          Address
         </FormLabel>
         <OutlinedInput
           id="address1"
@@ -50,18 +75,6 @@ export default function AddressForm() {
           type="address1"
           placeholder="Street name and number"
           autoComplete="shipping address-line1"
-          required
-          size="small"
-        />
-      </FormGrid>
-      <FormGrid size={{ xs: 12 }}>
-        <FormLabel htmlFor="address2">Address line 2</FormLabel>
-        <OutlinedInput
-          id="address2"
-          name="address2"
-          type="address2"
-          placeholder="Apartment, suite, unit, etc. (optional)"
-          autoComplete="shipping address-line2"
           required
           size="small"
         />
@@ -124,8 +137,15 @@ export default function AddressForm() {
       </FormGrid>
       <FormGrid size={{ xs: 12 }}>
         <FormControlLabel
-          control={<Checkbox name="saveAddress" value="yes" />}
-          label="Use this address for payment details"
+          control={<Checkbox name="acceptTerms" value="no" />}
+          label={
+            <span>
+            I agree to the{" "}
+            <Link href="https://www.phjesuits.org/portal/website-terms-and-conditions/" target="_blank" rel="noopener" color="blue">
+              Terms and Conditions
+            </Link>
+          </span>
+          }
         />
       </FormGrid>
     </Grid>
