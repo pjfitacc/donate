@@ -12,7 +12,7 @@ import Stepper from '@mui/material/Stepper';
 import Typography from '@mui/material/Typography';
 import ChevronLeftRoundedIcon from '@mui/icons-material/ChevronLeftRounded';
 import ChevronRightRoundedIcon from '@mui/icons-material/ChevronRightRounded';
-import AddressForm from './components/DonorForm';
+import DonorForm from './components/DonorForm';
 import Info from './components/Info';
 import InfoMobile from './components/InfoMobile';
 import PaymentForm from './components/PaymentForm';
@@ -38,7 +38,7 @@ export default function Checkout(props) {
     switch (step) {
       case 0:
         return (
-          <AddressForm
+          <DonorForm
             formData={formData}
             handleChange={handleChange}
             handleCheckboxChange={handleCheckboxChange}

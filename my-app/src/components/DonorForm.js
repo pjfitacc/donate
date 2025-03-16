@@ -13,7 +13,7 @@ const FormGrid = styled(Grid)(() => ({
   flexDirection: 'column',
 }));
 
-export default function AddressForm({ formData, handleChange, handleCheckboxChange, errors }) {
+export default function DonorForm({ formData, handleChange, handleCheckboxChange, errors }) {
 
   return (
     <Grid container spacing={3}>
