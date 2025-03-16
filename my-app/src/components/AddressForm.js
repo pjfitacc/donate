@@ -54,7 +54,8 @@ export default function AddressForm({ formData, handleChange, handleCheckboxChan
           onChange={handleChange}
           type="email"
           placeholder="example@email.com"
-          autoComplete="shipping address-line2"
+          autoComplete="email"
+          required
           size="small"
         />
       </FormGrid>

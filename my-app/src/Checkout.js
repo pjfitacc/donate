@@ -21,22 +21,8 @@ import PHJLogo from './components/PHJLogo';
 import AppTheme from './shared-theme/AppTheme';
 
 const steps = ['Donor Info', 'Payment details', 'Review your order'];
-// function getStepContent(step) {
-//   switch (step) {
-//     case 0:
-//       return <AddressForm
-//             formData={formData}
-//             handleChange={handleChange}
-//             handleCheckboxChange={handleCheckboxChange}
-//        />;
-//     case 1:
-//       return <PaymentForm />;
-//     case 2:
-//       return <Review />;
-//     default:
-//       throw new Error('Unknown step');
-//   }
-// }
+
+
 export default function Checkout(props) {
   const [activeStep, setActiveStep] = React.useState(0);
   const handleNext = () => {
