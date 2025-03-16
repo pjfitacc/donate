@@ -39,15 +39,18 @@ export default function Checkout(props) {
     acceptTerms: false,
   });
   const [donorErrors, setDonorErrors] = React.useState({});
-
-
   
+  
+  const [openSnackbar, setOpenSnackbar] = React.useState(false);
   const [activeStep, setActiveStep] = React.useState(0);
-
   const handleNext = () => {
     const donorErrors = validateDonor(donor);
 
     if (activeStep === 0 && Object.keys(donorErrors).length > 0) {
+      // Check if the ONLY error is acceptTerms
+      if (Object.keys(donorErrors).length === 1 && donorErrors.acceptTerms) {
+        setOpenSnackbar(true); // Show the Snackbar alert
+      }
       setDonorErrors(donorErrors);
       return;
     }
@@ -67,6 +70,8 @@ export default function Checkout(props) {
             donor={donor}
             setDonor={setDonor}
             errors={donorErrors}
+            openSnackbar={openSnackbar}
+            setOpenSnackbar={setOpenSnackbar}
           />
         );
       case 1:

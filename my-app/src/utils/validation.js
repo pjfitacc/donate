@@ -11,19 +11,23 @@
 //     acceptTerms: false,
 //   });
   
-  export const validateDonor = (donor) => {
-    let errors = {};
-  
-    if (!donor.firstName.trim()) {
-      errors.firstName = "First name is required";
+
+// Only thing not required is the phone.
+export const validateDonor = (donor) => {
+  let errors = {};
+
+  if (!/^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/.test(donor.email)) {
+    errors.email = "Invalid email format";
+  }
+
+  // Make a for loop that adds an error message to the errors object if the value of the key is empty.
+  for (const key in donor) {
+    if (!donor[key] && key !== 'phone') {
+      errors[key] = "This field is required";
     }
-    
-    if (!donor.email) {
-      errors.email = "Email is required";
-    } else if (!/^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/.test(donor.email)) {
-      errors.email = "Invalid email format";
-    }
+  }
   
-    return errors;
-  };
+
+  return errors;
+};
   

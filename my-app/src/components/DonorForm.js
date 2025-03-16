@@ -5,7 +5,7 @@ import FormLabel from '@mui/material/FormLabel';
 import Grid from '@mui/material/Grid2';
 import OutlinedInput from '@mui/material/OutlinedInput';
 import { styled } from '@mui/material/styles';
-import { FormHelperText, Link } from '@mui/material';
+import { Alert, FormHelperText, Link, Snackbar } from '@mui/material';
 
 
 const FormGrid = styled(Grid)(() => ({
@@ -15,7 +15,7 @@ const FormGrid = styled(Grid)(() => ({
 
 
 
-export default function DonorForm({ donor, setDonor, errors }) {
+export default function DonorForm({ donor, setDonor, errors, openSnackbar, setOpenSnackbar }) {
   // Handlers to update form fields
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -72,9 +72,9 @@ export default function DonorForm({ donor, setDonor, errors }) {
           error={!!errors.lastName}
           style={{ borderColor: errors.lastName ? 'red' : '' }}
         />
-        {!!errors.firstName && (
-            <FormHelperText error id="firstNameError">
-              {errors.firstName}
+        {!!errors.lastName && (
+            <FormHelperText error id="lastNameError">
+              {errors.lastName}
             </FormHelperText>
           )}
       </FormGrid>
@@ -93,11 +93,11 @@ export default function DonorForm({ donor, setDonor, errors }) {
           error={!!errors.email}
           style={{ borderColor: errors.email ? 'red' : '' }}
         />
-        {!!errors.firstName && (
-            <FormHelperText error id="firstNameError">
-              {errors.firstName}
-            </FormHelperText>
-          )}
+        {!!errors.email && (
+          <FormHelperText error id="emailError">
+            {errors.email}
+          </FormHelperText>
+        )}
       </FormGrid>
       <FormGrid size={{ xs: 12, md: 6 }}>
         <FormLabel htmlFor="phone" >Phone</FormLabel>
@@ -128,6 +128,11 @@ export default function DonorForm({ donor, setDonor, errors }) {
           error={!!errors.address}
           style={{ borderColor: errors.address ? 'red' : '' }}
         />
+        {!!errors.address && (
+          <FormHelperText error id="addressError">
+            {errors.address}
+          </FormHelperText>
+        )}
       </FormGrid>
       <FormGrid size={{ xs: 6 }}>
         <FormLabel htmlFor="city" required>
@@ -146,6 +151,11 @@ export default function DonorForm({ donor, setDonor, errors }) {
           error={!!errors.city}
           style={{ borderColor: errors.city ? 'red' : '' }}
         />
+        {!!errors.city && (
+          <FormHelperText error id="cityError">
+            {errors.city}
+          </FormHelperText>
+        )}
       </FormGrid>
       <FormGrid size={{ xs: 6 }}>
         <FormLabel htmlFor="state" required>
@@ -164,6 +174,11 @@ export default function DonorForm({ donor, setDonor, errors }) {
           error={!!errors.state}
           style={{ borderColor: errors.state ? 'red' : '' }}
         />
+        {!!errors.state && (
+          <FormHelperText error id="stateError">
+            {errors.state}
+          </FormHelperText>
+        )}
       </FormGrid>
       <FormGrid size={{ xs: 6 }}>
         <FormLabel htmlFor="zip" required>
@@ -182,6 +197,11 @@ export default function DonorForm({ donor, setDonor, errors }) {
           error={!!errors.zip}
           style={{ borderColor: errors.zip ? 'red' : '' }}
         />
+        {!!errors.zip && (
+          <FormHelperText error id="zipError">
+            {errors.zip}
+          </FormHelperText>
+        )}
       </FormGrid>
       <FormGrid size={{ xs: 6 }}>
         <FormLabel htmlFor="country" required>
@@ -200,8 +220,23 @@ export default function DonorForm({ donor, setDonor, errors }) {
           error={!!errors.country}
           style={{ borderColor: errors.country ? 'red' : '' }}
         />
+        {!!errors.country && (
+          <FormHelperText error id="countryError">
+            {errors.country}
+          </FormHelperText>
+        )}
       </FormGrid>
-      <FormGrid size={{ xs: 12 }}>
+      <Snackbar
+        open={openSnackbar}
+        autoHideDuration={3000}
+        onClose={() => setOpenSnackbar(false)}
+        anchorOrigin={{ vertical: "top", horizontal: "center" }}
+      >
+        <Alert severity="error" onClose={() => setOpenSnackbar(false)}>
+          Please accept the Terms and Conditions to proceed.
+        </Alert>
+    </Snackbar>
+      <FormGrid size={{ xs: 12 }} >
         <FormControlLabel
           control={<Checkbox name="acceptTerms" checked={donor.acceptTerms}
           onChange={handleCheckboxChange} value="no" />}
@@ -214,6 +249,9 @@ export default function DonorForm({ donor, setDonor, errors }) {
           </span>
           }
         />
+        {!!errors.acceptTerms && (
+          <FormHelperText error>You Must Agree to the Terms and Conditions</FormHelperText>
+        )}
       </FormGrid>
     </Grid>
   );
