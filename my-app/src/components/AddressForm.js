@@ -12,16 +12,18 @@ const FormGrid = styled(Grid)(() => ({
   flexDirection: 'column',
 }));
 
-export default function AddressForm() {
+export default function AddressForm({ formData, handleChange, handleCheckboxChange }) {
   return (
     <Grid container spacing={3}>
       <FormGrid size={{ xs: 12, md: 6 }}>
-        <FormLabel htmlFor="first-name" required>
+        <FormLabel htmlFor="firstName" required>
           First name
         </FormLabel>
         <OutlinedInput
-          id="first-name"
-          name="first-name"
+          id="firstName"
+          name="firstName"
+          value={formData.firstName}
+          onChange={handleChange}
           type="name"
           autoComplete="first name"
           required
@@ -29,13 +31,15 @@ export default function AddressForm() {
         />
       </FormGrid>
       <FormGrid size={{ xs: 12, md: 6 }}>
-        <FormLabel htmlFor="last-name" required>
+        <FormLabel htmlFor="lastName" required>
           Last name
         </FormLabel>
         <OutlinedInput
-          id="last-name"
-          name="last-name"
-          type="last-name"
+          id="lastName"
+          name="lastName"
+          value={formData.lastName}
+          onChange={handleChange}
+          type="lastName"
           autoComplete="last name"
           required
           size="small"
@@ -46,6 +50,8 @@ export default function AddressForm() {
         <OutlinedInput
           id="email"
           name="email"
+          value={formData.email}
+          onChange={handleChange}
           type="email"
           placeholder="example@email.com"
           autoComplete="shipping address-line2"
@@ -58,6 +64,8 @@ export default function AddressForm() {
         <OutlinedInput
           id="phone"
           name="phone"
+          value={formData.phone}
+          onChange={handleChange}
           type="phone"
           autoComplete="phone"
           size="small"
@@ -66,13 +74,15 @@ export default function AddressForm() {
 
       
       <FormGrid size={{ xs: 12 }}>
-        <FormLabel htmlFor="address1" required>
+        <FormLabel htmlFor="address" required>
           Address
         </FormLabel>
         <OutlinedInput
-          id="address1"
-          name="address1"
-          type="address1"
+          id="address"
+          name="address"
+          value={formData.address}
+          onChange={handleChange}
+          type="address"
           placeholder="Street name and number"
           autoComplete="shipping address-line1"
           required
@@ -86,6 +96,8 @@ export default function AddressForm() {
         <OutlinedInput
           id="city"
           name="city"
+          value={formData.city}
+          onChange={handleChange}
           type="city"
           placeholder="New York"
           autoComplete="City"
@@ -100,6 +112,8 @@ export default function AddressForm() {
         <OutlinedInput
           id="state"
           name="state"
+          value={formData.state}
+          onChange={handleChange}
           type="state"
           placeholder="NY"
           autoComplete="State"
@@ -114,6 +128,8 @@ export default function AddressForm() {
         <OutlinedInput
           id="zip"
           name="zip"
+          value={formData.zip}
+          onChange={handleChange}
           type="zip"
           placeholder="10028"
           autoComplete="shipping postal-code"
@@ -128,6 +144,8 @@ export default function AddressForm() {
         <OutlinedInput
           id="country"
           name="country"
+          value={formData.country}
+          onChange={handleChange}
           type="country"
           placeholder="United States"
           autoComplete="shipping country"
@@ -137,7 +155,8 @@ export default function AddressForm() {
       </FormGrid>
       <FormGrid size={{ xs: 12 }}>
         <FormControlLabel
-          control={<Checkbox name="acceptTerms" value="no" />}
+          control={<Checkbox name="acceptTerms" checked={formData.acceptTerms}
+          onChange={handleCheckboxChange} value="no" />}
           label={
             <span>
             I agree to the{" "}

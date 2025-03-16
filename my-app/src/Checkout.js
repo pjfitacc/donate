@@ -19,21 +19,24 @@ import PaymentForm from './components/PaymentForm';
 import Review from './components/Review';
 import PHJLogo from './components/PHJLogo';
 import AppTheme from './shared-theme/AppTheme';
-import ColorModeIconDropdown from './shared-theme/ColorModeIconDropdown';
 
 const steps = ['Donor Info', 'Payment details', 'Review your order'];
-function getStepContent(step) {
-  switch (step) {
-    case 0:
-      return <AddressForm />;
-    case 1:
-      return <PaymentForm />;
-    case 2:
-      return <Review />;
-    default:
-      throw new Error('Unknown step');
-  }
-}
+// function getStepContent(step) {
+//   switch (step) {
+//     case 0:
+//       return <AddressForm
+//             formData={formData}
+//             handleChange={handleChange}
+//             handleCheckboxChange={handleCheckboxChange}
+//        />;
+//     case 1:
+//       return <PaymentForm />;
+//     case 2:
+//       return <Review />;
+//     default:
+//       throw new Error('Unknown step');
+//   }
+// }
 export default function Checkout(props) {
   const [activeStep, setActiveStep] = React.useState(0);
   const handleNext = () => {
@@ -42,6 +45,57 @@ export default function Checkout(props) {
   const handleBack = () => {
     setActiveStep(activeStep - 1);
   };
+
+  // State for the address form
+  const [formData, setFormData] = React.useState({
+    firstName: '',
+    lastName: '',
+    email: '',
+    phone: '',
+    address: '',
+    city: '',
+    state: '',
+    zip: '',
+    country: '',
+    acceptTerms: false,
+  });
+
+  // Handlers to update form fields
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData((prevData) => ({
+      ...prevData,
+      [name]: value,
+    }));
+  };
+
+  const handleCheckboxChange = (e) => {
+    const { checked } = e.target;
+    setFormData((prevData) => ({
+      ...prevData,
+      acceptTerms: checked,
+    }));
+  };
+
+  const getStepContent = (step) => {
+    switch (step) {
+      case 0:
+        return (
+          <AddressForm
+            formData={formData}
+            handleChange={handleChange}
+            handleCheckboxChange={handleCheckboxChange}
+          />
+        );
+      case 1:
+        return <PaymentForm />;
+      case 2:
+        return <Review />;
+      default:
+        throw new Error('Unknown step');
+    }
+  };
+  
   return (
     <AppTheme {...props}>
       <CssBaseline enableColorScheme />
