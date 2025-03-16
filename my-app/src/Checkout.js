@@ -26,11 +26,23 @@ const steps = ['Donor Info', 'Payment details', 'Review your order'];
 export default function Checkout(props) {
   const [activeStep, setActiveStep] = React.useState(0);
   const handleNext = () => {
-    setActiveStep(activeStep + 1);
+    if (validateForm()) {
+      setActiveStep(activeStep + 1);
+    }
   };
   const handleBack = () => {
     setActiveStep(activeStep - 1);
   };
+
+  const validateForm = () => {
+    if (activeStep === 0) {
+      return formData.firstName !== '' && formData.lastName !== '' && formData.email !== '' && formData.address !== '' && formData.city !== '' && formData.state !== '' && formData.zip !== '' && formData.country !== '' && formData.acceptTerms;
+    }
+    if (activeStep === 1) {
+      return true;
+    }
+    return false;
+  }
 
   // State for the address form
   const [formData, setFormData] = React.useState({
