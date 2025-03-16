@@ -12,7 +12,7 @@ import Stepper from '@mui/material/Stepper';
 import Typography from '@mui/material/Typography';
 import ChevronLeftRoundedIcon from '@mui/icons-material/ChevronLeftRounded';
 import ChevronRightRoundedIcon from '@mui/icons-material/ChevronRightRounded';
-import AddressForm from './components/AddressForm';
+import AddressForm from './components/DonorForm';
 import Info from './components/Info';
 import InfoMobile from './components/InfoMobile';
 import PaymentForm from './components/PaymentForm';
@@ -34,15 +34,25 @@ export default function Checkout(props) {
     setActiveStep(activeStep - 1);
   };
 
-  const validateForm = () => {
-    if (activeStep === 0) {
-      return formData.firstName !== '' && formData.lastName !== '' && formData.email !== '' && formData.address !== '' && formData.city !== '' && formData.state !== '' && formData.zip !== '' && formData.country !== '' && formData.acceptTerms;
+  const getStepContent = (step) => {
+    switch (step) {
+      case 0:
+        return (
+          <AddressForm
+            formData={formData}
+            handleChange={handleChange}
+            handleCheckboxChange={handleCheckboxChange}
+            errors={errors}
+          />
+        );
+      case 1:
+        return <PaymentForm />;
+      case 2:
+        return <Review />;
+      default:
+        throw new Error('Unknown step');
     }
-    if (activeStep === 1) {
-      return true;
-    }
-    return false;
-  }
+  };
 
   // State for the address form
   const [formData, setFormData] = React.useState({
@@ -75,24 +85,24 @@ export default function Checkout(props) {
     }));
   };
 
-  const getStepContent = (step) => {
-    switch (step) {
-      case 0:
-        return (
-          <AddressForm
-            formData={formData}
-            handleChange={handleChange}
-            handleCheckboxChange={handleCheckboxChange}
-          />
-        );
-      case 1:
-        return <PaymentForm />;
-      case 2:
-        return <Review />;
-      default:
-        throw new Error('Unknown step');
+  const [errors, setErrors] = React.useState({});
+  const validateForm = () => {
+    const validateField = (name, value) => {
+      let error = '';
+      if (!value) {
+        error = 'This field is required';
+      }
+      setErrors((prevErrors) => ({ ...prevErrors, [name]: error }));
+    };
+    
+    if (activeStep === 0) {
+      return formData.firstName !== '' && formData.lastName !== '' && formData.email !== '' && formData.address !== '' && formData.city !== '' && formData.state !== '' && formData.zip !== '' && formData.country !== '' && formData.acceptTerms;
     }
-  };
+    if (activeStep === 1) {
+      return true;
+    }
+    return false;
+  }
   
   return (
     <AppTheme {...props}>

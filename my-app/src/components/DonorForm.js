@@ -5,14 +5,16 @@ import FormLabel from '@mui/material/FormLabel';
 import Grid from '@mui/material/Grid2';
 import OutlinedInput from '@mui/material/OutlinedInput';
 import { styled } from '@mui/material/styles';
-import { Link } from '@mui/material';
+import { FormHelperText, Link } from '@mui/material';
+import { useState } from 'react';
 
 const FormGrid = styled(Grid)(() => ({
   display: 'flex',
   flexDirection: 'column',
 }));
 
-export default function AddressForm({ formData, handleChange, handleCheckboxChange }) {
+export default function AddressForm({ formData, handleChange, handleCheckboxChange, errors }) {
+
   return (
     <Grid container spacing={3}>
       <FormGrid size={{ xs: 12, md: 6 }}>
@@ -28,7 +30,13 @@ export default function AddressForm({ formData, handleChange, handleCheckboxChan
           autoComplete="first name"
           required
           size="small"
+          style={{ borderColor: errors.firstName ? 'red' : '' }}
         />
+        {!!errors.firstName && (
+            <FormHelperText error id="firstNameError">
+              {errors.firstName}
+            </FormHelperText>
+          )}
       </FormGrid>
       <FormGrid size={{ xs: 12, md: 6 }}>
         <FormLabel htmlFor="lastName" required>
@@ -43,7 +51,14 @@ export default function AddressForm({ formData, handleChange, handleCheckboxChan
           autoComplete="last name"
           required
           size="small"
+          error={!!errors.lastName}
+          style={{ borderColor: errors.lastName ? 'red' : '' }}
         />
+        {!!errors.firstName && (
+            <FormHelperText error id="firstNameError">
+              {errors.firstName}
+            </FormHelperText>
+          )}
       </FormGrid>
       <FormGrid size={{ xs: 12, md: 6 }}>
         <FormLabel htmlFor="email" required>Email</FormLabel>
@@ -57,10 +72,16 @@ export default function AddressForm({ formData, handleChange, handleCheckboxChan
           autoComplete="email"
           required
           size="small"
+          error={!!errors.email}
+          style={{ borderColor: errors.email ? 'red' : '' }}
         />
+        {!!errors.firstName && (
+            <FormHelperText error id="firstNameError">
+              {errors.firstName}
+            </FormHelperText>
+          )}
       </FormGrid>
       <FormGrid size={{ xs: 12, md: 6 }}>
-
         <FormLabel htmlFor="phone" >Phone</FormLabel>
         <OutlinedInput
           id="phone"
@@ -72,8 +93,6 @@ export default function AddressForm({ formData, handleChange, handleCheckboxChan
           size="small"
         />
       </FormGrid>
-
-      
       <FormGrid size={{ xs: 12 }}>
         <FormLabel htmlFor="address" required>
           Address
@@ -88,6 +107,8 @@ export default function AddressForm({ formData, handleChange, handleCheckboxChan
           autoComplete="shipping address-line1"
           required
           size="small"
+          error={!!errors.address}
+          style={{ borderColor: errors.address ? 'red' : '' }}
         />
       </FormGrid>
       <FormGrid size={{ xs: 6 }}>
@@ -104,6 +125,8 @@ export default function AddressForm({ formData, handleChange, handleCheckboxChan
           autoComplete="City"
           required
           size="small"
+          error={!!errors.city}
+          style={{ borderColor: errors.city ? 'red' : '' }}
         />
       </FormGrid>
       <FormGrid size={{ xs: 6 }}>
@@ -120,6 +143,8 @@ export default function AddressForm({ formData, handleChange, handleCheckboxChan
           autoComplete="State"
           required
           size="small"
+          error={!!errors.state}
+          style={{ borderColor: errors.state ? 'red' : '' }}
         />
       </FormGrid>
       <FormGrid size={{ xs: 6 }}>
@@ -136,6 +161,8 @@ export default function AddressForm({ formData, handleChange, handleCheckboxChan
           autoComplete="shipping postal-code"
           required
           size="small"
+          error={!!errors.zip}
+          style={{ borderColor: errors.zip ? 'red' : '' }}
         />
       </FormGrid>
       <FormGrid size={{ xs: 6 }}>
@@ -152,6 +179,8 @@ export default function AddressForm({ formData, handleChange, handleCheckboxChan
           autoComplete="shipping country"
           required
           size="small"
+          error={!!errors.country}
+          style={{ borderColor: errors.country ? 'red' : '' }}
         />
       </FormGrid>
       <FormGrid size={{ xs: 12 }}>
