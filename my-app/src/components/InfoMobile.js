@@ -6,7 +6,7 @@ import Drawer from '@mui/material/Drawer';
 import IconButton from '@mui/material/IconButton';
 import CloseIcon from '@mui/icons-material/Close';
 import ExpandMoreRoundedIcon from '@mui/icons-material/ExpandMoreRounded';
-import Info from './Info';
+import DonationInfo from './DonationInfo';
 
 function InfoMobile({ totalPrice }) {
   const [open, setOpen] = React.useState(false);
@@ -23,7 +23,7 @@ function InfoMobile({ totalPrice }) {
       >
         <CloseIcon />
       </IconButton>
-      <Info totalPrice={totalPrice} />
+      <DonationInfo totalPrice={totalPrice} />
     </Box>
   );
 

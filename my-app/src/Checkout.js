@@ -13,7 +13,7 @@ import Typography from '@mui/material/Typography';
 import ChevronLeftRoundedIcon from '@mui/icons-material/ChevronLeftRounded';
 import ChevronRightRoundedIcon from '@mui/icons-material/ChevronRightRounded';
 import DonorForm from './components/DonorForm';
-import Info from './components/Info';
+import DonationInfo from './components/DonationInfo';
 import InfoMobile from './components/InfoMobile';
 import PaymentForm from './components/PaymentForm';
 import Review from './components/Review';
@@ -83,6 +83,9 @@ export default function Checkout(props) {
     }
   };
 
+  const [beneficiary, setBeneficiary] = React.useState('');
+
+
   
   return (
     <AppTheme {...props}>
@@ -128,7 +131,7 @@ export default function Checkout(props) {
               maxWidth: 500,
             }}
           >
-            <Info totalPrice={activeStep >= 2 ? '10.00 USD' : '10.00 USD'} />
+            <DonationInfo totalPrice={activeStep >= 2 ? '10.00 USD' : '10.00 USD'} beneficiary={beneficiary} setBeneficiary={setBeneficiary}/>
           </Box>
         </Grid>
         <Grid
