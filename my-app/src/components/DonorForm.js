@@ -6,14 +6,32 @@ import Grid from '@mui/material/Grid2';
 import OutlinedInput from '@mui/material/OutlinedInput';
 import { styled } from '@mui/material/styles';
 import { FormHelperText, Link } from '@mui/material';
-import { useState } from 'react';
+
 
 const FormGrid = styled(Grid)(() => ({
   display: 'flex',
   flexDirection: 'column',
 }));
 
-export default function DonorForm({ formData, handleChange, handleCheckboxChange, errors }) {
+
+
+export default function DonorForm({ donor, setDonor, errors }) {
+  // Handlers to update form fields
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setDonor((prevData) => ({
+      ...prevData,
+      [name]: value,
+    }));
+  };
+
+  const handleCheckboxChange = (e) => {
+    const { checked } = e.target;
+    setDonor((prevData) => ({
+      ...prevData,
+      acceptTerms: checked,
+    }));
+  };
 
   return (
     <Grid container spacing={3}>
@@ -24,7 +42,7 @@ export default function DonorForm({ formData, handleChange, handleCheckboxChange
         <OutlinedInput
           id="firstName"
           name="firstName"
-          value={formData.firstName}
+          value={donor.firstName}
           onChange={handleChange}
           type="name"
           autoComplete="first name"
@@ -45,7 +63,7 @@ export default function DonorForm({ formData, handleChange, handleCheckboxChange
         <OutlinedInput
           id="lastName"
           name="lastName"
-          value={formData.lastName}
+          value={donor.lastName}
           onChange={handleChange}
           type="lastName"
           autoComplete="last name"
@@ -65,7 +83,7 @@ export default function DonorForm({ formData, handleChange, handleCheckboxChange
         <OutlinedInput
           id="email"
           name="email"
-          value={formData.email}
+          value={donor.email}
           onChange={handleChange}
           type="email"
           placeholder="example@email.com"
@@ -86,7 +104,7 @@ export default function DonorForm({ formData, handleChange, handleCheckboxChange
         <OutlinedInput
           id="phone"
           name="phone"
-          value={formData.phone}
+          value={donor.phone}
           onChange={handleChange}
           type="phone"
           autoComplete="phone"
@@ -100,7 +118,7 @@ export default function DonorForm({ formData, handleChange, handleCheckboxChange
         <OutlinedInput
           id="address"
           name="address"
-          value={formData.address}
+          value={donor.address}
           onChange={handleChange}
           type="address"
           placeholder="Street name and number"
@@ -118,7 +136,7 @@ export default function DonorForm({ formData, handleChange, handleCheckboxChange
         <OutlinedInput
           id="city"
           name="city"
-          value={formData.city}
+          value={donor.city}
           onChange={handleChange}
           type="city"
           placeholder="New York"
@@ -136,7 +154,7 @@ export default function DonorForm({ formData, handleChange, handleCheckboxChange
         <OutlinedInput
           id="state"
           name="state"
-          value={formData.state}
+          value={donor.state}
           onChange={handleChange}
           type="state"
           placeholder="NY"
@@ -154,7 +172,7 @@ export default function DonorForm({ formData, handleChange, handleCheckboxChange
         <OutlinedInput
           id="zip"
           name="zip"
-          value={formData.zip}
+          value={donor.zip}
           onChange={handleChange}
           type="zip"
           placeholder="10028"
@@ -172,7 +190,7 @@ export default function DonorForm({ formData, handleChange, handleCheckboxChange
         <OutlinedInput
           id="country"
           name="country"
-          value={formData.country}
+          value={donor.country}
           onChange={handleChange}
           type="country"
           placeholder="United States"
@@ -185,7 +203,7 @@ export default function DonorForm({ formData, handleChange, handleCheckboxChange
       </FormGrid>
       <FormGrid size={{ xs: 12 }}>
         <FormControlLabel
-          control={<Checkbox name="acceptTerms" checked={formData.acceptTerms}
+          control={<Checkbox name="acceptTerms" checked={donor.acceptTerms}
           onChange={handleCheckboxChange} value="no" />}
           label={
             <span>

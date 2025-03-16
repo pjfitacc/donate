@@ -19,43 +19,14 @@ import PaymentForm from './components/PaymentForm';
 import Review from './components/Review';
 import PHJLogo from './components/PHJLogo';
 import AppTheme from './shared-theme/AppTheme';
+import { validateDonor } from './utils/validation';
 
 const steps = ['Donor Info', 'Payment details', 'Review your order'];
 
 
 export default function Checkout(props) {
-  const [activeStep, setActiveStep] = React.useState(0);
-  const handleNext = () => {
-    if (validateForm()) {
-      setActiveStep(activeStep + 1);
-    }
-  };
-  const handleBack = () => {
-    setActiveStep(activeStep - 1);
-  };
-
-  const getStepContent = (step) => {
-    switch (step) {
-      case 0:
-        return (
-          <DonorForm
-            formData={formData}
-            handleChange={handleChange}
-            handleCheckboxChange={handleCheckboxChange}
-            errors={errors}
-          />
-        );
-      case 1:
-        return <PaymentForm />;
-      case 2:
-        return <Review />;
-      default:
-        throw new Error('Unknown step');
-    }
-  };
-
   // State for the address form
-  const [formData, setFormData] = React.useState({
+  const [donor, setDonor] = React.useState({
     firstName: '',
     lastName: '',
     email: '',
@@ -67,42 +38,46 @@ export default function Checkout(props) {
     country: '',
     acceptTerms: false,
   });
+  const [donorErrors, setDonorErrors] = React.useState({});
 
-  // Handlers to update form fields
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormData((prevData) => ({
-      ...prevData,
-      [name]: value,
-    }));
+
+  
+  const [activeStep, setActiveStep] = React.useState(0);
+
+  const handleNext = () => {
+    const donorErrors = validateDonor(donor);
+
+    if (activeStep === 0 && Object.keys(donorErrors).length > 0) {
+      setDonorErrors(donorErrors);
+      return;
+    }
+
+    setActiveStep(activeStep + 1);
+  };
+  const handleBack = () => {
+    setActiveStep(activeStep - 1);
   };
 
-  const handleCheckboxChange = (e) => {
-    const { checked } = e.target;
-    setFormData((prevData) => ({
-      ...prevData,
-      acceptTerms: checked,
-    }));
+
+  const getStepContent = (step) => {
+    switch (step) {
+      case 0:
+        return (
+          <DonorForm
+            donor={donor}
+            setDonor={setDonor}
+            errors={donorErrors}
+          />
+        );
+      case 1:
+        return <PaymentForm />;
+      case 2:
+        return <Review />;
+      default:
+        throw new Error('Unknown step');
+    }
   };
 
-  const [errors, setErrors] = React.useState({});
-  const validateForm = () => {
-    const validateField = (name, value) => {
-      let error = '';
-      if (!value) {
-        error = 'This field is required';
-      }
-      setErrors((prevErrors) => ({ ...prevErrors, [name]: error }));
-    };
-    
-    if (activeStep === 0) {
-      return formData.firstName !== '' && formData.lastName !== '' && formData.email !== '' && formData.address !== '' && formData.city !== '' && formData.state !== '' && formData.zip !== '' && formData.country !== '' && formData.acceptTerms;
-    }
-    if (activeStep === 1) {
-      return true;
-    }
-    return false;
-  }
   
   return (
     <AppTheme {...props}>
