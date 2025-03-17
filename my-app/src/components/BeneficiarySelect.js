@@ -34,7 +34,7 @@ function BeneficiarySelect({ donation, handleChange }) {
                 return <Typography variant="subtitle2" sx={{ color: 'gray' }}>Select a Beneficiary...</Typography>;
               }
   
-              return selected.join(', ');
+              return selected;
             }}
         >
           <MenuItem disabled value="">
