@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import Typography from '@mui/material/Typography';
 import { beneficiaries } from '../data/beneficiaries';
 import BeneficiarySelect from './BeneficiarySelect';
-import { FormControl, FormGroup, FormLabel, Input, OutlinedInput } from '@mui/material';
+import { FormControl, FormGroup, FormHelperText, FormLabel, Input, OutlinedInput } from '@mui/material';
 
 
 function DonationInfo({ donation, setDonation, errors }) {
@@ -19,13 +19,24 @@ function DonationInfo({ donation, setDonation, errors }) {
   return (
     <React.Fragment>
       {BeneficiarySelect({ donation, handleChange })}
+      {!!errors.beneficiary && (
+            <FormHelperText error id="beneficiaryError" sx={{mb: 3, mt: 0.2}}>
+              Please select a beneficiary
+            </FormHelperText>
+          )}
       
       <FormControl>
       <FormLabel htmlFor="amount" required>
         Donation Total (USD)
         </FormLabel>
+
       <Input sx={{my: 2}} id="amount" name="amount" type='number' defaultValue={donation.amount} value={donation.amount} onChange={handleChange} required></Input>
       </FormControl>
+        {!!errors.amount && (
+            <FormHelperText error id="amountError" sx={{mb: 3, mt: 0.2}}>
+              {errors.amount}
+            </FormHelperText>
+          )}
 
       
       <FormControl>

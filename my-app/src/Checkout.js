@@ -19,7 +19,7 @@ import PaymentForm from './components/PaymentForm';
 import Review from './components/Review';
 import PHJLogo from './components/PHJLogo';
 import AppTheme from './shared-theme/AppTheme';
-import { validateDonor } from './utils/validation';
+import { validateDonation } from './utils/validation';
 
 const steps = ['Donation Info', 'Payment details', 'Review your order'];
 
@@ -38,24 +38,25 @@ export default function Checkout(props) {
     country: '',
     acceptTerms: false,
   });
-  const [donorErrors, setDonorErrors] = React.useState({});
+  const [donationErrors, setDonationErrors] = React.useState({});
   
   
   const [openSnackbar, setOpenSnackbar] = React.useState(false);
   const [activeStep, setActiveStep] = React.useState(0);
   const handleNext = () => {
-    const donorErrors = validateDonor(donor);
+    const donationErrors = validateDonation(donor, donation);
 
-    if (activeStep === 0 && Object.keys(donorErrors).length > 0) {
+    if (activeStep === 0 && Object.keys(donationErrors).length > 0) {
       // Check if the ONLY error is acceptTerms
-      if (Object.keys(donorErrors).length === 1 && donorErrors.acceptTerms) {
+      if (Object.keys(donationErrors).length === 1 && donationErrors.acceptTerms) {
         setOpenSnackbar(true); // Show the Snackbar alert
       }
-      setDonorErrors(donorErrors);
+
+      setDonationErrors(donationErrors);
       return;
     }
 
-    setDonorErrors({});
+    setDonationErrors({});
     setActiveStep(activeStep + 1);
   };
   const handleBack = () => {
@@ -70,7 +71,7 @@ export default function Checkout(props) {
           <DonorForm
             donor={donor}
             setDonor={setDonor}
-            errors={donorErrors}
+            errors={donationErrors}
             openSnackbar={openSnackbar}
             setOpenSnackbar={setOpenSnackbar}
           />
@@ -138,7 +139,7 @@ export default function Checkout(props) {
               maxWidth: 500,
             }}
           >
-            <DonationInfo totalPrice={activeStep >= 2 ? '10.00 USD' : '10.00 USD'} donation={donation} setDonation={setDonation}/>
+            <DonationInfo totalPrice={activeStep >= 2 ? '10.00 USD' : '10.00 USD'} donation={donation} setDonation={setDonation} errors={donationErrors}/>
           </Box>
         </Grid>
         <Grid
@@ -206,7 +207,7 @@ export default function Checkout(props) {
                   {activeStep >= 2 ? '10.00 USD' : '10.00 USD'}
                 </Typography>
               </div>
-              <InfoMobile totalPrice={activeStep >= 2 ? '10.00 USD' : '10.00 USD'} donation={donation} setDonation={setDonation}/>
+              <InfoMobile donation={donation} setDonation={setDonation} errors={donationErrors}/>
             </CardContent>
           </Card>
           <Box
