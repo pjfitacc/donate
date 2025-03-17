@@ -10,47 +10,47 @@ const MenuProps = {
   },
 };
 
-function BeneficiarySelect({ donation, handleChange }) {
+function BeneficiarySelect({ donation, handleChange, errors }) {
     
 
     return(
-        <FormControl fullWidth>
-        <FormLabel htmlFor="beneficiary" sx={{mb:-1}} required>
-        Beneficiary
-        </FormLabel>
-        <Select
-            labelId="beneficiary"
-            id="beneficiary"
-            name="beneficiary"
-            displayEmpty
-            value={donation.beneficiary}
-            onChange={handleChange}
-            input={<Input  sx={{ mb: 4 }}/>}
-            MenuProps={MenuProps}
-            inputProps={{ 'aria-label': 'Without label' }}
-            label="Beneficiary"
-            renderValue={(selected) => {
-              if (selected.length === 0) {
-                return <Typography variant="subtitle2" sx={{ color: 'gray' }}>Select a Beneficiary...</Typography>;
-              }
-  
-              return selected;
-            }}
-        >
-          <MenuItem disabled value="">
-            <em>Select a Beneficiary...</em>
-          </MenuItem>
-            {beneficiaries.map((beneficiaryItem) => (
-            <MenuItem
-                key={beneficiaryItem.name}
-                value={beneficiaryItem.name}
-                selected={beneficiaryItem.name === donation.beneficiary}
-                sx={{ width: '100%', whiteSpace: 'normal' }} // Ensure items stretch and handle long text
-            >
-                {beneficiaryItem.name}
+        <FormControl fullWidth  sx={{mb: 4}}>
+          <FormLabel htmlFor="beneficiary" sx={{mb:-1}} required>
+          Beneficiary
+          </FormLabel>
+          <Select
+              labelId="beneficiary"
+              id="beneficiary"
+              name="beneficiary"
+              displayEmpty
+              value={donation.beneficiary}
+              onChange={handleChange}
+              input={<Input />}
+              MenuProps={MenuProps}
+              inputProps={{ 'aria-label': 'Without label' }}
+              label="Beneficiary"
+              renderValue={(selected) => {
+                if (selected.length === 0) {
+                  return <Typography variant="subtitle2" sx={{ color: 'gray' }}>Select a Beneficiary...</Typography>;
+                }
+    
+                return selected;
+              }}
+          >
+            <MenuItem disabled value="">
+              <em>Select a Beneficiary...</em>
             </MenuItem>
-            ))}
-        </Select>
+              {beneficiaries.map((beneficiaryItem) => (
+              <MenuItem
+                  key={beneficiaryItem.name}
+                  value={beneficiaryItem.name}
+                  selected={beneficiaryItem.name === donation.beneficiary}
+                  sx={{ width: '100%', whiteSpace: 'normal' }} // Ensure items stretch and handle long text
+              >
+                  {beneficiaryItem.name}
+              </MenuItem>
+              ))}
+          </Select>
       </FormControl>
     )
 }

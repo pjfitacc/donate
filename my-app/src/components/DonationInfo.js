@@ -20,20 +20,20 @@ function DonationInfo({ donation, setDonation, errors }) {
     <React.Fragment>
       {BeneficiarySelect({ donation, handleChange })}
       {!!errors.beneficiary && (
-            <FormHelperText error id="beneficiaryError" sx={{mb: 3, mt: 0.2}}>
+            <FormHelperText error id="beneficiaryError" sx={{mb: 3, mt: -3}}>
               Please select a beneficiary
             </FormHelperText>
           )}
       
-      <FormControl>
+      <FormControl sx={{mb: 4}}>
       <FormLabel htmlFor="amount" sx={{mb:-1}}required>
         Donation Total (USD)
         </FormLabel>
 
-      <Input sx={{mb: 4}} id="amount" name="amount" type='number' defaultValue={donation.amount} value={donation.amount} onChange={handleChange} required></Input>
+      <Input id="amount" name="amount" type='number' defaultValue={donation.amount} value={donation.amount} onChange={handleChange} required></Input>
       </FormControl>
         {!!errors.amount && (
-            <FormHelperText error id="amountError" sx={{mb: 3, mt: 0.2}}>
+            <FormHelperText error id="amountError" sx={{mb: 3, mt: -3}}>
               {errors.amount}
             </FormHelperText>
           )}
