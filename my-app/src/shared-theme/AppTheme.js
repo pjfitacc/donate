@@ -15,24 +15,24 @@ function AppTheme(props) {
     return disableCustomTheme
       ? {}
       : createTheme({
-          // For more details about CSS variables configuration, see https://mui.com/material-ui/customization/css-theme-variables/configuration/
-          cssVariables: {
-            colorSchemeSelector: 'data-mui-color-scheme',
-            cssVarPrefix: 'template',
-          },
-          colorSchemes, // Recently added in v6 for building light & dark mode app, see https://mui.com/material-ui/customization/palette/#color-schemes
-          typography,
-          shadows,
-          shape,
-          components: {
-            ...inputsCustomizations,
-            ...dataDisplayCustomizations,
-            ...feedbackCustomizations,
-            ...navigationCustomizations,
-            ...surfacesCustomizations,
-            ...themeComponents,
-          },
-        });
+        // For more details about CSS variables configuration, see https://mui.com/material-ui/customization/css-theme-variables/configuration/
+        cssVariables: {
+          colorSchemeSelector: 'data-mui-color-scheme',
+          cssVarPrefix: 'template',
+        },
+        colorSchemes, // Recently added in v6 for building light & dark mode app, see https://mui.com/material-ui/customization/palette/#color-schemes
+        typography,
+        shadows,
+        shape,
+        components: {
+          ...inputsCustomizations,
+          ...dataDisplayCustomizations,
+          ...feedbackCustomizations,
+          ...navigationCustomizations,
+          ...surfacesCustomizations,
+          ...themeComponents,
+        },
+      });
   }, [disableCustomTheme, themeComponents]);
   if (disableCustomTheme) {
     return <React.Fragment>{children}</React.Fragment>;
@@ -54,3 +54,14 @@ AppTheme.propTypes = {
 };
 
 export default AppTheme;
+
+
+export const checkoutInnerBoxStyle = {
+  display: 'flex',
+  flexDirection: 'column',
+  flexGrow: 1,
+  width: '100%',
+  maxWidth: { sm: '100%', md: '90%' },
+  maxHeight: '720px',
+  gap: { xs: 2, md: 'none' },
+}

@@ -15,11 +15,10 @@ import DonationInfo from './components/DonationInfo';
 import PaymentForm from './components/PaymentForm';
 import Review from './components/Review';
 import PHJLogo from './components/PHJLogo';
-import AppTheme from './shared-theme/AppTheme';
+import AppTheme, { checkoutInnerBoxStyle } from './shared-theme/AppTheme';
 import { validateDonation } from './utils/validation';
 import MobileStepper from './components/mobile/MobileStepper';
 import MobileDonationInputCard from './components/mobile/MobileDonationInputCard';
-import { checkoutInnerBoxStyle } from './shared-theme/themePrimitives';
 import { MobileDonationInfoCard } from './components/mobile/MobileDonationInfoCard';
 
 const steps = ['Donation Info', 'Payment details', 'Review your order'];
