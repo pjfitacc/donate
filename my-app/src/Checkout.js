@@ -21,7 +21,7 @@ import PHJLogo from './components/PHJLogo';
 import AppTheme from './shared-theme/AppTheme';
 import { validateDonor } from './utils/validation';
 
-const steps = ['Donor Info', 'Payment details', 'Review your order'];
+const steps = ['Donation Info', 'Payment details', 'Review your order'];
 
 
 export default function Checkout(props) {
@@ -56,7 +56,6 @@ export default function Checkout(props) {
     }
 
     setDonorErrors({});
-    console.log(donation)
     setActiveStep(activeStep + 1);
   };
   const handleBack = () => {
