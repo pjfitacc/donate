@@ -200,8 +200,8 @@ export default function Checkout(props) {
             <MobileStepper activeStep={activeStep} steps={steps} />
           </Box>
 
-          {activeStep == 0 && <MobileDonationInputCard donation={donation} setDonation={setDonation} donationErrors={donationErrors} />}
-          {activeStep == 1 && <MobileDonationInfoCard donation={donation} setDonation={setDonation} donationErrors={donationErrors} />}
+          {activeStep === 0 && <MobileDonationInputCard donation={donation} setDonation={setDonation} donationErrors={donationErrors} />}
+          {activeStep === 1 && <MobileDonationInfoCard donation={donation} setDonation={setDonation} donationErrors={donationErrors} />}
 
           <Box sx={checkoutInnerBoxStyle}>
             {activeStep === steps.length ? (
