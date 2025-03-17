@@ -26,11 +26,11 @@ function DonationInfo({ donation, setDonation, errors }) {
           )}
       
       <FormControl>
-      <FormLabel htmlFor="amount" required>
+      <FormLabel htmlFor="amount" sx={{mb:-1}}required>
         Donation Total (USD)
         </FormLabel>
 
-      <Input sx={{my: 2}} id="amount" name="amount" type='number' defaultValue={donation.amount} value={donation.amount} onChange={handleChange} required></Input>
+      <Input sx={{mb: 4}} id="amount" name="amount" type='number' defaultValue={donation.amount} value={donation.amount} onChange={handleChange} required></Input>
       </FormControl>
         {!!errors.amount && (
             <FormHelperText error id="amountError" sx={{mb: 3, mt: 0.2}}>
@@ -40,7 +40,7 @@ function DonationInfo({ donation, setDonation, errors }) {
 
       
       <FormControl>
-      <Typography variant="subtitle2" sx={{ color: 'text.secondary' }}>
+      <Typography variant="subtitle2" sx={{ color: 'text.secondary', mb: -1 }}>
         Comments
       </Typography>
       <Input multiline sx={{my: 2}} id="comments" name="comments" type='text' defaultValue={donation.comments} value={donation.comments} onChange={handleChange} placeholder='Indicate special instructions or requests you may have regarding your donation here. You can also specify other Jesuit-related beneficiaries not listed above...'></Input>

@@ -15,7 +15,7 @@ function BeneficiarySelect({ donation, handleChange }) {
 
     return(
         <FormControl fullWidth>
-        <FormLabel htmlFor="beneficiary" required>
+        <FormLabel htmlFor="beneficiary" sx={{mb:-1}} required>
         Beneficiary
         </FormLabel>
         <Select
@@ -25,7 +25,7 @@ function BeneficiarySelect({ donation, handleChange }) {
             displayEmpty
             value={donation.beneficiary}
             onChange={handleChange}
-            input={<Input  sx={{ my: 2 }}/>}
+            input={<Input  sx={{ mb: 4 }}/>}
             MenuProps={MenuProps}
             inputProps={{ 'aria-label': 'Without label' }}
             label="Beneficiary"
