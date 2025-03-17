@@ -8,7 +8,7 @@ import CloseIcon from '@mui/icons-material/Close';
 import ExpandMoreRoundedIcon from '@mui/icons-material/ExpandMoreRounded';
 import DonationInfo from './DonationInfo';
 
-function InfoMobile({ totalPrice }) {
+function InfoMobile({ totalPrice, beneficiary, setBeneficiary }) {
   const [open, setOpen] = React.useState(false);
 
   const toggleDrawer = (newOpen) => () => {
@@ -23,7 +23,7 @@ function InfoMobile({ totalPrice }) {
       >
         <CloseIcon />
       </IconButton>
-      <DonationInfo totalPrice={totalPrice} />
+      <DonationInfo totalPrice={totalPrice} beneficiary={beneficiary} setBeneficiary={setBeneficiary}/>
     </Box>
   );
 

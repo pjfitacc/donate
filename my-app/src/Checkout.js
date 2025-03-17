@@ -55,6 +55,8 @@ export default function Checkout(props) {
       return;
     }
 
+    setDonorErrors({});
+    console.log(donation)
     setActiveStep(activeStep + 1);
   };
   const handleBack = () => {
@@ -83,7 +85,13 @@ export default function Checkout(props) {
     }
   };
 
-  const [beneficiary, setBeneficiary] = React.useState('');
+  const [donation, setDonation] = React.useState(
+    {
+      amount: 10,
+      beneficiary: '',
+      comments: '', 
+    }
+  );
 
 
   
@@ -131,7 +139,7 @@ export default function Checkout(props) {
               maxWidth: 500,
             }}
           >
-            <DonationInfo totalPrice={activeStep >= 2 ? '10.00 USD' : '10.00 USD'} beneficiary={beneficiary} setBeneficiary={setBeneficiary}/>
+            <DonationInfo totalPrice={activeStep >= 2 ? '10.00 USD' : '10.00 USD'} donation={donation} setDonation={setDonation}/>
           </Box>
         </Grid>
         <Grid
@@ -199,7 +207,7 @@ export default function Checkout(props) {
                   {activeStep >= 2 ? '10.00 USD' : '10.00 USD'}
                 </Typography>
               </div>
-              <InfoMobile totalPrice={activeStep >= 2 ? '10.00 USD' : '10.00 USD'} />
+              <InfoMobile totalPrice={activeStep >= 2 ? '10.00 USD' : '10.00 USD'} donation={donation} setDonation={setDonation}/>
             </CardContent>
           </Card>
           <Box

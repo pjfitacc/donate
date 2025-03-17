@@ -1,5 +1,5 @@
 import { beneficiaries } from "../data/beneficiaries";
-import { FormControl, InputLabel, MenuItem, OutlinedInput, Select } from '@mui/material';
+import { FilledInput, FormControl, FormLabel, Input, InputLabel, MenuItem, Select, Typography } from '@mui/material';
 
 const MenuProps = {
   PaperProps: {
@@ -10,30 +10,37 @@ const MenuProps = {
   },
 };
 
-function BeneficiarySelect({ handleSelectChange, beneficiary }) {
+function BeneficiarySelect({ donation, handleChange }) {
+    
+
     return(
-        <FormControl fullWidth sx={{ my: 2 }}>
-        <InputLabel shrink={false} sx={{ left: '50%', top: '50%', transform: 'translate(-50%, -50%)' }}>
+        <FormControl fullWidth>
+        {/* <InputLabel shrink={false} sx={{ left: '50%', top: '50%', transform: 'translate(-50%, -50%)' }}>
           {beneficiary.name ? "" : "Select Beneficiary"}
-        </InputLabel>
+        </InputLabel> */}
+        <FormLabel htmlFor="beneficiary" required>
+        Beneficiary
+        </FormLabel>
+        {/* <Typography variant="subtitle2" sx={{ color: 'text.secondary' }}>
+        Beneficiary
+      </Typography> */}
         <Select
+            labelId="beneficiary"
+            id="beneficiary"
+            name="beneficiary"
             displayEmpty
-            value={beneficiary.name}
-            onChange={handleSelectChange}
-            input={<OutlinedInput />}
+            value={donation.beneficiary}
+            onChange={handleChange}
+            input={<Input  sx={{ my: 2 }}/>}
             MenuProps={MenuProps}
             inputProps={{ 'aria-label': 'Without label' }}
-            sx={{
-            whiteSpace: 'nowrap',
-            overflow: 'hidden', 
-            textOverflow: 'ellipsis',
-            }}
+            label="Beneficiary"
         >
             {beneficiaries.map((beneficiaryItem) => (
             <MenuItem
                 key={beneficiaryItem.name}
                 value={beneficiaryItem.name}
-                selected={beneficiaryItem.name === beneficiary.name}
+                selected={beneficiaryItem.name === donation.beneficiary}
                 sx={{ width: '100%', whiteSpace: 'normal' }} // Ensure items stretch and handle long text
             >
                 {beneficiaryItem.name}

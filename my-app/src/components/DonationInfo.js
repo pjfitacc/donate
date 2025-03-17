@@ -3,31 +3,38 @@ import PropTypes from 'prop-types';
 import Typography from '@mui/material/Typography';
 import { beneficiaries } from '../data/beneficiaries';
 import BeneficiarySelect from './BeneficiarySelect';
+import { FormControl, FormGroup, FormLabel, Input, OutlinedInput } from '@mui/material';
 
 
-function DonationInfo({ totalPrice, beneficiary, setBeneficiary }) {
-  const handleSelectChange = (event) => {
-    const selectedName = event.target.value;
-    setBeneficiary(beneficiaries.find((beneficiary) => beneficiary.name === selectedName));
+function DonationInfo({ donation, setDonation, errors }) {
+  // Handlers to update form fields
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setDonation((prevData) => ({
+      ...prevData,
+      [name]: value,
+    }));
   };
 
   return (
     <React.Fragment>
-      <Typography variant="subtitle2" sx={{ color: 'text.secondary' }}>
-        Donation Total
-      </Typography>
-      <Typography variant="h4" gutterBottom>
-        {totalPrice}
-      </Typography>
-
-      <Typography variant="subtitle2" sx={{ color: 'text.secondary' }}>
-        Beneficiary
-      </Typography>
-      {BeneficiarySelect({ handleSelectChange, beneficiary })}
+      {BeneficiarySelect({ donation, handleChange })}
       
+      <FormControl>
+      <FormLabel htmlFor="amount" required>
+        Donation Total (USD)
+        </FormLabel>
+      <Input sx={{my: 2}} id="amount" name="amount" type='number' defaultValue={donation.amount} value={donation.amount} onChange={handleChange} required></Input>
+      </FormControl>
+
+      
+      <FormControl>
       <Typography variant="subtitle2" sx={{ color: 'text.secondary' }}>
         Comments
       </Typography>
+      <Input multiline sx={{my: 2}} id="comments" name="comments" type='text' defaultValue={donation.comments} value={donation.comments} onChange={handleChange} required></Input>
+      </FormControl>
+
     </React.Fragment>
   );
 }
