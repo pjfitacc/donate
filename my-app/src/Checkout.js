@@ -14,12 +14,14 @@ import ChevronLeftRoundedIcon from '@mui/icons-material/ChevronLeftRounded';
 import ChevronRightRoundedIcon from '@mui/icons-material/ChevronRightRounded';
 import DonorForm from './components/DonorForm';
 import DonationInfo from './components/DonationInfo';
-import DonationInfoMobile from './components/DonationInfoMobile';
+import DonationInfoMobile from './components/mobile/DonationInfoMobile';
 import PaymentForm from './components/PaymentForm';
 import Review from './components/Review';
 import PHJLogo from './components/PHJLogo';
 import AppTheme from './shared-theme/AppTheme';
 import { validateDonation } from './utils/validation';
+import MobileStepper from './components/mobile/MobileStepper';
+import MobileDonationCard from './components/mobile/MobileDonationCard';
 
 const steps = ['Donation Info', 'Payment details', 'Review your order'];
 
@@ -190,7 +192,7 @@ export default function Checkout(props) {
               </Stepper>
             </Box>
           </Box>
-          <Card sx={{ display: { xs: 'flex', md: 'none' }, width: '100%' }}>
+          {activeStep > 0 && <Card sx={{ display: { xs: 'flex', md: 'none' }, width: '100%' }}>
             <CardContent
               sx={{
                 display: 'flex',
@@ -201,15 +203,15 @@ export default function Checkout(props) {
             >
               <div>
                 <Typography variant="subtitle2" gutterBottom>
-                  Selected products
+                  Selected Donation
                 </Typography>
                 <Typography variant="body1">
-                  {activeStep >= 2 ? '10.00 USD' : '10.00 USD'}
+                  {donation.amount} USD to {donation.beneficiary}
                 </Typography>
               </div>
               <DonationInfoMobile donation={donation} setDonation={setDonation} errors={donationErrors}/>
             </CardContent>
-          </Card>
+          </Card>}
           <Box
             sx={{
               display: 'flex',
@@ -221,29 +223,8 @@ export default function Checkout(props) {
               gap: { xs: 2, md: 'none' },
             }}
           >
-            <Stepper
-              id="mobile-stepper"
-              activeStep={activeStep}
-              alternativeLabel
-              sx={{ display: { sm: 'flex', md: 'none' } }}
-            >
-              {steps.map((label) => (
-                <Step
-                  sx={{
-                    ':first-child': { pl: 0 },
-                    ':last-child': { pr: 0 },
-                    '& .MuiStepConnector-root': { top: { xs: 6, sm: 12 } },
-                  }}
-                  key={label}
-                >
-                  <StepLabel
-                    sx={{ '.MuiStepLabel-labelContainer': { maxWidth: '70px' } }}
-                  >
-                    {label}
-                  </StepLabel>
-                </Step>
-              ))}
-            </Stepper>
+            {/* mobile stepper */}
+            <MobileStepper activeStep={activeStep} steps={steps}/>
             {activeStep === steps.length ? (
               <Stack spacing={2} useFlexGap>
                 <Typography variant="h1">📦</Typography>
@@ -262,6 +243,7 @@ export default function Checkout(props) {
               </Stack>
             ) : (
               <React.Fragment>
+                {activeStep == 0 && <MobileDonationCard donation={donation} setDonation={setDonation} donationErrors={donationErrors}/>}
                 {getStepContent(activeStep)}
                 <Box
                   sx={[

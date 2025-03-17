@@ -25,7 +25,7 @@ function DonationInfo({ donation, setDonation, errors }) {
             </FormHelperText>
           )}
       
-      <FormControl sx={{mb: 4}}>
+      <FormControl sx={{mb: 4}} fullWidth>
       <FormLabel htmlFor="amount" sx={{mb:-1}}required>
         Donation Total (USD)
         </FormLabel>
