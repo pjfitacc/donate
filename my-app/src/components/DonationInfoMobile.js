@@ -8,7 +8,7 @@ import CloseIcon from '@mui/icons-material/Close';
 import ExpandMoreRoundedIcon from '@mui/icons-material/ExpandMoreRounded';
 import DonationInfo from './DonationInfo';
 
-function InfoMobile({ donation, setDonation, errors }) {
+function DonationInfoMobile({ donation, setDonation, errors }) {
   const [open, setOpen] = React.useState(false);
 
   const toggleDrawer = (newOpen) => () => {
@@ -54,8 +54,8 @@ function InfoMobile({ donation, setDonation, errors }) {
   );
 }
 
-InfoMobile.propTypes = {
+DonationInfoMobile.propTypes = {
   totalPrice: PropTypes.string.isRequired,
 };
 
-export default InfoMobile;
+export default DonationInfoMobile;

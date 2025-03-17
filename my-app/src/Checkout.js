@@ -14,7 +14,7 @@ import ChevronLeftRoundedIcon from '@mui/icons-material/ChevronLeftRounded';
 import ChevronRightRoundedIcon from '@mui/icons-material/ChevronRightRounded';
 import DonorForm from './components/DonorForm';
 import DonationInfo from './components/DonationInfo';
-import InfoMobile from './components/InfoMobile';
+import DonationInfoMobile from './components/DonationInfoMobile';
 import PaymentForm from './components/PaymentForm';
 import Review from './components/Review';
 import PHJLogo from './components/PHJLogo';
@@ -207,7 +207,7 @@ export default function Checkout(props) {
                   {activeStep >= 2 ? '10.00 USD' : '10.00 USD'}
                 </Typography>
               </div>
-              <InfoMobile donation={donation} setDonation={setDonation} errors={donationErrors}/>
+              <DonationInfoMobile donation={donation} setDonation={setDonation} errors={donationErrors}/>
             </CardContent>
           </Card>
           <Box
