@@ -43,7 +43,7 @@ function DonationInfo({ donation, setDonation, errors }) {
       <Typography variant="subtitle2" sx={{ color: 'text.secondary' }}>
         Comments
       </Typography>
-      <Input multiline sx={{my: 2}} id="comments" name="comments" type='text' defaultValue={donation.comments} value={donation.comments} onChange={handleChange} required></Input>
+      <Input multiline sx={{my: 2}} id="comments" name="comments" type='text' defaultValue={donation.comments} value={donation.comments} onChange={handleChange} placeholder='Indicate special instructions or requests you may have regarding your donation here. You can also specify other Jesuit-related beneficiaries not listed above...'></Input>
       </FormControl>
 
     </React.Fragment>
