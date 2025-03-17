@@ -39,7 +39,7 @@ function DonationInfo({ donation, setDonation, errors }) {
           )}
 
       
-      <FormControl>
+      <FormControl fullWidth>
       <Typography variant="subtitle2" sx={{ color: 'text.secondary', mb: -1 }}>
         Comments
       </Typography>
