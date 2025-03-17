@@ -4,6 +4,16 @@ const defaultTheme = createTheme();
 
 const customShadows = [...defaultTheme.shadows];
 
+export const checkoutInnerBoxStyle = {
+  display: 'flex',
+  flexDirection: 'column',
+  flexGrow: 1,
+  width: '100%',
+  maxWidth: { sm: '100%', md: '90%' },
+  maxHeight: '720px',
+  gap: { xs: 2, md: 'none' },
+}
+
 export const brand = {
   50: 'hsl(210, 100%, 95%)',
   100: 'hsl(210, 100%, 92%)',

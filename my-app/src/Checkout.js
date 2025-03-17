@@ -1,8 +1,6 @@
 import * as React from 'react';
 import Box from '@mui/material/Box';
 import Button from '@mui/material/Button';
-import Card from '@mui/material/Card';
-import CardContent from '@mui/material/CardContent';
 import CssBaseline from '@mui/material/CssBaseline';
 import Grid from '@mui/material/Grid2';
 import Stack from '@mui/material/Stack';
@@ -14,14 +12,15 @@ import ChevronLeftRoundedIcon from '@mui/icons-material/ChevronLeftRounded';
 import ChevronRightRoundedIcon from '@mui/icons-material/ChevronRightRounded';
 import DonorForm from './components/DonorForm';
 import DonationInfo from './components/DonationInfo';
-import DonationInfoMobile from './components/mobile/DonationInfoMobile';
 import PaymentForm from './components/PaymentForm';
 import Review from './components/Review';
 import PHJLogo from './components/PHJLogo';
 import AppTheme from './shared-theme/AppTheme';
 import { validateDonation } from './utils/validation';
 import MobileStepper from './components/mobile/MobileStepper';
-import MobileDonationCard from './components/mobile/MobileDonationCard';
+import MobileDonationInputCard from './components/mobile/MobileDonationInputCard';
+import { checkoutInnerBoxStyle } from './shared-theme/themePrimitives';
+import { MobileDonationInfoCard } from './components/mobile/MobileDonationInfoCard';
 
 const steps = ['Donation Info', 'Payment details', 'Review your order'];
 
@@ -41,8 +40,8 @@ export default function Checkout(props) {
     acceptTerms: false,
   });
   const [donationErrors, setDonationErrors] = React.useState({});
-  
-  
+
+
   const [openSnackbar, setOpenSnackbar] = React.useState(false);
   const [activeStep, setActiveStep] = React.useState(0);
   const handleNext = () => {
@@ -91,12 +90,12 @@ export default function Checkout(props) {
     {
       amount: 10,
       beneficiary: '',
-      comments: '', 
+      comments: '',
     }
   );
 
 
-  
+
   return (
     <AppTheme {...props}>
       <CssBaseline enableColorScheme />
@@ -141,7 +140,7 @@ export default function Checkout(props) {
               maxWidth: 500,
             }}
           >
-            <DonationInfo donation={donation} setDonation={setDonation} errors={donationErrors}/>
+            <DonationInfo donation={donation} setDonation={setDonation} errors={donationErrors} />
           </Box>
         </Grid>
         <Grid
@@ -192,39 +191,20 @@ export default function Checkout(props) {
               </Stepper>
             </Box>
           </Box>
-          {activeStep > 0 && <Card sx={{ display: { xs: 'flex', md: 'none' }, width: '100%' }}>
-            <CardContent
-              sx={{
-                display: 'flex',
-                width: '100%',
-                alignItems: 'center',
-                justifyContent: 'space-between',
-              }}
-            >
-              <div>
-                <Typography variant="subtitle2" gutterBottom>
-                  Selected Donation
-                </Typography>
-                <Typography variant="body1">
-                  {donation.amount} USD to {donation.beneficiary}
-                </Typography>
-              </div>
-              <DonationInfoMobile donation={donation} setDonation={setDonation} errors={donationErrors}/>
-            </CardContent>
-          </Card>}
-          <Box
-            sx={{
-              display: 'flex',
-              flexDirection: 'column',
-              flexGrow: 1,
-              width: '100%',
-              maxWidth: { sm: '100%', md: '90%' },
-              maxHeight: '720px',
-              gap: { xs: 2, md: 'none' },
-            }}
-          >
-            {/* mobile stepper */}
-            <MobileStepper activeStep={activeStep} steps={steps}/>
+          <Box sx={checkoutInnerBoxStyle}>
+            <Box sx={{ mt: -2, mb: 2, display: { xs: 'flex', md: 'none', justifyContent: 'center', alignContent: 'center' } }}>
+              <PHJLogo />
+            </Box>
+          </Box>
+
+          <Box sx={checkoutInnerBoxStyle}>
+            <MobileStepper activeStep={activeStep} steps={steps} />
+          </Box>
+
+          {activeStep == 0 && <MobileDonationInputCard donation={donation} setDonation={setDonation} donationErrors={donationErrors} />}
+          {activeStep == 1 && <MobileDonationInfoCard donation={donation} setDonation={setDonation} donationErrors={donationErrors} />}
+
+          <Box sx={checkoutInnerBoxStyle}>
             {activeStep === steps.length ? (
               <Stack spacing={2} useFlexGap>
                 <Typography variant="h1">📦</Typography>
@@ -243,7 +223,7 @@ export default function Checkout(props) {
               </Stack>
             ) : (
               <React.Fragment>
-                {activeStep == 0 && <MobileDonationCard donation={donation} setDonation={setDonation} donationErrors={donationErrors}/>}
+
                 {getStepContent(activeStep)}
                 <Box
                   sx={[
