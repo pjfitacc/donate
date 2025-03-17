@@ -1,7 +1,7 @@
 import { Card, CardContent } from "@mui/material";
 import DonationInfo from "../DonationInfo";
 
-export default function MobileDonationInputCard({ donation, setDonation, donationErrors }) {
+export default function MobileDonationInputCard({ submittedDonation, donationErrors, ref }) {
     return (
 
         <Card
@@ -19,7 +19,7 @@ export default function MobileDonationInputCard({ donation, setDonation, donatio
                     flexWrap: 'wrap',
                 }}
             >
-                <DonationInfo donation={donation} setDonation={setDonation} errors={donationErrors} />
+                <DonationInfo submittedDonation={submittedDonation} errors={donationErrors} ref={ref} />
             </CardContent>
         </Card>
     )

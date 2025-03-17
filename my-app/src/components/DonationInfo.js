@@ -5,7 +5,12 @@ import BeneficiarySelect from './BeneficiarySelect';
 import { FormControl, FormHelperText, FormLabel, Input } from '@mui/material';
 
 
-function DonationInfo({ donation, setDonation, errors }) {
+function DonationInfo({ submittedDonation, errors, ref }) {
+
+  const [donation, setDonation] = React.useState(submittedDonation);
+
+  React.useImperativeHandle(ref, () => ({ getDonation: () => { return donation } }), [donation]);
+
   // Handlers to update form fields
   const handleChange = (e) => {
     const { name, value } = e.target;

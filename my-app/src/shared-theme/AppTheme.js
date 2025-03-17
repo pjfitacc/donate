@@ -54,14 +54,3 @@ AppTheme.propTypes = {
 };
 
 export default AppTheme;
-
-
-export const checkoutInnerBoxStyle = {
-  display: 'flex',
-  flexDirection: 'column',
-  flexGrow: 1,
-  width: '100%',
-  maxWidth: { sm: '100%', md: '90%' },
-  maxHeight: '720px',
-  gap: { xs: 2, md: 'none' },
-}

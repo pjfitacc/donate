@@ -15,7 +15,12 @@ const FormGrid = styled(Grid)(() => ({
 
 
 
-export default function DonorForm({ donor, setDonor, errors, openSnackbar, setOpenSnackbar }) {
+export default function DonorForm({ submittedDonor, errors, openSnackbar, setOpenSnackbar, ref }) {
+  // State for the address form
+  const [donor, setDonor] = React.useState(submittedDonor);
+
+  React.useImperativeHandle(ref, () => ({ getDonor: () => { return donor } }), [donor]);
+
   // Handlers to update form fields
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -51,10 +56,10 @@ export default function DonorForm({ donor, setDonor, errors, openSnackbar, setOp
           style={{ borderColor: errors.firstName ? 'red' : '' }}
         />
         {!!errors.firstName && (
-            <FormHelperText error id="firstNameError">
-              {errors.firstName}
-            </FormHelperText>
-          )}
+          <FormHelperText error id="firstNameError">
+            {errors.firstName}
+          </FormHelperText>
+        )}
       </FormGrid>
       <FormGrid size={{ xs: 12, md: 6 }}>
         <FormLabel htmlFor="lastName" required>
@@ -73,10 +78,10 @@ export default function DonorForm({ donor, setDonor, errors, openSnackbar, setOp
           style={{ borderColor: errors.lastName ? 'red' : '' }}
         />
         {!!errors.lastName && (
-            <FormHelperText error id="lastNameError">
-              {errors.lastName}
-            </FormHelperText>
-          )}
+          <FormHelperText error id="lastNameError">
+            {errors.lastName}
+          </FormHelperText>
+        )}
       </FormGrid>
       <FormGrid size={{ xs: 12, md: 6 }}>
         <FormLabel htmlFor="email" required>Email</FormLabel>
@@ -235,18 +240,18 @@ export default function DonorForm({ donor, setDonor, errors, openSnackbar, setOp
         <Alert severity="error" onClose={() => setOpenSnackbar(false)}>
           Please accept the Terms and Conditions to proceed.
         </Alert>
-    </Snackbar>
+      </Snackbar>
       <FormGrid size={{ xs: 12 }} >
         <FormControlLabel
           control={<Checkbox name="acceptTerms" checked={donor.acceptTerms}
-          onChange={handleCheckboxChange} value="no" />}
+            onChange={handleCheckboxChange} value="no" />}
           label={
             <span>
-            I agree to the{" "}
-            <Link href="https://www.phjesuits.org/portal/website-terms-and-conditions/" target="_blank" rel="noopener" color="blue">
-              Terms and Conditions
-            </Link>
-          </span>
+              I agree to the{" "}
+              <Link href="https://www.phjesuits.org/portal/website-terms-and-conditions/" target="_blank" rel="noopener" color="blue">
+                Terms and Conditions
+              </Link>
+            </span>
           }
         />
         {!!errors.acceptTerms && (

@@ -15,7 +15,7 @@ import DonationInfo from './components/DonationInfo';
 import PaymentForm from './components/PaymentForm';
 import Review from './components/Review';
 import PHJLogo from './components/PHJLogo';
-import AppTheme, { checkoutInnerBoxStyle } from './shared-theme/AppTheme';
+import AppTheme from './shared-theme/AppTheme';
 import { validateDonation } from './utils/validation';
 import MobileStepper from './components/mobile/MobileStepper';
 import MobileDonationInputCard from './components/mobile/MobileDonationInputCard';
@@ -25,8 +25,10 @@ const steps = ['Donation Info', 'Payment details', 'Review your order'];
 
 
 export default function Checkout(props) {
-  // State for the address form
-  const [donor, setDonor] = React.useState({
+  const [activeStep, setActiveStep] = React.useState(0);
+  const [donationErrors, setDonationErrors] = React.useState({});
+  const [openSnackbar, setOpenSnackbar] = React.useState(false);
+  const [submittedDonor, setSubmittedDonor] = React.useState({
     firstName: '',
     lastName: '',
     email: '',
@@ -38,25 +40,36 @@ export default function Checkout(props) {
     country: '',
     acceptTerms: false,
   });
-  const [donationErrors, setDonationErrors] = React.useState({});
+  const [submittedDonation, setSubmittedDonation] = React.useState({
+    amount: 10,
+    beneficiary: '',
+    comments: '',
+  })
 
+  const donorFormRef = React.useRef(null);
+  const donationFormRef = React.useRef(null);
 
-  const [openSnackbar, setOpenSnackbar] = React.useState(false);
-  const [activeStep, setActiveStep] = React.useState(0);
   const handleNext = () => {
+    const donor = donorFormRef.current.getDonor();
+    const donation = donationFormRef.current.getDonation();
     const donationErrors = validateDonation(donor, donation);
 
-    if (activeStep === 0 && Object.keys(donationErrors).length > 0) {
-      // Check if the ONLY error is acceptTerms
-      if (Object.keys(donationErrors).length === 1 && donationErrors.acceptTerms) {
-        setOpenSnackbar(true); // Show the Snackbar alert
-      }
+    if (activeStep === 0) {
+      if (Object.keys(donationErrors).length > 0) {
+        // Check if the ONLY error is acceptTerms
+        if (Object.keys(donationErrors).length === 1 && donationErrors.acceptTerms) {
+          setOpenSnackbar(true); // Show the Snackbar alert
+        }
 
-      setDonationErrors(donationErrors);
-      return;
+        setDonationErrors(donationErrors);
+        return;
+      }
+      setSubmittedDonation(donation);
+      setSubmittedDonor(donor);
+      setDonationErrors({});
     }
 
-    setDonationErrors({});
+
     setActiveStep(activeStep + 1);
   };
   const handleBack = () => {
@@ -69,11 +82,11 @@ export default function Checkout(props) {
       case 0:
         return (
           <DonorForm
-            donor={donor}
-            setDonor={setDonor}
+            submittedDonor={submittedDonor}
             errors={donationErrors}
             openSnackbar={openSnackbar}
             setOpenSnackbar={setOpenSnackbar}
+            ref={donorFormRef}
           />
         );
       case 1:
@@ -85,24 +98,12 @@ export default function Checkout(props) {
     }
   };
 
-  const [donation, setDonation] = React.useState(
-    {
-      amount: 10,
-      beneficiary: '',
-      comments: '',
-    }
-  );
-
-
 
   return (
     <AppTheme {...props}>
       <CssBaseline enableColorScheme />
-      {/* <Box sx={{ position: 'fixed', top: '1rem', right: '1rem' }}>
-        <ColorModeIconDropdown />
-      </Box> */}
 
-      <Grid
+      < Grid
         container
         sx={{
           height: {
@@ -139,7 +140,7 @@ export default function Checkout(props) {
               maxWidth: 500,
             }}
           >
-            <DonationInfo donation={donation} setDonation={setDonation} errors={donationErrors} />
+            <DonationInfo submittedDonation={submittedDonation} errors={donationErrors} ref={donationFormRef} />
           </Box>
         </Grid>
         <Grid
@@ -190,20 +191,18 @@ export default function Checkout(props) {
               </Stepper>
             </Box>
           </Box>
-          <Box sx={checkoutInnerBoxStyle}>
+
+          <Box sx={checkoutInnerBoxStyle(true)}>
             <Box sx={{ mt: -2, mb: 2, display: { xs: 'flex', md: 'none', justifyContent: 'center', alignContent: 'center' } }}>
               <PHJLogo />
             </Box>
-          </Box>
-
-          <Box sx={checkoutInnerBoxStyle}>
             <MobileStepper activeStep={activeStep} steps={steps} />
           </Box>
 
-          {activeStep === 0 && <MobileDonationInputCard donation={donation} setDonation={setDonation} donationErrors={donationErrors} />}
-          {activeStep === 1 && <MobileDonationInfoCard donation={donation} setDonation={setDonation} donationErrors={donationErrors} />}
+          {activeStep === 0 && <MobileDonationInputCard submittedDonation={submittedDonation} donationErrors={donationErrors} ref={donationFormRef} />}
+          {activeStep === 1 && <MobileDonationInfoCard submittedDonation={submittedDonation} donationErrors={donationErrors} ref={donationFormRef} />}
 
-          <Box sx={checkoutInnerBoxStyle}>
+          <Box sx={checkoutInnerBoxStyle(false)}>
             {activeStep === steps.length ? (
               <Stack spacing={2} useFlexGap>
                 <Typography variant="h1">📦</Typography>
@@ -275,7 +274,20 @@ export default function Checkout(props) {
             )}
           </Box>
         </Grid>
-      </Grid>
-    </AppTheme>
+      </Grid >
+    </AppTheme >
   );
+}
+
+
+const checkoutInnerBoxStyle = (mobile) => {
+  return {
+    display: mobile ? { xs: 'flex', md: 'none' } : 'flex',
+    flexDirection: 'column',
+    flexGrow: 1,
+    width: '100%',
+    maxWidth: { sm: '100%', md: '90%' },
+    maxHeight: '720px',
+    gap: { xs: 2, md: 'none' },
+  }
 }
