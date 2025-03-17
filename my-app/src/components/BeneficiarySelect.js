@@ -15,15 +15,9 @@ function BeneficiarySelect({ donation, handleChange }) {
 
     return(
         <FormControl fullWidth>
-        {/* <InputLabel shrink={false} sx={{ left: '50%', top: '50%', transform: 'translate(-50%, -50%)' }}>
-          {beneficiary.name ? "" : "Select Beneficiary"}
-        </InputLabel> */}
         <FormLabel htmlFor="beneficiary" required>
         Beneficiary
         </FormLabel>
-        {/* <Typography variant="subtitle2" sx={{ color: 'text.secondary' }}>
-        Beneficiary
-      </Typography> */}
         <Select
             labelId="beneficiary"
             id="beneficiary"
@@ -35,7 +29,17 @@ function BeneficiarySelect({ donation, handleChange }) {
             MenuProps={MenuProps}
             inputProps={{ 'aria-label': 'Without label' }}
             label="Beneficiary"
+            renderValue={(selected) => {
+              if (selected.length === 0) {
+                return <Typography variant="subtitle2" sx={{ color: 'gray' }}>Select a Beneficiary...</Typography>;
+              }
+  
+              return selected.join(', ');
+            }}
         >
+          <MenuItem disabled value="">
+            <em>Select a Beneficiary...</em>
+          </MenuItem>
             {beneficiaries.map((beneficiaryItem) => (
             <MenuItem
                 key={beneficiaryItem.name}
