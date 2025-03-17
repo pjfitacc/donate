@@ -141,7 +141,7 @@ export default function Checkout(props) {
               maxWidth: 500,
             }}
           >
-            <DonationInfo totalPrice={activeStep >= 2 ? '10.00 USD' : '10.00 USD'} donation={donation} setDonation={setDonation} errors={donationErrors}/>
+            <DonationInfo donation={donation} setDonation={setDonation} errors={donationErrors}/>
           </Box>
         </Grid>
         <Grid
