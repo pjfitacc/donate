@@ -1,7 +1,18 @@
 import * as React from 'react';
 import PropTypes from 'prop-types';
 import Typography from '@mui/material/Typography';
-import { FormControl, InputLabel, MenuItem, Select } from '@mui/material';
+import { FormControl, InputLabel, MenuItem, OutlinedInput, Select } from '@mui/material';
+
+const ITEM_HEIGHT = 48;
+const ITEM_PADDING_TOP = 8;
+const MenuProps = {
+  PaperProps: {
+    style: {
+      maxHeight: '1000px', // Set a higher maximum height for the dropdown
+      width: 250,
+    },
+  },
+};
 
 const beneficiaries = [
   {
@@ -72,27 +83,37 @@ function DonationInfo({ totalPrice, beneficiary, setBeneficiary }) {
       <Typography variant="h4" gutterBottom>
         {totalPrice}
       </Typography>
+
+      <Typography variant="subtitle2" sx={{ color: 'text.secondary' }}>
+        Beneficiary
+      </Typography>
       <FormControl fullWidth sx={{ my: 2 }}>
         <InputLabel shrink={false} sx={{ left: '50%', top: '50%', transform: 'translate(-50%, -50%)' }}>
           {beneficiary.name ? "" : "Select Beneficiary"}
         </InputLabel>
         <Select
-          fullWidth
+          displayEmpty
           value={beneficiary.name}
           onChange={handleSelectChange}
-          sx={{ minHeight: 'auto', whiteSpace: 'normal', wordWrap: 'break-word' }} // Enable text wrapping and vertical growth
+          input={<OutlinedInput />}
+          MenuProps={MenuProps}
+          inputProps={{ 'aria-label': 'Without label' }}
         >
           {beneficiaries.map((beneficiaryItem) => (
             <MenuItem
               key={beneficiaryItem.name}
               value={beneficiaryItem.name}
               selected={beneficiaryItem.name === beneficiary.name}
+              sx={{ width: '100%', whiteSpace: 'normal' }} // Ensure items stretch and handle long text
             >
               {beneficiaryItem.name}
             </MenuItem>
           ))}
         </Select>
       </FormControl>
+      <Typography variant="subtitle2" sx={{ color: 'text.secondary' }}>
+        Comments
+      </Typography>
     </React.Fragment>
   );
 }
