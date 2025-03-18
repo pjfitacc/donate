@@ -116,7 +116,7 @@ export default function Checkout(props) {
           },
         }}
       >
-        <Grid
+        <Grid id="desktop-donation-info"
           size={{ xs: 12, sm: 5, lg: 4 }}
           sx={{
             display: { xs: 'none', md: 'flex' },
@@ -141,9 +141,17 @@ export default function Checkout(props) {
             }}
           >
             <DonationInfo submittedDonation={submittedDonation} errors={donationErrors} ref={donationFormRef} />
+
+            {/* TODO: Share the same DonationInfo, but change CSS on screen size change */}
+            <Box sx={{ mt: -2, mb: 2, display: { xs: 'flex', md: 'none', justifyContent: 'center', alignContent: 'center' } }}>
+              <PHJLogo />
+            </Box>
+            {activeStep === 0 && <MobileDonationInputCard submittedDonation={submittedDonation} donationErrors={donationErrors} ref={donationFormRef} />}
+            {activeStep === 1 && <MobileDonationInfoCard submittedDonation={submittedDonation} donationErrors={donationErrors} ref={donationFormRef} />}
           </Box>
         </Grid>
-        <Grid
+        
+        <Grid id="checkout"
           size={{ sm: 12, md: 7, lg: 8 }}
           sx={{
             display: 'flex',
@@ -157,7 +165,7 @@ export default function Checkout(props) {
             gap: { xs: 2, md: 4 },
           }}
         >
-          <Box
+          <Box id="desktop-stepper"
             sx={{
               display: 'flex',
               justifyContent: { sm: 'space-between', md: 'flex-end' },
@@ -192,19 +200,11 @@ export default function Checkout(props) {
             </Box>
           </Box>
 
-          <Box sx={checkoutInnerBoxStyle(true)}>
-            <Box sx={{ mt: -2, mb: 2, display: { xs: 'flex', md: 'none', justifyContent: 'center', alignContent: 'center' } }}>
-              <PHJLogo />
-            </Box>
-            <MobileStepper activeStep={activeStep} steps={steps} />
-          </Box>
-
-          {activeStep === 0 && <MobileDonationInputCard submittedDonation={submittedDonation} donationErrors={donationErrors} ref={donationFormRef} />}
-          {activeStep === 1 && <MobileDonationInfoCard submittedDonation={submittedDonation} donationErrors={donationErrors} ref={donationFormRef} />}
 
           <Box sx={checkoutInnerBoxStyle(false)}>
+            <MobileStepper activeStep={activeStep} steps={steps} />
             {activeStep === steps.length ? (
-              <Stack spacing={2} useFlexGap>
+              <Stack id="complete-donation" spacing={2} useFlexGap>
                 <Typography variant="h1">📦</Typography>
                 <Typography variant="h5">Thank you for your order!</Typography>
                 <Typography variant="body1" sx={{ color: 'text.secondary' }}>
@@ -223,7 +223,7 @@ export default function Checkout(props) {
               <React.Fragment>
 
                 {getStepContent(activeStep)}
-                <Box
+                <Box id="navigation-buttons"
                   sx={[
                     {
                       display: 'flex',
