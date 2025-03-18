@@ -1,14 +1,18 @@
 import { Card, CardContent } from "@mui/material";
 import DonationInfo from "../DonationInfo";
 
-export default function MobileDonationInputCard({ submittedDonation, donationErrors, ref }) {
+export default function DonationInfoCard({ submittedDonation, donationErrors, ref }) {
     return (
 
         <Card
             sx={{
-                display: { xs: 'flex', md: 'none' },
+                display: 'flex',
+                flexDirection: "column",
                 width: '100%',
-                minHeight: 'max-content'
+                minHeight: 'max-content',
+                maxWidth: 500,
+                p: {md: 0},
+                border: {md: 0}
             }}
         >
             <CardContent

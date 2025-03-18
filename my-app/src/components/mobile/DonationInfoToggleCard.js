@@ -8,7 +8,7 @@ import CloseIcon from '@mui/icons-material/Close';
 import ExpandMoreRoundedIcon from '@mui/icons-material/ExpandMoreRounded';
 import DonationInfo from '../DonationInfo';
 
-export function MobileDonationInfoCard({ submittedDonation, donationErrors, ref }) {
+export function DonationInfoToggleCard({ submittedDonation, donationErrors, ref }) {
     return (
         <Card sx={{ display: { xs: 'block', md: 'none' }, width: '100%' }}>
             <CardContent
@@ -27,13 +27,13 @@ export function MobileDonationInfoCard({ submittedDonation, donationErrors, ref 
                         {ref.current.getDonation().amount} USD to {ref.current.getDonation().beneficiary}
                     </Typography>
                 </div>
-                <DonationInfoMobile submittedDonation={submittedDonation} errors={donationErrors} ref={ref} />
+                <ToggledDrawer submittedDonation={submittedDonation} errors={donationErrors} ref={ref} />
             </CardContent>
         </Card>
     )
 }
 
-function DonationInfoMobile({ submittedDonation, errors, ref }) {
+function ToggledDrawer({ submittedDonation, errors, ref }) {
     const [open, setOpen] = React.useState(false);
 
     const toggleDrawer = (newOpen) => () => {
