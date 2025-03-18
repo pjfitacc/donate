@@ -1,80 +1,93 @@
-import * as React from 'react';
+import * as React from "react";
 import { Card, CardContent, Typography } from "@mui/material";
-import Box from '@mui/material/Box';
-import Button from '@mui/material/Button';
-import Drawer from '@mui/material/Drawer';
-import IconButton from '@mui/material/IconButton';
-import CloseIcon from '@mui/icons-material/Close';
-import ExpandMoreRoundedIcon from '@mui/icons-material/ExpandMoreRounded';
-import DonationInfo from '../DonationInfo';
+import Box from "@mui/material/Box";
+import Button from "@mui/material/Button";
+import Drawer from "@mui/material/Drawer";
+import IconButton from "@mui/material/IconButton";
+import CloseIcon from "@mui/icons-material/Close";
+import ExpandMoreRoundedIcon from "@mui/icons-material/ExpandMoreRounded";
+import DonationInfo from "../donation-info-grid/donation-info-card/donation-info";
 
-export function DonationInfoToggleCard({ submittedDonation, donationErrors, ref }) {
-    return (
-        <Card sx={{ display: { xs: 'block', md: 'none' }, width: '100%' }}>
-            <CardContent
-                sx={{
-                    display: 'flex',
-                    width: '100%',
-                    alignItems: 'center',
-                    justifyContent: 'space-between',
-                }}
-            >
-                <div>
-                    <Typography variant="subtitle2" gutterBottom>
-                        Selected Donation
-                    </Typography>
-                    <Typography variant="body1">
-                        {ref.current.getDonation().amount} USD to {ref.current.getDonation().beneficiary}
-                    </Typography>
-                </div>
-                <ToggledDrawer submittedDonation={submittedDonation} errors={donationErrors} ref={ref} />
-            </CardContent>
-        </Card>
-    )
+export function DonationInfoToggleCard({
+  submittedDonation,
+  donationErrors,
+  ref,
+}) {
+  return (
+    <Card sx={{ display: { xs: "block", md: "none" }, width: "100%" }}>
+      <CardContent
+        sx={{
+          display: "flex",
+          width: "100%",
+          alignItems: "center",
+          justifyContent: "space-between",
+        }}
+      >
+        <div>
+          <Typography variant="subtitle2" gutterBottom>
+            Selected Donation
+          </Typography>
+          <Typography variant="body1">
+            {ref.current.getDonation().amount} USD to{" "}
+            {ref.current.getDonation().beneficiary}
+          </Typography>
+        </div>
+        <ToggledDrawer
+          submittedDonation={submittedDonation}
+          errors={donationErrors}
+          ref={ref}
+        />
+      </CardContent>
+    </Card>
+  );
 }
 
 function ToggledDrawer({ submittedDonation, errors, ref }) {
-    const [open, setOpen] = React.useState(false);
+  const [open, setOpen] = React.useState(false);
 
-    const toggleDrawer = (newOpen) => () => {
-        setOpen(newOpen);
-    };
+  const toggleDrawer = (newOpen) => () => {
+    setOpen(newOpen);
+  };
 
-    const DrawerList = (
-        <Box sx={{ width: 'auto', px: 3, pb: 3, pt: 8 }} role="presentation">
-            <IconButton
-                onClick={toggleDrawer(false)}
-                sx={{ position: 'absolute', right: 8, top: 8 }}
-            >
-                <CloseIcon />
-            </IconButton>
-            <DonationInfo submittedDonation={submittedDonation} errors={errors} ref={ref} />
-        </Box>
-    );
+  const DrawerList = (
+    <Box sx={{ width: "auto", px: 3, pb: 3, pt: 8 }} role="presentation">
+      <IconButton
+        onClick={toggleDrawer(false)}
+        sx={{ position: "absolute", right: 8, top: 8 }}
+      >
+        <CloseIcon />
+      </IconButton>
+      <DonationInfo
+        submittedDonation={submittedDonation}
+        errors={errors}
+        ref={ref}
+      />
+    </Box>
+  );
 
-    return (
-        <div>
-            <Button
-                variant="text"
-                endIcon={<ExpandMoreRoundedIcon />}
-                onClick={toggleDrawer(true)}
-            >
-                View details
-            </Button>
-            <Drawer
-                open={open}
-                anchor="top"
-                onClose={toggleDrawer(false)}
-                PaperProps={{
-                    sx: {
-                        top: 'var(--template-frame-height, 0px)',
-                        backgroundImage: 'none',
-                        backgroundColor: 'background.paper',
-                    },
-                }}
-            >
-                {DrawerList}
-            </Drawer>
-        </div>
-    );
+  return (
+    <div>
+      <Button
+        variant="text"
+        endIcon={<ExpandMoreRoundedIcon />}
+        onClick={toggleDrawer(true)}
+      >
+        View details
+      </Button>
+      <Drawer
+        open={open}
+        anchor="top"
+        onClose={toggleDrawer(false)}
+        PaperProps={{
+          sx: {
+            top: "var(--template-frame-height, 0px)",
+            backgroundImage: "none",
+            backgroundColor: "background.paper",
+          },
+        }}
+      >
+        {DrawerList}
+      </Drawer>
+    </div>
+  );
 }

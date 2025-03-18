@@ -11,15 +11,12 @@ import Typography from "@mui/material/Typography";
 import ChevronLeftRoundedIcon from "@mui/icons-material/ChevronLeftRounded";
 import ChevronRightRoundedIcon from "@mui/icons-material/ChevronRightRounded";
 import DonorForm from "./components/DonorForm";
-import DonationInfo from "./components/DonationInfo";
 import PaymentForm from "./components/PaymentForm";
 import Review from "./components/Review";
-import PHJLogo from "./components/PHJLogo";
 import AppTheme from "./shared-theme/AppTheme";
 import { validateDonation } from "./utils/validation";
 import MobileStepper from "./components/mobile/MobileStepper";
-import DonationInfoCard from "./components/mobile/DonationInfoCard";
-import { DonationInfoToggleCard } from "./components/mobile/DonationInfoToggleCard";
+import DonationInfoGrid from "./components/donation-info-grid";
 
 const steps = ["Donation Info", "Payment details", "Review your order"];
 
@@ -115,7 +112,7 @@ export default function Checkout(props) {
           },
         }}
       >
-        <Grid
+        {/* <Grid
           id="donation-info"
           size={{ sm: 12, md: 5, lg: 4 }}
           sx={{
@@ -150,7 +147,12 @@ export default function Checkout(props) {
               ref={donationFormRef}
             />
           </Box>
-        </Grid>
+        </Grid> */}
+        <DonationInfoGrid
+          submittedDonation={submittedDonation}
+          donationErrors={donationErrors}
+          donationFormRef={donationFormRef}
+        ></DonationInfoGrid>
 
         <Grid
           id="checkout"
