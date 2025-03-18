@@ -1,29 +1,16 @@
 import * as React from "react";
-import Box from "@mui/material/Box";
-import Button from "@mui/material/Button";
 import CssBaseline from "@mui/material/CssBaseline";
 import Grid from "@mui/material/Grid2";
-import Stack from "@mui/material/Stack";
-import Step from "@mui/material/Step";
-import StepLabel from "@mui/material/StepLabel";
-import Stepper from "@mui/material/Stepper";
-import Typography from "@mui/material/Typography";
-import ChevronLeftRoundedIcon from "@mui/icons-material/ChevronLeftRounded";
-import ChevronRightRoundedIcon from "@mui/icons-material/ChevronRightRounded";
-import DonorForm from "./components/DonorForm";
-import PaymentForm from "./components/PaymentForm";
-import Review from "./components/Review";
 import AppTheme from "./shared-theme/AppTheme";
 import { validateDonation } from "./utils/validation";
-import MobileStepper from "./components/mobile/MobileStepper";
 import DonationInfoGrid from "./components/donation-info-grid";
+import CheckoutGrid from "./components/checkout-grid";
 
 const steps = ["Donation Info", "Payment details", "Review your order"];
 
 export default function Checkout(props) {
   const [activeStep, setActiveStep] = React.useState(0);
   const [donationErrors, setDonationErrors] = React.useState({});
-  const [openSnackbar, setOpenSnackbar] = React.useState(false);
   const [submittedDonor, setSubmittedDonor] = React.useState({
     firstName: "",
     lastName: "",
@@ -36,29 +23,22 @@ export default function Checkout(props) {
     country: "",
     acceptTerms: false,
   });
+
   const [submittedDonation, setSubmittedDonation] = React.useState({
     amount: 10,
     beneficiary: "",
     comments: "",
   });
 
-  const donorFormRef = React.useRef(null);
   const donationFormRef = React.useRef(null);
 
-  const handleNext = () => {
-    const donor = donorFormRef.current.getDonor();
+  const handleNext = (donor) => {
     const donation = donationFormRef.current.getDonation();
     const donationErrors = validateDonation(donor, donation);
 
     if (activeStep === 0) {
       if (Object.keys(donationErrors).length > 0) {
         // Check if the ONLY error is acceptTerms
-        if (
-          Object.keys(donationErrors).length === 1 &&
-          donationErrors.acceptTerms
-        ) {
-          setOpenSnackbar(true); // Show the Snackbar alert
-        }
 
         setDonationErrors(donationErrors);
         return;
@@ -70,29 +50,9 @@ export default function Checkout(props) {
 
     setActiveStep(activeStep + 1);
   };
+
   const handleBack = () => {
     setActiveStep(activeStep - 1);
-  };
-
-  const getStepContent = (step) => {
-    switch (step) {
-      case 0:
-        return (
-          <DonorForm
-            submittedDonor={submittedDonor}
-            errors={donationErrors}
-            openSnackbar={openSnackbar}
-            setOpenSnackbar={setOpenSnackbar}
-            ref={donorFormRef}
-          />
-        );
-      case 1:
-        return <PaymentForm />;
-      case 2:
-        return <Review />;
-      default:
-        throw new Error("Unknown step");
-    }
   };
 
   return (
@@ -112,49 +72,13 @@ export default function Checkout(props) {
           },
         }}
       >
-        {/* <Grid
-          id="donation-info"
-          size={{ sm: 12, md: 5, lg: 4 }}
-          sx={{
-            display: "flex", // Ensure it shows on xs
-            flexDirection: "column",
-            backgroundColor: { xs: "transparent", md: "background.paper" }, // Different bg colors
-            alignItems: { sm: 'center', md: 'start' }, // Center content on small screens
-            justifyContent: { sm: 'center', md: 'flex-start' }, // Center content vertically on xs
-            borderRight: { xs: "none", md: "1px solid" }, // Add border only on md+
-            borderColor: { xs: "none", md: "divider" },
-            alignItems: "start",
-            pt: { xs: 2, md: 4 }, // Adjust padding
-            px: { xs: 2, md: 10 }, // Different padding for xs and md+
-            gap: { xs: 2, md: 4 }, // Adjust gap
-          }}
-        >
-
-          <Box
-            sx={{
-              display: 'flex',
-              justifyContent: { xs: 'center', md: 'flex-start' }, // Centers on xs
-              flexDirection: { xs: 'column', sm: 'column', md: '' }, // Stack on sm and below, row on md+
-              gap: { xs: 2, md: 4 }, // Adds spacing between elements
-              alignItems: 'center',
-              width: { xs: '100%', md: '100%' }, // Makes it smaller on mobile for better spacing
-            }}
-          >
-            <PHJLogo />
-            <DonationInfoCard
-              submittedDonation={submittedDonation}
-              donationErrors={donationErrors}
-              ref={donationFormRef}
-            />
-          </Box>
-        </Grid> */}
         <DonationInfoGrid
           submittedDonation={submittedDonation}
           donationErrors={donationErrors}
           donationFormRef={donationFormRef}
         ></DonationInfoGrid>
 
-        <Grid
+        {/* <Grid
           id="checkout"
           size={{ sm: 12, md: 7, lg: 8 }}
           sx={{
@@ -277,18 +201,16 @@ export default function Checkout(props) {
               </React.Fragment>
             )}
           </Box>
-        </Grid>
+        </Grid> */}
+        <CheckoutGrid
+          submittedDonor={submittedDonor}
+          activeStep={activeStep}
+          steps={steps}
+          onNext={handleNext}
+          onBack={handleBack}
+          errors={donationErrors}
+        ></CheckoutGrid>
       </Grid>
     </AppTheme>
   );
 }
-
-const checkoutInnerBoxStyle = {
-  display: "flex",
-  flexDirection: "column",
-  flexGrow: 1,
-  width: "100%",
-  maxWidth: { sm: "100%", md: "90%" },
-  maxHeight: "720px",
-  gap: { xs: 2, md: "none" },
-};

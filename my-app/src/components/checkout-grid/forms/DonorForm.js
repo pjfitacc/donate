@@ -1,25 +1,37 @@
-import * as React from 'react';
-import Checkbox from '@mui/material/Checkbox';
-import FormControlLabel from '@mui/material/FormControlLabel';
-import FormLabel from '@mui/material/FormLabel';
-import Grid from '@mui/material/Grid2';
-import OutlinedInput from '@mui/material/OutlinedInput';
-import { styled } from '@mui/material/styles';
-import { Alert, FormHelperText, Link, Snackbar } from '@mui/material';
-
+import * as React from "react";
+import Checkbox from "@mui/material/Checkbox";
+import FormControlLabel from "@mui/material/FormControlLabel";
+import FormLabel from "@mui/material/FormLabel";
+import Grid from "@mui/material/Grid2";
+import OutlinedInput from "@mui/material/OutlinedInput";
+import { styled } from "@mui/material/styles";
+import { Alert, FormHelperText, Link, Snackbar } from "@mui/material";
 
 const FormGrid = styled(Grid)(() => ({
-  display: 'flex',
-  flexDirection: 'column',
+  display: "flex",
+  flexDirection: "column",
 }));
 
-
-
-export default function DonorForm({ submittedDonor, errors, openSnackbar, setOpenSnackbar, ref }) {
+export default function DonorForm({ submittedDonor, errors, ref }) {
   // State for the address form
   const [donor, setDonor] = React.useState(submittedDonor);
+  const [openSnackbar, setOpenSnackbar] = React.useState(false);
 
-  React.useImperativeHandle(ref, () => ({ getDonor: () => { return donor } }), [donor]);
+  React.useEffect(() => {
+    if (Object.keys(errors).length === 1 && errors.acceptTerms) {
+      setOpenSnackbar(true); // Show the Snackbar alert
+    }
+  }, [errors]);
+
+  React.useImperativeHandle(
+    ref,
+    () => ({
+      getDonor: () => {
+        return donor;
+      },
+    }),
+    [donor]
+  );
 
   // Handlers to update form fields
   const handleChange = (e) => {
@@ -53,7 +65,7 @@ export default function DonorForm({ submittedDonor, errors, openSnackbar, setOpe
           autoComplete="first name"
           required
           size="small"
-          style={{ borderColor: errors.firstName ? 'red' : '' }}
+          style={{ borderColor: errors.firstName ? "red" : "" }}
         />
         {!!errors.firstName && (
           <FormHelperText error id="firstNameError">
@@ -75,7 +87,7 @@ export default function DonorForm({ submittedDonor, errors, openSnackbar, setOpe
           required
           size="small"
           error={!!errors.lastName}
-          style={{ borderColor: errors.lastName ? 'red' : '' }}
+          style={{ borderColor: errors.lastName ? "red" : "" }}
         />
         {!!errors.lastName && (
           <FormHelperText error id="lastNameError">
@@ -84,7 +96,9 @@ export default function DonorForm({ submittedDonor, errors, openSnackbar, setOpe
         )}
       </FormGrid>
       <FormGrid size={{ xs: 12, md: 6 }}>
-        <FormLabel htmlFor="email" required>Email</FormLabel>
+        <FormLabel htmlFor="email" required>
+          Email
+        </FormLabel>
         <OutlinedInput
           id="email"
           name="email"
@@ -96,7 +110,7 @@ export default function DonorForm({ submittedDonor, errors, openSnackbar, setOpe
           required
           size="small"
           error={!!errors.email}
-          style={{ borderColor: errors.email ? 'red' : '' }}
+          style={{ borderColor: errors.email ? "red" : "" }}
         />
         {!!errors.email && (
           <FormHelperText error id="emailError">
@@ -105,7 +119,7 @@ export default function DonorForm({ submittedDonor, errors, openSnackbar, setOpe
         )}
       </FormGrid>
       <FormGrid size={{ xs: 12, md: 6 }}>
-        <FormLabel htmlFor="phone" >Phone</FormLabel>
+        <FormLabel htmlFor="phone">Phone</FormLabel>
         <OutlinedInput
           id="phone"
           name="phone"
@@ -131,7 +145,7 @@ export default function DonorForm({ submittedDonor, errors, openSnackbar, setOpe
           required
           size="small"
           error={!!errors.address}
-          style={{ borderColor: errors.address ? 'red' : '' }}
+          style={{ borderColor: errors.address ? "red" : "" }}
         />
         {!!errors.address && (
           <FormHelperText error id="addressError">
@@ -154,7 +168,7 @@ export default function DonorForm({ submittedDonor, errors, openSnackbar, setOpe
           required
           size="small"
           error={!!errors.city}
-          style={{ borderColor: errors.city ? 'red' : '' }}
+          style={{ borderColor: errors.city ? "red" : "" }}
         />
         {!!errors.city && (
           <FormHelperText error id="cityError">
@@ -177,7 +191,7 @@ export default function DonorForm({ submittedDonor, errors, openSnackbar, setOpe
           required
           size="small"
           error={!!errors.state}
-          style={{ borderColor: errors.state ? 'red' : '' }}
+          style={{ borderColor: errors.state ? "red" : "" }}
         />
         {!!errors.state && (
           <FormHelperText error id="stateError">
@@ -200,7 +214,7 @@ export default function DonorForm({ submittedDonor, errors, openSnackbar, setOpe
           required
           size="small"
           error={!!errors.zip}
-          style={{ borderColor: errors.zip ? 'red' : '' }}
+          style={{ borderColor: errors.zip ? "red" : "" }}
         />
         {!!errors.zip && (
           <FormHelperText error id="zipError">
@@ -223,7 +237,7 @@ export default function DonorForm({ submittedDonor, errors, openSnackbar, setOpe
           required
           size="small"
           error={!!errors.country}
-          style={{ borderColor: errors.country ? 'red' : '' }}
+          style={{ borderColor: errors.country ? "red" : "" }}
         />
         {!!errors.country && (
           <FormHelperText error id="countryError">
@@ -241,21 +255,34 @@ export default function DonorForm({ submittedDonor, errors, openSnackbar, setOpe
           Please accept the Terms and Conditions to proceed.
         </Alert>
       </Snackbar>
-      <FormGrid size={{ xs: 12 }} >
+      <FormGrid size={{ xs: 12 }}>
         <FormControlLabel
-          control={<Checkbox name="acceptTerms" checked={donor.acceptTerms}
-            onChange={handleCheckboxChange} value="no" />}
+          control={
+            <Checkbox
+              name="acceptTerms"
+              checked={donor.acceptTerms}
+              onChange={handleCheckboxChange}
+              value="no"
+            />
+          }
           label={
             <span>
               I agree to the{" "}
-              <Link href="https://www.phjesuits.org/portal/website-terms-and-conditions/" target="_blank" rel="noopener" color="blue">
+              <Link
+                href="https://www.phjesuits.org/portal/website-terms-and-conditions/"
+                target="_blank"
+                rel="noopener"
+                color="blue"
+              >
                 Terms and Conditions
               </Link>
             </span>
           }
         />
         {!!errors.acceptTerms && (
-          <FormHelperText error>You Must Agree to the Terms and Conditions</FormHelperText>
+          <FormHelperText error>
+            You Must Agree to the Terms and Conditions
+          </FormHelperText>
         )}
       </FormGrid>
     </Grid>

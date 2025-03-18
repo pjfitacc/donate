@@ -1,0 +1,15 @@
+export const donationForm = {
+  firstName: "",
+  lastName: "",
+  email: "",
+  phone: "",
+  address: "",
+  city: "",
+  state: "",
+  zip: "",
+  country: "",
+  acceptTerms: false,
+  amount: 10,
+  beneficiary: "",
+  comments: "",
+};
