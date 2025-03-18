@@ -12,7 +12,7 @@ export default function DonationInfoCard({ submittedDonation, donationErrors, re
                 minHeight: 'max-content',
                 maxWidth: 500,
                 p: {md: 0},
-                border: {md: 0}
+                border: {md: 0},
             }}
         >
             <CardContent
