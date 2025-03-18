@@ -201,7 +201,7 @@ export default function Checkout(props) {
           </Box>
 
 
-          <Box sx={checkoutInnerBoxStyle(false)}>
+          <Box sx={checkoutInnerBoxStyle}>
             <MobileStepper activeStep={activeStep} steps={steps} />
             {activeStep === steps.length ? (
               <Stack id="complete-donation" spacing={2} useFlexGap>
@@ -280,9 +280,8 @@ export default function Checkout(props) {
 }
 
 
-const checkoutInnerBoxStyle = (mobile) => {
-  return {
-    display: mobile ? { xs: 'flex', md: 'none' } : 'flex',
+const checkoutInnerBoxStyle = {
+    display: 'flex',
     flexDirection: 'column',
     flexGrow: 1,
     width: '100%',
@@ -290,4 +289,3 @@ const checkoutInnerBoxStyle = (mobile) => {
     maxHeight: '720px',
     gap: { xs: 2, md: 'none' },
   }
-}
