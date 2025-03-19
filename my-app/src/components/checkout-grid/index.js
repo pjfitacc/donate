@@ -12,8 +12,8 @@ import React from "react";
 import ChevronLeftRoundedIcon from "@mui/icons-material/ChevronLeftRounded";
 import ChevronRightRoundedIcon from "@mui/icons-material/ChevronRightRounded";
 import MobileStepper from "../mobile/MobileStepper";
-import DonorForm from "./forms/DonorForm";
-import PaymentForm from "./forms/PaymentForm";
+import DonorForm from "./forms/donor-form";
+import PaymentForm from "./forms/payment-form";
 import Review from "./forms/Review";
 
 function CheckoutGrid({

@@ -14,11 +14,7 @@ import RadioGroup from "@mui/material/RadioGroup";
 import Stack from "@mui/material/Stack";
 import Typography from "@mui/material/Typography";
 import { styled } from "@mui/material/styles";
-// @ts-ignore
-import AccountBalanceRoundedIcon from "@mui/icons-material/AccountBalanceRounded";
 import SimCardRoundedIcon from "@mui/icons-material/SimCardRounded";
-// @ts-ignore
-import WarningRoundedIcon from "@mui/icons-material/WarningRounded";
 import { CardGiftcard, Repeat } from "@mui/icons-material";
 
 const Card = styled(MuiCard)(({ theme }) => ({
@@ -337,10 +333,6 @@ export default function PaymentForm() {
             </FormGrid>
           </Box>
         </PaymentContainer>
-        <FormControlLabel
-          control={<Checkbox name="saveCard" />}
-          label="Remember credit card details for next time"
-        />
       </Box>
     </Stack>
   );
