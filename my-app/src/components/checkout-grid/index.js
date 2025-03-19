@@ -23,10 +23,10 @@ function CheckoutGrid({
   onNext,
   onBack,
   errors,
+  ref,
 }) {
-  const donorFormRef = React.useRef(null);
   const handleNext = () => {
-    onNext(donorFormRef.current.getDonor());
+    onNext();
   };
   const handleBack = () => {
     onBack();
@@ -38,7 +38,7 @@ function CheckoutGrid({
           <DonorForm
             submittedDonor={submittedDonor}
             errors={errors}
-            ref={donorFormRef}
+            ref={ref}
           />
         );
       case 1:

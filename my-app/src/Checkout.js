@@ -31,9 +31,11 @@ export default function Checkout(props) {
   });
 
   const donationFormRef = React.useRef(null);
+  const donorFormRef = React.useRef(null);
 
-  const handleNext = (donor) => {
+  const handleNext = () => {
     const donation = donationFormRef.current.getDonation();
+    const donor = donorFormRef.current.getDonor();
     const donationErrors = validateDonation(donor, donation);
 
     if (activeStep === 0) {
@@ -209,6 +211,7 @@ export default function Checkout(props) {
           onNext={handleNext}
           onBack={handleBack}
           errors={donationErrors}
+          ref={donorFormRef}
         ></CheckoutGrid>
       </Grid>
     </AppTheme>
