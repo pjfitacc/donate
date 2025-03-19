@@ -37,14 +37,7 @@ const FormGrid = styled("div")(() => ({
   flexDirection: "column",
 }));
 
-function CreditCardInput({
-  cardNumber,
-  handleCardNumberChange,
-  cvv,
-  handleCvvChange,
-  expirationDate,
-  handleExpirationDateChange,
-}) {
+function CreditCardInput({ payment, handleCardChange }) {
   return (
     <Box sx={{ display: "flex", flexDirection: "column", gap: 2 }}>
       <PaymentContainer>
@@ -68,17 +61,18 @@ function CreditCardInput({
           }}
         >
           <FormGrid sx={{ flexGrow: 1 }}>
-            <FormLabel htmlFor="card-number" required>
+            <FormLabel htmlFor="ccNumber" required>
               Card number
             </FormLabel>
             <OutlinedInput
-              id="card-number"
-              autoComplete="card-number"
+              id="ccNumber"
+              name="ccNumber"
+              autoComplete="ccNumber"
               placeholder="0000 0000 0000 0000"
               required
               size="small"
-              value={cardNumber}
-              onChange={handleCardNumberChange}
+              value={payment.ccNumber}
+              onChange={handleCardChange}
             />
           </FormGrid>
           <FormGrid sx={{ maxWidth: "20%" }}>
@@ -87,40 +81,45 @@ function CreditCardInput({
             </FormLabel>
             <OutlinedInput
               id="cvv"
-              autoComplete="CVV"
+              name="cvv"
+              autoComplete="cvv"
               placeholder="123"
               required
               size="small"
-              value={cvv}
-              onChange={handleCvvChange}
+              value={payment.cvv}
+              onChange={handleCardChange}
             />
           </FormGrid>
         </Box>
         <Box sx={{ display: "flex", gap: 2 }}>
           <FormGrid sx={{ flexGrow: 1 }}>
-            <FormLabel htmlFor="card-name" required>
+            <FormLabel htmlFor="ccName" required>
               Name
             </FormLabel>
             <OutlinedInput
-              id="card-name"
-              autoComplete="card-name"
+              id="ccName"
+              name="ccName"
+              autoComplete="ccName"
               placeholder="Your Name"
               required
               size="small"
+              value={payment.ccName}
+              onChange={handleCardChange}
             />
           </FormGrid>
           <FormGrid sx={{ flexGrow: 1 }}>
-            <FormLabel htmlFor="card-expiration" required>
+            <FormLabel htmlFor="ccExpDate" required>
               Expiration date
             </FormLabel>
             <OutlinedInput
-              id="card-expiration"
-              autoComplete="card-expiration"
+              id="ccExpDate"
+              name="ccExpDate"
+              autoComplete="ccExpDate"
               placeholder="MM/YY"
               required
               size="small"
-              value={expirationDate}
-              onChange={handleExpirationDateChange}
+              value={payment.ccExpDate}
+              onChange={handleCardChange}
             />
           </FormGrid>
         </Box>

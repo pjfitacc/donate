@@ -1,6 +1,6 @@
 import isDev from "../utils/DevDetect";
 
-export const submitForm = {
+export const initialForm = {
   firstName: "",
   lastName: "",
   email: "",
@@ -14,6 +14,10 @@ export const submitForm = {
   amount: 10,
   beneficiary: "",
   comments: "",
+  ccNumber: "",
+  cvv: "",
+  ccName: "",
+  ccExpDate: "",
 };
 
 const initialDonor = {
@@ -57,3 +61,19 @@ const fakeFilledDonation = {
 };
 
 export const donationModel = isDev() ? fakeFilledDonation : initialDonation;
+
+const fakeFilledPayment = {
+  ccNumber: "",
+  cvv: "",
+  ccName: "",
+  ccExpDate: "",
+};
+
+const initialPayment = {
+  ccNumber: "",
+  cvv: "",
+  ccName: "",
+  ccExpDate: "",
+};
+
+export const paymentModel = isDev() ? fakeFilledPayment : initialPayment;

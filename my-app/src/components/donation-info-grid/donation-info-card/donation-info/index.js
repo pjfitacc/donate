@@ -3,29 +3,22 @@ import PropTypes from "prop-types";
 import Typography from "@mui/material/Typography";
 import BeneficiarySelect from "./beneficiary-select";
 import { FormControl, FormHelperText, FormLabel, Input } from "@mui/material";
+import { DonationContext } from "../../../../Checkout";
 
-function DonationInfo({ submittedDonation, errors, ref, editable }) {
-  const [donation, setDonation] = React.useState(submittedDonation);
-
-  React.useImperativeHandle(
-    ref,
-    () => ({
-      getDonation: () => {
-        return donation;
-      },
-    }),
-    [donation]
-  );
+function DonationInfo({ errors, editable }) {
+  const [donation, setDonation] = React.useContext(DonationContext);
 
   // Handlers to update form fields
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setDonation((prevData) => ({
-      ...prevData,
-      [name]: value,
-    }));
-  };
-
+  const handleChange = React.useCallback(
+    (e) => {
+      const { name, value } = e.target;
+      setDonation((prevData) => ({
+        ...prevData,
+        [name]: value,
+      }));
+    },
+    [donation]
+  );
   return (
     <React.Fragment>
       {BeneficiarySelect({ donation, handleChange, errors, editable })}

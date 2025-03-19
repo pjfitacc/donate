@@ -5,37 +5,62 @@ import Stack from "@mui/material/Stack";
 import PaymentSchedulePicker from "./PaymentSchedulePicker";
 import CreditCardInput from "./CreditCardInput";
 import RecurringInput from "./RecurringInput";
+import { PaymentContext } from "../..";
 
-export default function PaymentForm() {
+export default function PaymentForm(errors) {
   const [paymentSchedule, setPaymentSchedule] = React.useState("oneTime");
-  const [cardNumber, setCardNumber] = React.useState("");
-  const [cvv, setCvv] = React.useState("");
-  const [expirationDate, setExpirationDate] = React.useState("");
+  const [payment, setPayment] = React.useContext(PaymentContext);
 
   const handlePaymentScheduleChange = (event) => {
     setPaymentSchedule(event.target.value);
   };
 
-  const handleCardNumberChange = (event) => {
+  // Handlers to update form fields
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    if (name === "ccNumber") {
+      handleCardNumberChange(e, name);
+    } else if (name === "cvv") {
+      handleCvvChange(e, name);
+    } else if (name === "ccExpDate") {
+      handleExpirationDateChange(e, name);
+    } else {
+      setPayment((prevData) => ({
+        ...prevData,
+        [name]: value,
+      }));
+    }
+  };
+
+  const handleCardNumberChange = (event, name) => {
     const value = event.target.value.replace(/\D/g, "");
     const formattedValue = value.replace(/(\d{4})(?=\d)/g, "$1 ");
     if (value.length <= 16) {
-      setCardNumber(formattedValue);
+      setPayment((prevData) => ({
+        ...prevData,
+        [name]: formattedValue,
+      }));
     }
   };
 
-  const handleCvvChange = (event) => {
+  const handleCvvChange = (event, name) => {
     const value = event.target.value.replace(/\D/g, "");
     if (value.length <= 3) {
-      setCvv(value);
+      setPayment((prevData) => ({
+        ...prevData,
+        [name]: value,
+      }));
     }
   };
 
-  const handleExpirationDateChange = (event) => {
+  const handleExpirationDateChange = (event, name) => {
     const value = event.target.value.replace(/\D/g, "");
     const formattedValue = value.replace(/(\d{2})(?=\d{2})/, "$1/");
     if (value.length <= 4) {
-      setExpirationDate(formattedValue);
+      setPayment((prevData) => ({
+        ...prevData,
+        [name]: formattedValue,
+      }));
     }
   };
 
@@ -47,14 +72,7 @@ export default function PaymentForm() {
         setPaymentSchedule={setPaymentSchedule}
       />
       {paymentSchedule === "recurring" && <RecurringInput />}
-      <CreditCardInput
-        cardNumber={cardNumber}
-        handleCardNumberChange={handleCardNumberChange}
-        cvv={cvv}
-        handleCvvChange={handleCvvChange}
-        expirationDate={expirationDate}
-        handleExpirationDateChange={handleExpirationDateChange}
-      />
+      <CreditCardInput payment={payment} handleCardChange={handleChange} />
     </Stack>
   );
 }

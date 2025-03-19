@@ -3,12 +3,7 @@ import React from "react";
 import PHJLogo from "../PHJLogo";
 import DonationInfoCard from "./donation-info-card";
 
-function DonationInfoGrid({
-  submittedDonation,
-  donationErrors,
-  donationFormRef,
-  editable,
-}) {
+function DonationInfoGrid({ donationErrors, editable }) {
   return (
     <Grid2
       id="donation-info"
@@ -37,15 +32,10 @@ function DonationInfoGrid({
         }}
       >
         <PHJLogo />
-        <DonationInfoCard
-          submittedDonation={submittedDonation}
-          donationErrors={donationErrors}
-          ref={donationFormRef}
-          editable={editable}
-        />
+        <DonationInfoCard donationErrors={donationErrors} editable={editable} />
       </Box>
     </Grid2>
   );
 }
 
-export default DonationInfoGrid;
+export default React.memo(DonationInfoGrid);

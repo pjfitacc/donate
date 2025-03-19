@@ -2,12 +2,7 @@ import { Card, CardContent } from "@mui/material";
 import DonationInfo from "./donation-info";
 import React from "react";
 
-export default function DonationInfoCard({
-  submittedDonation,
-  donationErrors,
-  ref,
-  editable,
-}) {
+export default function DonationInfoCard({ donationErrors, editable }) {
   return (
     <Card
       sx={{
@@ -28,12 +23,7 @@ export default function DonationInfoCard({
           flexWrap: "wrap",
         }}
       >
-        <DonationInfo
-          submittedDonation={submittedDonation}
-          errors={donationErrors}
-          ref={ref}
-          editable={editable}
-        />
+        <DonationInfo errors={donationErrors} editable={editable} />
       </CardContent>
     </Card>
   );

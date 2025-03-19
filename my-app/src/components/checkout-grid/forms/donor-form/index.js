@@ -6,15 +6,16 @@ import Grid from "@mui/material/Grid2";
 import OutlinedInput from "@mui/material/OutlinedInput";
 import { styled } from "@mui/material/styles";
 import { Alert, FormHelperText, Link, Snackbar } from "@mui/material";
+import { DonorContext } from "../..";
 
 const FormGrid = styled(Grid)(() => ({
   display: "flex",
   flexDirection: "column",
 }));
 
-export default function DonorForm({ submittedDonor, errors, ref }) {
+export default function DonorForm({ errors }) {
   // State for the address form
-  const [donor, setDonor] = React.useState(submittedDonor);
+  const [donor, setDonor] = React.useContext(DonorContext);
   const [openSnackbar, setOpenSnackbar] = React.useState(false);
 
   React.useEffect(() => {
@@ -23,33 +24,28 @@ export default function DonorForm({ submittedDonor, errors, ref }) {
     }
   }, [errors]);
 
-  React.useImperativeHandle(
-    ref,
-    () => ({
-      getDonor: () => {
-        return donor;
-      },
-    }),
+  // Handlers to update form fields
+  const handleChange = React.useCallback(
+    (e) => {
+      const { name, value } = e.target;
+      setDonor((prevData) => ({
+        ...prevData,
+        [name]: value,
+      }));
+    },
     [donor]
   );
 
-  // Handlers to update form fields
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setDonor((prevData) => ({
-      ...prevData,
-      [name]: value,
-    }));
-  };
-
-  const handleCheckboxChange = (e) => {
-    const { checked } = e.target;
-    setDonor((prevData) => ({
-      ...prevData,
-      acceptTerms: checked,
-    }));
-  };
-
+  const handleCheckboxChange = React.useCallback(
+    (e) => {
+      const { checked } = e.target;
+      setDonor((prevData) => ({
+        ...prevData,
+        acceptTerms: checked,
+      }));
+    },
+    [donor]
+  );
   return (
     <Grid container spacing={3}>
       <FormGrid size={{ xs: 12, md: 6 }}>
