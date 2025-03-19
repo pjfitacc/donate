@@ -6,6 +6,7 @@ export default function DonationInfoCard({
   submittedDonation,
   donationErrors,
   ref,
+  editable,
 }) {
   return (
     <Card
@@ -31,6 +32,7 @@ export default function DonationInfoCard({
           submittedDonation={submittedDonation}
           errors={donationErrors}
           ref={ref}
+          editable={editable}
         />
       </CardContent>
     </Card>

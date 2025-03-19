@@ -7,6 +7,7 @@ function DonationInfoGrid({
   submittedDonation,
   donationErrors,
   donationFormRef,
+  editable,
 }) {
   return (
     <Grid2
@@ -40,6 +41,7 @@ function DonationInfoGrid({
           submittedDonation={submittedDonation}
           donationErrors={donationErrors}
           ref={donationFormRef}
+          editable={editable}
         />
       </Box>
     </Grid2>

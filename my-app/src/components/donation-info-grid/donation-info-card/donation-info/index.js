@@ -4,7 +4,7 @@ import Typography from "@mui/material/Typography";
 import BeneficiarySelect from "../../../BeneficiarySelect";
 import { FormControl, FormHelperText, FormLabel, Input } from "@mui/material";
 
-function DonationInfo({ submittedDonation, errors, ref }) {
+function DonationInfo({ submittedDonation, errors, ref, editable }) {
   const [donation, setDonation] = React.useState(submittedDonation);
 
   React.useImperativeHandle(
@@ -28,7 +28,7 @@ function DonationInfo({ submittedDonation, errors, ref }) {
 
   return (
     <React.Fragment>
-      {BeneficiarySelect({ donation, handleChange, errors })}
+      {BeneficiarySelect({ donation, handleChange, errors, editable })}
       {!!errors.beneficiary && (
         <FormHelperText error id="beneficiaryError" sx={{ mb: 3, mt: -3 }}>
           Please select a beneficiary
@@ -36,17 +36,20 @@ function DonationInfo({ submittedDonation, errors, ref }) {
       )}
 
       <FormControl sx={{ mb: 4 }} fullWidth>
-        <FormLabel htmlFor="amount" sx={{ mb: -1 }} required>
+        <FormLabel htmlFor={editable ? "amount" : ""} sx={{ mb: -1 }} required>
           Donation Total (USD)
         </FormLabel>
 
         <Input
+          sx={{ fontWeight: editable ? "" : "bold" }}
           id="amount"
           name="amount"
-          type="number"
+          type={editable ? "number" : "text"}
           defaultValue={donation.amount}
           value={donation.amount}
           onChange={handleChange}
+          readOnly={!editable}
+          disableUnderline={!editable}
           required
         ></Input>
       </FormControl>
@@ -65,13 +68,15 @@ function DonationInfo({ submittedDonation, errors, ref }) {
         </Typography>
         <Input
           multiline
-          sx={{ my: 2 }}
+          sx={{ my: 2, fontWeight: editable ? "" : "bold" }}
           id="comments"
           name="comments"
           type="text"
           defaultValue={donation.comments}
           value={donation.comments}
           onChange={handleChange}
+          readOnly={!editable}
+          disableUnderline={!editable}
           placeholder="Indicate special instructions or requests you may have regarding your donation here. You can also specify other Jesuit-related beneficiaries not listed above..."
         ></Input>
       </FormControl>

@@ -78,6 +78,7 @@ export default function Checkout(props) {
           submittedDonation={submittedDonation}
           donationErrors={donationErrors}
           donationFormRef={donationFormRef}
+          editable={activeStep == 0 ? true : false}
         ></DonationInfoGrid>
 
         {/* <Grid
