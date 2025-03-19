@@ -23,8 +23,6 @@ export default function Checkout(props) {
   const [formErrors, setFormErrors] = React.useState({});
   const [donation, setDonation] = React.useState(donationModel);
 
-  console.log("form", form);
-
   const handleNext = React.useCallback(
     (formData) => {
       const formDataToCheck = { ...form, ...formData, ...donation };
@@ -39,7 +37,7 @@ export default function Checkout(props) {
       setForm(formDataToCheck);
       setActiveStep(activeStep + 1);
     },
-    [activeStep]
+    [activeStep, formErrors, setFormErrors, setForm, setActiveStep]
   );
 
   const handleBack = React.useCallback(() => {

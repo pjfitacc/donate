@@ -58,9 +58,54 @@ function findDonorAndDonationErrors(formData) {
   return errors;
 }
 
-// TODO:
 function findPaymentErrors(formData) {
   let errors = {};
+
+  // Make a for loop that adds an error message to the errors object if the value of the key is empty.
+  for (const key in formData) {
+    if (!formData[key] && key !== "ccName") {
+      errors[key] = "This field is required";
+    }
+  }
+
+  // Validate credit card number
+  const cardPatterns = {
+    visa: /^4[0-9]{12}(?:[0-9]{3})?$/,
+    mastercard: /^5[1-5][0-9]{14}$/,
+    discover: /^6(?:011|5[0-9]{2})[0-9]{12}$/,
+    amex: /^3[47][0-9]{13}$/,
+  };
+
+  const { ccNumber, cvv, ccExpDate } = formData;
+
+  if (
+    !ccNumber ||
+    !/^[0-9]{13,16}$/.test(ccNumber) ||
+    !Object.values(cardPatterns).some((pattern) => pattern.test(ccNumber))
+  ) {
+    errors.ccNumber = "Invalid or unsupported credit card number.";
+  }
+
+  // Validate CVV
+  if (!cvv || !/^[0-9]{3,4}$/.test(cvv)) {
+    errors.cvv = "Invalid CVV. Must be 3 or 4 digits.";
+  }
+
+  // Validate Expiration Date (MM/YY format)
+  if (!ccExpDate || !/^(0[1-9]|1[0-2])\/([0-9]{2})$/.test(ccExpDate)) {
+    errors.ccExpDate = "Invalid expiration date format. Use MM/YY.";
+  } else {
+    // Check if the card is expired
+    const [month, year] = ccExpDate.split("/").map(Number);
+    const currentDate = new Date();
+    const currentYear = currentDate.getFullYear() % 100; // Get last two digits of year
+    const currentMonth = currentDate.getMonth() + 1; // Months are 0-based
+
+    if (year < currentYear || (year === currentYear && month < currentMonth)) {
+      errors.ccExpDate = "Credit card is expired.";
+    }
+  }
+
   return errors;
 }
 
