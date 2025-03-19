@@ -202,92 +202,6 @@ export default function PaymentForm() {
           </Card>
         </RadioGroup>
       </FormControl>
-      {paymentSchedule === "oneTime" && (
-        <Box sx={{ display: "flex", flexDirection: "column", gap: 2 }}>
-          <PaymentContainer>
-            <Box sx={{ display: "flex", justifyContent: "space-between" }}>
-              <Typography variant="subtitle2">Credit card</Typography>
-              <CardGiftcard sx={{ color: "text.secondary" }} />
-            </Box>
-            <SimCardRoundedIcon
-              sx={{
-                fontSize: { xs: 48, sm: 56 },
-                transform: "rotate(90deg)",
-                color: "text.secondary",
-              }}
-            />
-            <Box
-              sx={{
-                display: "flex",
-                justifyContent: "space-between",
-                width: "100%",
-                gap: 2,
-              }}
-            >
-              <FormGrid sx={{ flexGrow: 1 }}>
-                <FormLabel htmlFor="card-number" required>
-                  Card number
-                </FormLabel>
-                <OutlinedInput
-                  id="card-number"
-                  autoComplete="card-number"
-                  placeholder="0000 0000 0000 0000"
-                  required
-                  size="small"
-                  value={cardNumber}
-                  onChange={handleCardNumberChange}
-                />
-              </FormGrid>
-              <FormGrid sx={{ maxWidth: "20%" }}>
-                <FormLabel htmlFor="cvv" required>
-                  CVV
-                </FormLabel>
-                <OutlinedInput
-                  id="cvv"
-                  autoComplete="CVV"
-                  placeholder="123"
-                  required
-                  size="small"
-                  value={cvv}
-                  onChange={handleCvvChange}
-                />
-              </FormGrid>
-            </Box>
-            <Box sx={{ display: "flex", gap: 2 }}>
-              <FormGrid sx={{ flexGrow: 1 }}>
-                <FormLabel htmlFor="card-name" required>
-                  Name
-                </FormLabel>
-                <OutlinedInput
-                  id="card-name"
-                  autoComplete="card-name"
-                  placeholder="John Smith"
-                  required
-                  size="small"
-                />
-              </FormGrid>
-              <FormGrid sx={{ flexGrow: 1 }}>
-                <FormLabel htmlFor="card-expiration" required>
-                  Expiration date
-                </FormLabel>
-                <OutlinedInput
-                  id="card-expiration"
-                  autoComplete="card-expiration"
-                  placeholder="MM/YY"
-                  required
-                  size="small"
-                  value={expirationDate}
-                  onChange={handleExpirationDateChange}
-                />
-              </FormGrid>
-            </Box>
-          </PaymentContainer>
-          <FormControlLabel
-            control={<Checkbox name="saveCard" />}
-            label="Remember credit card details for next time"
-          />
-        </Box>
-      )}
       {paymentSchedule === "recurring" && (
         <Box sx={{ display: "flex", flexDirection: "column", gap: 2 }}>
           <Typography variant="subtitle1" sx={{ fontWeight: "medium" }}>
@@ -330,6 +244,90 @@ export default function PaymentForm() {
           </Box>
         </Box>
       )}
+      <Box sx={{ display: "flex", flexDirection: "column", gap: 2 }}>
+        <PaymentContainer>
+          <Box sx={{ display: "flex", justifyContent: "space-between" }}>
+            <Typography variant="subtitle2">Credit card</Typography>
+            <CardGiftcard sx={{ color: "text.secondary" }} />
+          </Box>
+          <SimCardRoundedIcon
+            sx={{
+              fontSize: { xs: 48, sm: 56 },
+              transform: "rotate(90deg)",
+              color: "text.secondary",
+            }}
+          />
+          <Box
+            sx={{
+              display: "flex",
+              justifyContent: "space-between",
+              width: "100%",
+              gap: 2,
+            }}
+          >
+            <FormGrid sx={{ flexGrow: 1 }}>
+              <FormLabel htmlFor="card-number" required>
+                Card number
+              </FormLabel>
+              <OutlinedInput
+                id="card-number"
+                autoComplete="card-number"
+                placeholder="0000 0000 0000 0000"
+                required
+                size="small"
+                value={cardNumber}
+                onChange={handleCardNumberChange}
+              />
+            </FormGrid>
+            <FormGrid sx={{ maxWidth: "20%" }}>
+              <FormLabel htmlFor="cvv" required>
+                CVV
+              </FormLabel>
+              <OutlinedInput
+                id="cvv"
+                autoComplete="CVV"
+                placeholder="123"
+                required
+                size="small"
+                value={cvv}
+                onChange={handleCvvChange}
+              />
+            </FormGrid>
+          </Box>
+          <Box sx={{ display: "flex", gap: 2 }}>
+            <FormGrid sx={{ flexGrow: 1 }}>
+              <FormLabel htmlFor="card-name" required>
+                Name
+              </FormLabel>
+              <OutlinedInput
+                id="card-name"
+                autoComplete="card-name"
+                placeholder="John Smith"
+                required
+                size="small"
+              />
+            </FormGrid>
+            <FormGrid sx={{ flexGrow: 1 }}>
+              <FormLabel htmlFor="card-expiration" required>
+                Expiration date
+              </FormLabel>
+              <OutlinedInput
+                id="card-expiration"
+                autoComplete="card-expiration"
+                placeholder="MM/YY"
+                required
+                size="small"
+                value={expirationDate}
+                onChange={handleExpirationDateChange}
+              />
+            </FormGrid>
+          </Box>
+        </PaymentContainer>
+        <FormControlLabel
+          control={<Checkbox name="saveCard" />}
+          label="Remember credit card details for next time"
+        />
+      </Box>
     </Stack>
   );
 }
