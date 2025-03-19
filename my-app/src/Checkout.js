@@ -5,30 +5,17 @@ import AppTheme from "./shared-theme/AppTheme";
 import { validateDonation } from "./utils/validation";
 import DonationInfoGrid from "./components/donation-info-grid";
 import CheckoutGrid from "./components/checkout-grid";
+import { donationModel, donorModel } from "./components/models";
 
 const steps = ["Donation Info", "Payment details", "Review your order"];
 
 export default function Checkout(props) {
   const [activeStep, setActiveStep] = React.useState(0);
   const [donationErrors, setDonationErrors] = React.useState({});
-  const [submittedDonor, setSubmittedDonor] = React.useState({
-    firstName: "",
-    lastName: "",
-    email: "",
-    phone: "",
-    address: "",
-    city: "",
-    state: "",
-    zip: "",
-    country: "",
-    acceptTerms: false,
-  });
+  const [submittedDonor, setSubmittedDonor] = React.useState(donorModel);
 
-  const [submittedDonation, setSubmittedDonation] = React.useState({
-    amount: 10,
-    beneficiary: "",
-    comments: "",
-  });
+  const [submittedDonation, setSubmittedDonation] =
+    React.useState(donationModel);
 
   const donationFormRef = React.useRef(null);
   const donorFormRef = React.useRef(null);
