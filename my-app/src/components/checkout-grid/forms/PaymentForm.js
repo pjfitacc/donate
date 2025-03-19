@@ -14,9 +14,9 @@ import Stack from "@mui/material/Stack";
 import Typography from "@mui/material/Typography";
 import { styled } from "@mui/material/styles";
 import AccountBalanceRoundedIcon from "@mui/icons-material/AccountBalanceRounded";
-import CreditCardRoundedIcon from "@mui/icons-material/CreditCardRounded";
 import SimCardRoundedIcon from "@mui/icons-material/SimCardRounded";
 import WarningRoundedIcon from "@mui/icons-material/WarningRounded";
+import { CardGiftcard, Repeat } from "@mui/icons-material";
 
 const Card = styled(MuiCard)(({ theme }) => ({
   border: "1px solid",
@@ -83,13 +83,13 @@ const FormGrid = styled("div")(() => ({
 }));
 
 export default function PaymentForm() {
-  const [paymentType, setPaymentType] = React.useState("creditCard");
+  const [paymentSchedule, setPaymentSchedule] = React.useState("oneTime");
   const [cardNumber, setCardNumber] = React.useState("");
   const [cvv, setCvv] = React.useState("");
   const [expirationDate, setExpirationDate] = React.useState("");
 
-  const handlePaymentTypeChange = (event) => {
-    setPaymentType(event.target.value);
+  const handlePaymentScheduleChange = (event) => {
+    setPaymentSchedule(event.target.value);
   };
 
   const handleCardNumberChange = (event) => {
@@ -118,20 +118,21 @@ export default function PaymentForm() {
   return (
     <Stack spacing={{ xs: 3, sm: 6 }} useFlexGap>
       <FormControl component="fieldset" fullWidth>
+        <FormLabel htmlFor="">Donation Schedule</FormLabel>
         <RadioGroup
           aria-label="Payment options"
-          name="paymentType"
-          value={paymentType}
-          onChange={handlePaymentTypeChange}
+          name="paymentSchedule"
+          value={paymentSchedule}
+          onChange={handlePaymentScheduleChange}
           sx={{
             display: "flex",
             flexDirection: { xs: "column", sm: "row" },
             gap: 2,
           }}
         >
-          <Card selected={paymentType === "creditCard"}>
+          <Card selected={paymentSchedule === "oneTime"}>
             <CardActionArea
-              onClick={() => setPaymentType("creditCard")}
+              onClick={() => setPaymentSchedule("oneTime")}
               sx={{
                 ".MuiCardActionArea-focusHighlight": {
                   backgroundColor: "transparent",
@@ -144,7 +145,7 @@ export default function PaymentForm() {
               <CardContent
                 sx={{ display: "flex", alignItems: "center", gap: 1 }}
               >
-                <CreditCardRoundedIcon
+                <CardGiftcard
                   fontSize="small"
                   sx={[
                     (theme) => ({
@@ -153,58 +154,60 @@ export default function PaymentForm() {
                         color: "grey.600",
                       }),
                     }),
-                    paymentType === "creditCard" && {
-                      color: "primary.main",
-                    },
-                  ]}
-                />
-                <Typography sx={{ fontWeight: "medium" }}>Card</Typography>
-              </CardContent>
-            </CardActionArea>
-          </Card>
-          <Card selected={paymentType === "bankTransfer"}>
-            <CardActionArea
-              onClick={() => setPaymentType("bankTransfer")}
-              sx={{
-                ".MuiCardActionArea-focusHighlight": {
-                  backgroundColor: "transparent",
-                },
-                "&:focus-visible": {
-                  backgroundColor: "action.hover",
-                },
-              }}
-            >
-              <CardContent
-                sx={{ display: "flex", alignItems: "center", gap: 1 }}
-              >
-                <AccountBalanceRoundedIcon
-                  fontSize="small"
-                  sx={[
-                    (theme) => ({
-                      color: "grey.400",
-                      ...theme.applyStyles("dark", {
-                        color: "grey.600",
-                      }),
-                    }),
-                    paymentType === "bankTransfer" && {
+                    paymentSchedule === "oneTime" && {
                       color: "primary.main",
                     },
                   ]}
                 />
                 <Typography sx={{ fontWeight: "medium" }}>
-                  Bank account
+                  One Time Donation
+                </Typography>
+              </CardContent>
+            </CardActionArea>
+          </Card>
+          <Card selected={paymentSchedule === "bankTransfer"}>
+            <CardActionArea
+              onClick={() => setPaymentSchedule("bankTransfer")}
+              sx={{
+                ".MuiCardActionArea-focusHighlight": {
+                  backgroundColor: "transparent",
+                },
+                "&:focus-visible": {
+                  backgroundColor: "action.hover",
+                },
+              }}
+            >
+              <CardContent
+                sx={{ display: "flex", alignItems: "center", gap: 1 }}
+              >
+                <Repeat
+                  fontSize="small"
+                  sx={[
+                    (theme) => ({
+                      color: "grey.400",
+                      ...theme.applyStyles("dark", {
+                        color: "grey.600",
+                      }),
+                    }),
+                    paymentSchedule === "bankTransfer" && {
+                      color: "primary.main",
+                    },
+                  ]}
+                />
+                <Typography sx={{ fontWeight: "medium" }}>
+                  Recurring Donation
                 </Typography>
               </CardContent>
             </CardActionArea>
           </Card>
         </RadioGroup>
       </FormControl>
-      {paymentType === "creditCard" && (
+      {paymentSchedule === "oneTime" && (
         <Box sx={{ display: "flex", flexDirection: "column", gap: 2 }}>
           <PaymentContainer>
             <Box sx={{ display: "flex", justifyContent: "space-between" }}>
               <Typography variant="subtitle2">Credit card</Typography>
-              <CreditCardRoundedIcon sx={{ color: "text.secondary" }} />
+              <CardGiftcard sx={{ color: "text.secondary" }} />
             </Box>
             <SimCardRoundedIcon
               sx={{
@@ -285,7 +288,7 @@ export default function PaymentForm() {
           />
         </Box>
       )}
-      {paymentType === "bankTransfer" && (
+      {paymentSchedule === "bankTransfer" && (
         <Box sx={{ display: "flex", flexDirection: "column", gap: 2 }}>
           <Alert severity="warning" icon={<WarningRoundedIcon />}>
             Your order will be processed once we receive the funds.
