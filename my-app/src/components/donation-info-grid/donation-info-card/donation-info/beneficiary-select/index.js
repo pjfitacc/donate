@@ -1,5 +1,5 @@
 import React from "react";
-import { beneficiaries } from "../data/beneficiaries";
+import { beneficiaries } from "../../../../../data/beneficiaries";
 import {
   FormControl,
   FormLabel,

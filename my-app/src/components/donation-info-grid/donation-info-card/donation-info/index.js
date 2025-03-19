@@ -1,7 +1,7 @@
 import * as React from "react";
 import PropTypes from "prop-types";
 import Typography from "@mui/material/Typography";
-import BeneficiarySelect from "../../../BeneficiarySelect";
+import BeneficiarySelect from "./beneficiary-select";
 import { FormControl, FormHelperText, FormLabel, Input } from "@mui/material";
 
 function DonationInfo({ submittedDonation, errors, ref, editable }) {
