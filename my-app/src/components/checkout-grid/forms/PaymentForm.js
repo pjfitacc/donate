@@ -165,9 +165,9 @@ export default function PaymentForm() {
               </CardContent>
             </CardActionArea>
           </Card>
-          <Card selected={paymentSchedule === "bankTransfer"}>
+          <Card selected={paymentSchedule === "recurring"}>
             <CardActionArea
-              onClick={() => setPaymentSchedule("bankTransfer")}
+              onClick={() => setPaymentSchedule("recurring")}
               sx={{
                 ".MuiCardActionArea-focusHighlight": {
                   backgroundColor: "transparent",
@@ -189,7 +189,7 @@ export default function PaymentForm() {
                         color: "grey.600",
                       }),
                     }),
-                    paymentSchedule === "bankTransfer" && {
+                    paymentSchedule === "recurring" && {
                       color: "primary.main",
                     },
                   ]}
@@ -288,39 +288,44 @@ export default function PaymentForm() {
           />
         </Box>
       )}
-      {paymentSchedule === "bankTransfer" && (
+      {paymentSchedule === "recurring" && (
         <Box sx={{ display: "flex", flexDirection: "column", gap: 2 }}>
-          <Alert severity="warning" icon={<WarningRoundedIcon />}>
-            Your order will be processed once we receive the funds.
-          </Alert>
           <Typography variant="subtitle1" sx={{ fontWeight: "medium" }}>
-            Bank account
+            Create a Recurring Donation
           </Typography>
           <Typography variant="body1" gutterBottom>
             Please transfer the payment to the bank account details shown below.
           </Typography>
           <Box sx={{ display: "flex", gap: 1 }}>
             <Typography variant="body1" sx={{ color: "text.secondary" }}>
-              Bank:
+              Default Options:
             </Typography>
             <Typography variant="body1" sx={{ fontWeight: "medium" }}>
-              Mastercredit
+              Monthly, Quarterly, Yearly
             </Typography>
           </Box>
           <Box sx={{ display: "flex", gap: 1 }}>
             <Typography variant="body1" sx={{ color: "text.secondary" }}>
-              Account number:
+              Payment Start Date:
             </Typography>
             <Typography variant="body1" sx={{ fontWeight: "medium" }}>
-              123456789
+              May 4th 2025 (info ?)
             </Typography>
           </Box>
           <Box sx={{ display: "flex", gap: 1 }}>
             <Typography variant="body1" sx={{ color: "text.secondary" }}>
-              Routing number:
+              Frequency:
             </Typography>
             <Typography variant="body1" sx={{ fontWeight: "medium" }}>
-              987654321
+              Weekly
+            </Typography>
+          </Box>
+          <Box sx={{ display: "flex", gap: 1 }}>
+            <Typography variant="body1" sx={{ color: "text.secondary" }}>
+              End of Recurring Cycle:
+            </Typography>
+            <Typography variant="body1" sx={{ fontWeight: "medium" }}>
+              June 2025
             </Typography>
           </Box>
         </Box>
