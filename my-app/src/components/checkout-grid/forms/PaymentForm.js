@@ -208,7 +208,7 @@ export default function PaymentForm() {
             Create a Recurring Donation
           </Typography>
           <Typography variant="body1" gutterBottom>
-            Please transfer the payment to the bank account details shown below.
+            W.I.P. RECURRING FUNCTIONALITY IS STILL A WORK IN PROGRESS.
           </Typography>
           <Box sx={{ display: "flex", gap: 1 }}>
             <Typography variant="body1" sx={{ color: "text.secondary" }}>
