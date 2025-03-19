@@ -36,8 +36,12 @@ function DonationInfo({ submittedDonation, errors, ref, editable }) {
       )}
 
       <FormControl sx={{ mb: 4 }} fullWidth>
-        <FormLabel htmlFor={editable ? "amount" : ""} sx={{ mb: -1 }} required>
-          Donation Total (USD)
+        <FormLabel
+          htmlFor={editable ? "amount" : ""}
+          sx={{ mb: -1 }}
+          required={editable ? true : false}
+        >
+          {!editable && "Selected "}Donation Total (USD)
         </FormLabel>
 
         <Input

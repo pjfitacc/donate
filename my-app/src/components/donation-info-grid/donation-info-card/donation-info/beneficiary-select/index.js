@@ -21,8 +21,12 @@ const MenuProps = {
 function BeneficiarySelect({ donation, handleChange, errors, editable }) {
   return (
     <FormControl fullWidth sx={{ mb: 4 }}>
-      <FormLabel htmlFor="beneficiary" sx={{ mb: -1 }} required>
-        Beneficiary
+      <FormLabel
+        htmlFor="beneficiary"
+        sx={{ mb: -1 }}
+        required={editable ? true : false}
+      >
+        {!editable && "Selected "}Beneficiary
       </FormLabel>
       {editable && (
         <Select
