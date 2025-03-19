@@ -1,4 +1,5 @@
 import * as React from "react";
+// @ts-ignore
 import Alert from "@mui/material/Alert";
 import Box from "@mui/material/Box";
 import MuiCard from "@mui/material/Card";
@@ -13,13 +14,16 @@ import RadioGroup from "@mui/material/RadioGroup";
 import Stack from "@mui/material/Stack";
 import Typography from "@mui/material/Typography";
 import { styled } from "@mui/material/styles";
+// @ts-ignore
 import AccountBalanceRoundedIcon from "@mui/icons-material/AccountBalanceRounded";
 import SimCardRoundedIcon from "@mui/icons-material/SimCardRounded";
+// @ts-ignore
 import WarningRoundedIcon from "@mui/icons-material/WarningRounded";
 import { CardGiftcard, Repeat } from "@mui/icons-material";
 
 const Card = styled(MuiCard)(({ theme }) => ({
   border: "1px solid",
+  // @ts-ignore
   borderColor: (theme.vars || theme).palette.divider,
   width: "100%",
   "&:hover": {
@@ -40,10 +44,13 @@ const Card = styled(MuiCard)(({ theme }) => ({
   },
   variants: [
     {
+      // @ts-ignore
       props: ({ selected }) => selected,
       style: {
+        // @ts-ignore
         borderColor: (theme.vars || theme).palette.primary.light,
         ...theme.applyStyles("dark", {
+          // @ts-ignore
           borderColor: (theme.vars || theme).palette.primary.dark,
         }),
       },
@@ -60,6 +67,7 @@ const PaymentContainer = styled("div")(({ theme }) => ({
   padding: theme.spacing(3),
   borderRadius: `calc(${theme.shape.borderRadius}px + 4px)`,
   border: "1px solid ",
+  // @ts-ignore
   borderColor: (theme.vars || theme).palette.divider,
   background:
     "linear-gradient(to bottom right, hsla(220, 35%, 97%, 0.3) 25%, hsla(220, 20%, 88%, 0.3) 100%)",
@@ -130,7 +138,10 @@ export default function PaymentForm() {
             gap: 2,
           }}
         >
-          <Card selected={paymentSchedule === "oneTime"}>
+          <Card
+            // @ts-ignore
+            selected={paymentSchedule === "oneTime"}
+          >
             <CardActionArea
               onClick={() => setPaymentSchedule("oneTime")}
               sx={{
@@ -165,7 +176,10 @@ export default function PaymentForm() {
               </CardContent>
             </CardActionArea>
           </Card>
-          <Card selected={paymentSchedule === "recurring"}>
+          <Card
+            // @ts-ignore
+            selected={paymentSchedule === "recurring"}
+          >
             <CardActionArea
               onClick={() => setPaymentSchedule("recurring")}
               sx={{
