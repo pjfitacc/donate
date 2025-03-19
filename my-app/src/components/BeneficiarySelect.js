@@ -32,7 +32,8 @@ function BeneficiarySelect({ donation, handleChange, errors, editable }) {
           displayEmpty
           value={donation.beneficiary}
           onChange={handleChange}
-          input={<Input />}
+          multiline
+          input={<Input multiline />}
           MenuProps={MenuProps}
           inputProps={{ "aria-label": "Without label" }}
           label="Beneficiary"
@@ -74,6 +75,7 @@ function BeneficiarySelect({ donation, handleChange, errors, editable }) {
           readOnly={!editable}
           disableUnderline={!editable}
           required
+          multiline
         ></Input>
       )}
     </FormControl>
