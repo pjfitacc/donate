@@ -1,36 +1,57 @@
-import * as React from 'react';
-import Divider from '@mui/material/Divider';
-import Grid from '@mui/material/Grid';
-import List from '@mui/material/List';
-import ListItem from '@mui/material/ListItem';
-import ListItemText from '@mui/material/ListItemText';
-import Stack from '@mui/material/Stack';
-import Typography from '@mui/material/Typography';
-
-const addresses = ['1 MUI Drive', 'Reactville', 'Anytown', '99999', 'USA'];
-const payments = [
-  { name: 'Card type:', detail: 'Visa' },
-  { name: 'Card holder:', detail: 'Mr. John Smith' },
-  { name: 'Card number:', detail: 'xxxx-xxxx-xxxx-1234' },
-  { name: 'Expiry date:', detail: '04/2024' },
-];
+import * as React from "react";
+import Divider from "@mui/material/Divider";
+import List from "@mui/material/List";
+import ListItem from "@mui/material/ListItem";
+import ListItemText from "@mui/material/ListItemText";
+import Stack from "@mui/material/Stack";
+import Typography from "@mui/material/Typography";
+import useFormStore from "formStore";
+import { Grid2 } from "@mui/material";
 
 export default function Review() {
+  const {
+    firstName,
+    lastName,
+    email,
+    phone,
+    address,
+    city,
+    state,
+    zip,
+    country,
+    amount,
+    beneficiary,
+    comments,
+    ccNumber,
+    ccName,
+    ccExpDate,
+  } = useFormStore((state) => state);
+  const addresses = [address, city, state, zip, country];
+
+  const payments = [
+    { name: "Card type:", detail: getCardBrand(ccNumber) },
+    { name: "Card holder:", detail: ccName },
+    { name: "Card number:", detail: formatAndMaskCreditCard(ccNumber) },
+    { name: "Expiry date:", detail: ccExpDate },
+  ];
+
   return (
     <Stack spacing={2}>
       <List disablePadding>
         <ListItem sx={{ py: 1, px: 0 }}>
-          <ListItemText primary="Products" secondary="4 selected" />
-          <Typography variant="body2">10.00 USD</Typography>
+          <ListItemText primary="Donation to" />
+          <Typography variant="body2">{beneficiary}</Typography>
         </ListItem>
         <ListItem sx={{ py: 1, px: 0 }}>
-          <ListItemText primary="Shipping" secondary="Plus taxes" />
-          <Typography variant="body2">$9.99</Typography>
+          <ListItemText primary="Comments" />
+          <Typography variant="body2">
+            <em>{comments ? comments : "None"}</em>
+          </Typography>
         </ListItem>
         <ListItem sx={{ py: 1, px: 0 }}>
           <ListItemText primary="Total" />
           <Typography variant="subtitle1" sx={{ fontWeight: 700 }}>
-            $144.97
+            {amount} USD
           </Typography>
         </ListItem>
       </List>
@@ -43,36 +64,85 @@ export default function Review() {
       >
         <div>
           <Typography variant="subtitle2" gutterBottom>
-            Shipment details
+            Your details
           </Typography>
-          <Typography gutterBottom>John Smith</Typography>
-          <Typography gutterBottom sx={{ color: 'text.secondary' }}>
-            {addresses.join(', ')}
+          <Typography gutterBottom>
+            {firstName} {lastName}
           </Typography>
+          <Typography gutterBottom sx={{ color: "text.secondary" }}>
+            {addresses.join(", ")}
+          </Typography>
+          <Typography gutterBottom sx={{ color: "text.secondary" }}>
+            {email}
+          </Typography>
+          {phone && (
+            <Typography gutterBottom sx={{ color: "text.secondary" }}>
+              {phone}
+            </Typography>
+          )}
         </div>
         <div>
           <Typography variant="subtitle2" gutterBottom>
             Payment details
           </Typography>
-          <Grid container>
+          <Grid2 container>
             {payments.map((payment) => (
               <React.Fragment key={payment.name}>
                 <Stack
                   direction="row"
                   spacing={1}
                   useFlexGap
-                  sx={{ width: '100%', mb: 1 }}
+                  sx={{ width: "100%", mb: 1 }}
                 >
-                  <Typography variant="body1" sx={{ color: 'text.secondary' }}>
+                  <Typography variant="body1" sx={{ color: "text.secondary" }}>
                     {payment.name}
                   </Typography>
                   <Typography variant="body2">{payment.detail}</Typography>
                 </Stack>
               </React.Fragment>
             ))}
-          </Grid>
+          </Grid2>
         </div>
       </Stack>
     </Stack>
   );
+}
+
+function formatAndMaskCreditCard(creditCardString) {
+  // Remove all non-digit characters
+  const digitsOnly = creditCardString.replace(/\D/g, "");
+
+  // Get the last 4 digits
+  const lastFourDigits = digitsOnly.slice(-4);
+
+  // Mask the rest of the digits
+  const maskedDigits = "xxxx-xxxx-xxxx";
+
+  // Combine the masked digits and the last 4 digits
+  const formattedCard = `${maskedDigits}-${lastFourDigits}`;
+
+  return formattedCard;
+}
+
+function getCardBrand(creditCardString) {
+  // Remove all non-digit characters
+  const digitsOnly = creditCardString.replace(/\D/g, "");
+
+  // Define regex patterns for card brands
+  const cardPatterns = {
+    Visa: /^4[0-9]{12}(?:[0-9]{3})?$/,
+    Mastercard: /^5[1-5][0-9]{14}$/,
+    Discover: /^6(?:011|5[0-9]{2})[0-9]{12}$/,
+    Amex: /^3[47][0-9]{13}$/,
+  };
+
+  // Check which card brand matches the digits
+  for (const [brand, regex] of Object.entries(cardPatterns)) {
+    if (regex.test(digitsOnly)) {
+      return brand;
+    }
+  }
+
+  // If no brand matches, return "Unknown"
+  return "Unknown";
 }

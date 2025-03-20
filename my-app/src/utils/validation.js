@@ -64,6 +64,13 @@ function findDonorAndDonationErrors(form) {
   return errors;
 }
 
+export const cardPatterns = {
+  Visa: /^4[0-9]{12}(?:[0-9]{3})?$/,
+  Mastercard: /^5[1-5][0-9]{14}$/,
+  Discover: /^6(?:011|5[0-9]{2})[0-9]{12}$/,
+  Amex: /^3[47][0-9]{13}$/,
+};
+
 function findPaymentErrors(form) {
   let errors = {};
 
@@ -75,12 +82,6 @@ function findPaymentErrors(form) {
   }
 
   // Validate credit card number
-  const cardPatterns = {
-    visa: /^4[0-9]{12}(?:[0-9]{3})?$/,
-    mastercard: /^5[1-5][0-9]{14}$/,
-    discover: /^6(?:011|5[0-9]{2})[0-9]{12}$/,
-    amex: /^3[47][0-9]{13}$/,
-  };
 
   const { ccNumber, cvv, ccExpDate } = form;
 
