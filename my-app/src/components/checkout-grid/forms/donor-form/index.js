@@ -32,7 +32,7 @@ export default function DonorForm({}) {
   const errors = useErrorStore((state) => state);
 
   React.useEffect(() => {
-    if (Object.keys(errors).length === 1 && errors.acceptTerms) {
+    if (errors.acceptTerms) {
       setOpenSnackbar(true); // Show the Snackbar alert
     }
   }, [errors]);
