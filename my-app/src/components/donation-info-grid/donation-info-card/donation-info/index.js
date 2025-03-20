@@ -68,7 +68,11 @@ function DonationInfo({ editable }) {
           onChange={(e) => setField("comments", e.target.value)}
           readOnly={!editable}
           disableUnderline={!editable}
-          placeholder="Indicate special instructions or requests you may have regarding your donation here. You can also specify other Jesuit-related beneficiaries not listed above..."
+          placeholder={
+            editable
+              ? "Indicate special instructions or requests you may have regarding your donation here. You can also specify other Jesuit-related beneficiaries not listed above..."
+              : ""
+          }
         ></Input>
       </FormControl>
     </React.Fragment>
