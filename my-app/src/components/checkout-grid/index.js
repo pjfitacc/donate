@@ -14,7 +14,7 @@ import ChevronRightRoundedIcon from "@mui/icons-material/ChevronRightRounded";
 import MobileStepper from "../mobile/MobileStepper";
 import DonorForm from "./forms/donor-form";
 import PaymentForm from "./forms/payment-form";
-import Review from "./forms/Review";
+import Review from "./forms/review-form";
 
 function CheckoutGrid({ activeStep, steps, onNext, onBack }) {
   const handleNext = () => {
