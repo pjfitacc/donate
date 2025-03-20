@@ -8,6 +8,7 @@ import {
   Select,
   Typography,
 } from "@mui/material";
+import useFormStore from "../../../../../formStore";
 
 const MenuProps = {
   PaperProps: {
@@ -18,7 +19,10 @@ const MenuProps = {
   },
 };
 
-function BeneficiarySelect({ donation, handleChange, errors, editable }) {
+function BeneficiarySelect({ editable }) {
+  const beneficiary = useFormStore((state) => state.beneficiary);
+  const setField = useFormStore((state) => state.setField);
+
   return (
     <FormControl fullWidth sx={{ mb: 4 }}>
       <FormLabel
@@ -34,8 +38,8 @@ function BeneficiarySelect({ donation, handleChange, errors, editable }) {
           id="beneficiary"
           name="beneficiary"
           displayEmpty
-          value={donation.beneficiary}
-          onChange={handleChange}
+          value={beneficiary}
+          onChange={(e) => setField("beneficiary", e.target.value)}
           multiline
           input={<Input multiline />}
           MenuProps={MenuProps}
@@ -60,7 +64,7 @@ function BeneficiarySelect({ donation, handleChange, errors, editable }) {
             <MenuItem
               key={beneficiaryItem.name}
               value={beneficiaryItem.name}
-              selected={beneficiaryItem.name === donation.beneficiary}
+              selected={beneficiaryItem.name === beneficiary}
               sx={{ width: "100%", whiteSpace: "normal" }} // Ensure items stretch and handle long text
             >
               {beneficiaryItem.name}
@@ -74,8 +78,7 @@ function BeneficiarySelect({ donation, handleChange, errors, editable }) {
           id="beneficiary"
           name="beneficiary"
           type="text"
-          value={donation.beneficiary}
-          onChange={handleChange}
+          value={beneficiary}
           readOnly={!editable}
           disableUnderline={!editable}
           required

@@ -3,30 +3,16 @@ import PropTypes from "prop-types";
 import Typography from "@mui/material/Typography";
 import BeneficiarySelect from "./beneficiary-select";
 import { FormControl, FormHelperText, FormLabel, Input } from "@mui/material";
-import useFormStore from "../../../../formStore";
-import { donationModel } from "../../../models";
+import useFormStore from "formStore";
 
 function DonationInfo({ errors, editable }) {
-  const [donation, setDonation] = React.useState(donationModel);
-
   const amount = useFormStore((state) => state.amount);
-  const beneficiary = useFormStore((state) => state.beneficiary);
+  const comments = useFormStore((state) => state.comments);
   const setField = useFormStore((state) => state.setField);
 
-  // Handlers to update form fields
-  const handleChange = React.useCallback(
-    (e) => {
-      const { name, value } = e.target;
-      setDonation((prevData) => ({
-        ...prevData,
-        [name]: value,
-      }));
-    },
-    [donation]
-  );
   return (
     <React.Fragment>
-      {BeneficiarySelect({ donation, handleChange, errors, editable })}
+      {BeneficiarySelect({ editable })}
       {!!errors.beneficiary && (
         <FormHelperText error id="beneficiaryError" sx={{ mb: 3, mt: -3 }}>
           Please select a beneficiary
@@ -74,9 +60,9 @@ function DonationInfo({ errors, editable }) {
           id="comments"
           name="comments"
           type="text"
-          defaultValue={donation.comments}
-          value={donation.comments}
-          onChange={handleChange}
+          defaultValue={comments}
+          value={comments}
+          onChange={(e) => setField("comments", e.target.value)}
           readOnly={!editable}
           disableUnderline={!editable}
           placeholder="Indicate special instructions or requests you may have regarding your donation here. You can also specify other Jesuit-related beneficiaries not listed above..."
