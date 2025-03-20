@@ -136,8 +136,14 @@ function CreditCardInput() {
               required
               size="small"
               value={ccName}
+              style={{ borderColor: errors.ccNumber ? "red" : "" }}
               onChange={handleCardChange}
             />
+            {!!errors.ccName && (
+              <FormHelperText error id="ccNameError">
+                {errors.ccName}
+              </FormHelperText>
+            )}
           </FormGrid>
           <FormGrid sx={{ flexGrow: 1 }}>
             <FormLabel htmlFor="ccExpDate" required>
