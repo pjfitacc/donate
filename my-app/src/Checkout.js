@@ -47,6 +47,7 @@ export default function Checkout(props) {
       >
         <DonationInfoGrid
           editable={activeStep === 0 ? true : false}
+          activeStep={activeStep}
         ></DonationInfoGrid>
 
         <CheckoutGrid
