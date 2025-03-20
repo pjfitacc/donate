@@ -1,0 +1,20 @@
+// Define your fakeFilledForm object
+export const fakeFilledForm = {
+  firstName: "John",
+  lastName: "Doe",
+  email: "john.doe@example.com",
+  phone: "123-456-7890",
+  address: "123 Fake St",
+  city: "Faketown",
+  state: "CA",
+  zip: "12345",
+  country: "USA",
+  acceptTerms: true,
+  amount: 100,
+  beneficiary: "Ateneo de Manila University",
+  comments: "This is a fake donation",
+  ccNumber: "4111111111111111",
+  cvv: "123",
+  ccName: "John Doe",
+  ccExpDate: "12/25",
+};
