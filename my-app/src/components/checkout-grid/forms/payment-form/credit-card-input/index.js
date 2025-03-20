@@ -7,12 +7,22 @@ import {
 } from "@mui/material";
 
 import Box from "@mui/material/Box";
-import React, { useEffect, useState } from "react";
 import SimCardRoundedIcon from "@mui/icons-material/SimCardRounded";
 import { FormGrid, PaymentContainer } from "./styles";
+import useFormStore from "formStore";
+import React from "react";
+import useErrorStore from "errorStore";
 
-function CreditCardInput({ errors }) {
+function CreditCardInput() {
   // Handlers to update form fields
+  const ccNumber = useFormStore((state) => state.ccNumber);
+  const cvv = useFormStore((state) => state.cvv);
+  const ccExpDate = useFormStore((state) => state.ccExpDate);
+  const ccName = useFormStore((state) => state.ccName);
+  const setField = useFormStore((state) => state.setField);
+
+  const errors = useErrorStore((state) => state);
+
   const handleCardChange = (e) => {
     const { name, value } = e.target;
     if (name === "ccNumber") {
@@ -22,10 +32,7 @@ function CreditCardInput({ errors }) {
     } else if (name === "ccExpDate") {
       handleExpirationDateChange(e, name);
     } else {
-      setPayment((prevData) => ({
-        ...prevData,
-        [name]: value,
-      }));
+      setField(name, value);
     }
   };
 
@@ -33,30 +40,21 @@ function CreditCardInput({ errors }) {
     const value = event.target.value.replace(/\D/g, "");
     const formattedValue = value.replace(/(\d{4})(?=\d)/g, "$1 ");
     if (value.length <= 16) {
-      setPayment((prevData) => ({
-        ...prevData,
-        [name]: formattedValue,
-      }));
+      setField(name, formattedValue);
     }
   };
 
   const handleCvvChange = (event, name) => {
     const value = event.target.value.replace(/\D/g, "");
     if (value.length <= 3) {
-      setPayment((prevData) => ({
-        ...prevData,
-        [name]: value,
-      }));
+      setField(name, value);
     }
   };
   const handleExpirationDateChange = (event, name) => {
     const value = event.target.value.replace(/\D/g, "");
     const formattedValue = value.replace(/(\d{2})(?=\d{2})/, "$1/");
     if (value.length <= 4) {
-      setPayment((prevData) => ({
-        ...prevData,
-        [name]: formattedValue,
-      }));
+      setField(name, formattedValue);
     }
   };
 
@@ -93,7 +91,7 @@ function CreditCardInput({ errors }) {
               placeholder="0000 0000 0000 0000"
               required
               size="small"
-              value={payment.ccNumber}
+              value={ccNumber}
               onChange={handleCardChange}
               style={{ borderColor: errors.ccNumber ? "red" : "" }}
             />
@@ -114,7 +112,7 @@ function CreditCardInput({ errors }) {
               placeholder="123"
               required
               size="small"
-              value={payment.cvv}
+              value={cvv}
               onChange={handleCardChange}
               style={{ borderColor: errors.ccNumber ? "red" : "" }}
             />
@@ -137,7 +135,7 @@ function CreditCardInput({ errors }) {
               placeholder="Your Name"
               required
               size="small"
-              value={payment.ccName}
+              value={ccName}
               onChange={handleCardChange}
             />
           </FormGrid>
@@ -152,7 +150,7 @@ function CreditCardInput({ errors }) {
               placeholder="MM/YY"
               required
               size="small"
-              value={payment.ccExpDate}
+              value={ccExpDate}
               style={{ borderColor: errors.ccNumber ? "red" : "" }}
               onChange={handleCardChange}
             />

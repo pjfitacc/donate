@@ -4,11 +4,14 @@ import Typography from "@mui/material/Typography";
 import BeneficiarySelect from "./beneficiary-select";
 import { FormControl, FormHelperText, FormLabel, Input } from "@mui/material";
 import useFormStore from "formStore";
+import useErrorStore from "errorStore";
 
-function DonationInfo({ errors, editable }) {
+function DonationInfo({ editable }) {
   const amount = useFormStore((state) => state.amount);
   const comments = useFormStore((state) => state.comments);
   const setField = useFormStore((state) => state.setField);
+
+  const errors = useErrorStore((state) => state);
 
   return (
     <React.Fragment>

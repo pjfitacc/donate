@@ -6,7 +6,7 @@ import PaymentSchedulePicker from "./PaymentSchedulePicker";
 import CreditCardInput from "./credit-card-input";
 import RecurringInput from "./RecurringInput";
 
-export default function PaymentForm(errors) {
+export default function PaymentForm() {
   const [paymentSchedule, setPaymentSchedule] = React.useState("oneTime");
 
   const handlePaymentScheduleChange = (event) => {
@@ -21,7 +21,7 @@ export default function PaymentForm(errors) {
         setPaymentSchedule={setPaymentSchedule}
       />
       {paymentSchedule === "recurring" && <RecurringInput />}
-      <CreditCardInput errors={errors} />
+      <CreditCardInput />
     </Stack>
   );
 }

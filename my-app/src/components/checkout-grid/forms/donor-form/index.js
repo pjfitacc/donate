@@ -8,13 +8,14 @@ import { styled } from "@mui/material/styles";
 import { Alert, FormHelperText, Link, Snackbar } from "@mui/material";
 import useFormStore from "../../../../formStore";
 import { donorModel } from "../../../models";
+import useErrorStore from "errorStore";
 
 const FormGrid = styled(Grid)(() => ({
   display: "flex",
   flexDirection: "column",
 }));
 
-export default function DonorForm({ errors }) {
+export default function DonorForm({}) {
   const [openSnackbar, setOpenSnackbar] = React.useState(false);
 
   const firstName = useFormStore((state) => state.firstName);
@@ -28,6 +29,7 @@ export default function DonorForm({ errors }) {
   const country = useFormStore((state) => state.country);
   const acceptTerms = useFormStore((state) => state.acceptTerms);
   const setField = useFormStore((state) => state.setField);
+  const errors = useErrorStore((state) => state);
 
   React.useEffect(() => {
     if (Object.keys(errors).length === 1 && errors.acceptTerms) {

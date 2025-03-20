@@ -11,6 +11,9 @@
 //     acceptTerms: false,
 //   });
 
+import { donationModel, donorModel, paymentModel } from "components/models";
+import useFormStore from "formStore";
+
 // const [donation, setDonation] = React.useState(
 //     {
 //       amount: 10,
@@ -20,37 +23,38 @@
 //   );
 
 // Only thing not required is the phone.
-export const validateForm = (formData, activeStep) => {
+export const validateForm = (activeStep) => {
   // Make a for loop that adds an error message to the errors object if the value of the key is empty.
+  const form = useFormStore.getState();
   switch (activeStep) {
     case 0:
-      return findDonorAndDonationErrors(formData);
+      return findDonorAndDonationErrors(form);
     case 1:
-      return findPaymentErrors(formData);
+      return findPaymentErrors(form);
   }
 };
 
-function findDonorAndDonationErrors(formData) {
+function findDonorAndDonationErrors(form) {
   let errors = {};
 
-  if (!/^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/.test(formData.email)) {
+  if (!/^[\w-.]+@([\w-]+\.)+[\w-]{2,4}$/.test(form.email)) {
     errors.email = "Invalid email format";
   }
 
-  if (formData.amount < 0) {
+  if (form.amount < 0) {
     errors.amount = "Donation amount must be greater than 0";
   }
 
   // Make a for loop that adds an error message to the errors object if the value of the key is empty.
-  for (const key in formData) {
-    if (!formData[key] && key !== "phone") {
+  for (const key in donorModel) {
+    if (!form[key] && key !== "phone") {
       errors[key] = "This field is required";
     }
   }
 
   // Make a for loop that adds an error message to the errors object if the value of the key is empty.
-  for (const key in formData) {
-    if (!formData[key] && key !== "comments") {
+  for (const key in donationModel) {
+    if (!form[key] && key !== "comments") {
       errors[key] = "This field is required";
     }
   }
@@ -58,12 +62,12 @@ function findDonorAndDonationErrors(formData) {
   return errors;
 }
 
-function findPaymentErrors(formData) {
+function findPaymentErrors(form) {
   let errors = {};
 
   // Make a for loop that adds an error message to the errors object if the value of the key is empty.
-  for (const key in formData) {
-    if (!formData[key] && key !== "ccName") {
+  for (const key in paymentModel) {
+    if (!form[key]) {
       errors[key] = "This field is required";
     }
   }
@@ -76,7 +80,7 @@ function findPaymentErrors(formData) {
     amex: /^3[47][0-9]{13}$/,
   };
 
-  const { ccNumber, cvv, ccExpDate } = formData;
+  const { ccNumber, cvv, ccExpDate } = form;
 
   if (
     !ccNumber ||

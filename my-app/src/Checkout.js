@@ -5,38 +5,24 @@ import AppTheme from "./shared-theme/AppTheme";
 import { validateForm } from "./utils/validation";
 import DonationInfoGrid from "./components/donation-info-grid";
 import CheckoutGrid from "./components/checkout-grid";
-import {
-  donationModel,
-  donorModel,
-  initialForm,
-  paymentModel,
-} from "./components/models";
+import useErrorStore from "errorStore";
 
 const steps = ["Donation Info", "Payment details", "Review your order"];
 
 export default function Checkout(props) {
   const [activeStep, setActiveStep] = React.useState(0);
 
-  const [form, setForm] = React.useState({});
-  const [formErrors, setFormErrors] = React.useState({});
-  const [donation, setDonation] = React.useState(donationModel);
+  const handleNext = React.useCallback(() => {
+    const formSubmitErrors = validateForm(activeStep);
 
-  const handleNext = React.useCallback(
-    (formData) => {
-      const formDataToCheck = { ...form, ...formData, ...donation };
+    useErrorStore.getState().resetForm();
+    if (Object.keys(formSubmitErrors).length > 0) {
+      useErrorStore.setState(formSubmitErrors);
+      return;
+    }
 
-      const formSubmitErrors = validateForm(formDataToCheck, activeStep);
-      if (Object.keys(formSubmitErrors).length > 0) {
-        setFormErrors(formSubmitErrors);
-        return;
-      }
-
-      setFormErrors({});
-      setForm(formDataToCheck);
-      setActiveStep(activeStep + 1);
-    },
-    [activeStep, formErrors, setFormErrors, setForm, setActiveStep]
-  );
+    setActiveStep(activeStep + 1);
+  }, [activeStep, setActiveStep]);
 
   const handleBack = React.useCallback(() => {
     setActiveStep(activeStep - 1);
@@ -60,7 +46,6 @@ export default function Checkout(props) {
         }}
       >
         <DonationInfoGrid
-          donationErrors={formErrors}
           editable={activeStep === 0 ? true : false}
         ></DonationInfoGrid>
 
@@ -69,7 +54,6 @@ export default function Checkout(props) {
           steps={steps}
           onNext={handleNext}
           onBack={handleBack}
-          errors={formErrors}
         ></CheckoutGrid>
       </Grid>
     </AppTheme>

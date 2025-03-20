@@ -3,7 +3,7 @@ import React from "react";
 import PHJLogo from "../PHJLogo";
 import DonationInfoCard from "./donation-info-card";
 
-function DonationInfoGrid({ donationErrors, editable }) {
+function DonationInfoGrid({ editable }) {
   return (
     <Grid2
       id="donation-info"
@@ -32,7 +32,7 @@ function DonationInfoGrid({ donationErrors, editable }) {
         }}
       >
         <PHJLogo />
-        <DonationInfoCard donationErrors={donationErrors} editable={editable} />
+        <DonationInfoCard editable={editable} />
       </Box>
     </Grid2>
   );

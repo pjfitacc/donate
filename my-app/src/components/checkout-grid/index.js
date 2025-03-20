@@ -8,33 +8,29 @@ import {
   Stepper,
   Typography,
 } from "@mui/material";
-import React, { useState } from "react";
+import React from "react";
 import ChevronLeftRoundedIcon from "@mui/icons-material/ChevronLeftRounded";
 import ChevronRightRoundedIcon from "@mui/icons-material/ChevronRightRounded";
 import MobileStepper from "../mobile/MobileStepper";
 import DonorForm from "./forms/donor-form";
 import PaymentForm from "./forms/payment-form";
 import Review from "./forms/Review";
-import { donorModel } from "../models";
 
-function CheckoutGrid({ activeStep, steps, onNext, onBack, errors }) {
-  const [donor, setDonor] = useState(donorModel);
-  const [payment, setPayment] = useState(donorModel);
-
+function CheckoutGrid({ activeStep, steps, onNext, onBack }) {
   const handleNext = () => {
     if (activeStep == 0) {
-      onNext(donor);
+      onNext();
     } else if (activeStep == 1) {
-      onNext(payment);
+      onNext();
     }
   };
 
   const getStepContent = (step) => {
     switch (step) {
       case 0:
-        return <DonorForm errors={errors} />;
+        return <DonorForm />;
       case 1:
-        return <PaymentForm errors={errors} />;
+        return <PaymentForm />;
       case 2:
         return <Review />;
       default:
