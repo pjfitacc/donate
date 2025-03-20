@@ -6,7 +6,8 @@ import Grid from "@mui/material/Grid2";
 import OutlinedInput from "@mui/material/OutlinedInput";
 import { styled } from "@mui/material/styles";
 import { Alert, FormHelperText, Link, Snackbar } from "@mui/material";
-import { DonorContext } from "../..";
+import useFormStore from "../../../../formStore";
+import { donorModel } from "../../../models";
 
 const FormGrid = styled(Grid)(() => ({
   display: "flex",
@@ -15,8 +16,11 @@ const FormGrid = styled(Grid)(() => ({
 
 export default function DonorForm({ errors }) {
   // State for the address form
-  const [donor, setDonor] = React.useContext(DonorContext);
+  const [donor, setDonor] = React.useState(donorModel);
   const [openSnackbar, setOpenSnackbar] = React.useState(false);
+
+  const firstName = useFormStore((state) => state.firstName);
+  const setField = useFormStore((state) => state.setField);
 
   React.useEffect(() => {
     if (Object.keys(errors).length === 1 && errors.acceptTerms) {
@@ -55,8 +59,8 @@ export default function DonorForm({ errors }) {
         <OutlinedInput
           id="firstName"
           name="firstName"
-          value={donor.firstName}
-          onChange={handleChange}
+          value={firstName}
+          onChange={(e) => setField("firstName", e.target.value)}
           type="name"
           autoComplete="first name"
           required

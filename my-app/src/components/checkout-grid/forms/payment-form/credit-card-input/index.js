@@ -9,12 +9,9 @@ import {
 import Box from "@mui/material/Box";
 import React, { useEffect, useState } from "react";
 import SimCardRoundedIcon from "@mui/icons-material/SimCardRounded";
-import { PaymentContext } from "../../..";
 import { FormGrid, PaymentContainer } from "./styles";
 
 function CreditCardInput({ errors }) {
-  const [payment, setPayment] = React.useContext(PaymentContext);
-
   // Handlers to update form fields
   const handleCardChange = (e) => {
     const { name, value } = e.target;

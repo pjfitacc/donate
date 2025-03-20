@@ -14,8 +14,6 @@ import {
 
 const steps = ["Donation Info", "Payment details", "Review your order"];
 
-export const DonationContext = React.createContext([]);
-
 export default function Checkout(props) {
   const [activeStep, setActiveStep] = React.useState(0);
 
@@ -61,12 +59,10 @@ export default function Checkout(props) {
           },
         }}
       >
-        <DonationContext.Provider value={[donation, setDonation]}>
-          <DonationInfoGrid
-            donationErrors={formErrors}
-            editable={activeStep === 0 ? true : false}
-          ></DonationInfoGrid>
-        </DonationContext.Provider>
+        <DonationInfoGrid
+          donationErrors={formErrors}
+          editable={activeStep === 0 ? true : false}
+        ></DonationInfoGrid>
 
         <CheckoutGrid
           activeStep={activeStep}

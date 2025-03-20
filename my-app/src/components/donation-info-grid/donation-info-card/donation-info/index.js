@@ -3,10 +3,15 @@ import PropTypes from "prop-types";
 import Typography from "@mui/material/Typography";
 import BeneficiarySelect from "./beneficiary-select";
 import { FormControl, FormHelperText, FormLabel, Input } from "@mui/material";
-import { DonationContext } from "../../../../Checkout";
+import useFormStore from "../../../../formStore";
+import { donationModel } from "../../../models";
 
 function DonationInfo({ errors, editable }) {
-  const [donation, setDonation] = React.useContext(DonationContext);
+  const [donation, setDonation] = React.useState(donationModel);
+
+  const amount = useFormStore((state) => state.amount);
+  const beneficiary = useFormStore((state) => state.beneficiary);
+  const setField = useFormStore((state) => state.setField);
 
   // Handlers to update form fields
   const handleChange = React.useCallback(
@@ -42,9 +47,9 @@ function DonationInfo({ errors, editable }) {
           id="amount"
           name="amount"
           type={editable ? "number" : "text"}
-          defaultValue={donation.amount}
-          value={donation.amount}
-          onChange={handleChange}
+          defaultValue={"10"}
+          value={amount}
+          onChange={(e) => setField("amount", Number(e.target.value))}
           readOnly={!editable}
           disableUnderline={!editable}
           required
