@@ -15,11 +15,18 @@ const FormGrid = styled(Grid)(() => ({
 }));
 
 export default function DonorForm({ errors }) {
-  // State for the address form
-  const [donor, setDonor] = React.useState(donorModel);
   const [openSnackbar, setOpenSnackbar] = React.useState(false);
 
   const firstName = useFormStore((state) => state.firstName);
+  const lastName = useFormStore((state) => state.lastName);
+  const email = useFormStore((state) => state.email);
+  const phone = useFormStore((state) => state.phone);
+  const address = useFormStore((state) => state.address);
+  const city = useFormStore((state) => state.city);
+  const state = useFormStore((state) => state.state);
+  const zip = useFormStore((state) => state.zip);
+  const country = useFormStore((state) => state.country);
+  const acceptTerms = useFormStore((state) => state.acceptTerms);
   const setField = useFormStore((state) => state.setField);
 
   React.useEffect(() => {
@@ -28,28 +35,6 @@ export default function DonorForm({ errors }) {
     }
   }, [errors]);
 
-  // Handlers to update form fields
-  const handleChange = React.useCallback(
-    (e) => {
-      const { name, value } = e.target;
-      setDonor((prevData) => ({
-        ...prevData,
-        [name]: value,
-      }));
-    },
-    [donor]
-  );
-
-  const handleCheckboxChange = React.useCallback(
-    (e) => {
-      const { checked } = e.target;
-      setDonor((prevData) => ({
-        ...prevData,
-        acceptTerms: checked,
-      }));
-    },
-    [donor]
-  );
   return (
     <Grid container spacing={3}>
       <FormGrid size={{ xs: 12, md: 6 }}>
@@ -80,8 +65,8 @@ export default function DonorForm({ errors }) {
         <OutlinedInput
           id="lastName"
           name="lastName"
-          value={donor.lastName}
-          onChange={handleChange}
+          value={lastName}
+          onChange={(e) => setField("lastName", e.target.value)}
           type="lastName"
           autoComplete="last name"
           required
@@ -102,8 +87,8 @@ export default function DonorForm({ errors }) {
         <OutlinedInput
           id="email"
           name="email"
-          value={donor.email}
-          onChange={handleChange}
+          value={email}
+          onChange={(e) => setField("email", e.target.value)}
           type="email"
           placeholder="example@email.com"
           autoComplete="email"
@@ -123,8 +108,8 @@ export default function DonorForm({ errors }) {
         <OutlinedInput
           id="phone"
           name="phone"
-          value={donor.phone}
-          onChange={handleChange}
+          value={phone}
+          onChange={(e) => setField("phone", e.target.value)}
           type="phone"
           autoComplete="phone"
           size="small"
@@ -137,8 +122,8 @@ export default function DonorForm({ errors }) {
         <OutlinedInput
           id="address"
           name="address"
-          value={donor.address}
-          onChange={handleChange}
+          value={address}
+          onChange={(e) => setField("address", e.target.value)}
           type="address"
           placeholder="Street name and number"
           autoComplete="shipping address-line1"
@@ -160,8 +145,8 @@ export default function DonorForm({ errors }) {
         <OutlinedInput
           id="city"
           name="city"
-          value={donor.city}
-          onChange={handleChange}
+          value={city}
+          onChange={(e) => setField("city", e.target.value)}
           type="city"
           placeholder="New York"
           autoComplete="City"
@@ -183,8 +168,8 @@ export default function DonorForm({ errors }) {
         <OutlinedInput
           id="state"
           name="state"
-          value={donor.state}
-          onChange={handleChange}
+          value={state}
+          onChange={(e) => setField("state", e.target.value)}
           type="state"
           placeholder="NY"
           autoComplete="State"
@@ -206,8 +191,8 @@ export default function DonorForm({ errors }) {
         <OutlinedInput
           id="zip"
           name="zip"
-          value={donor.zip}
-          onChange={handleChange}
+          value={zip}
+          onChange={(e) => setField("zip", e.target.value)}
           type="zip"
           placeholder="10028"
           autoComplete="shipping postal-code"
@@ -229,8 +214,8 @@ export default function DonorForm({ errors }) {
         <OutlinedInput
           id="country"
           name="country"
-          value={donor.country}
-          onChange={handleChange}
+          value={country}
+          onChange={(e) => setField("country", e.target.value)}
           type="country"
           placeholder="United States"
           autoComplete="shipping country"
@@ -260,8 +245,8 @@ export default function DonorForm({ errors }) {
           control={
             <Checkbox
               name="acceptTerms"
-              checked={donor.acceptTerms}
-              onChange={handleCheckboxChange}
+              checked={acceptTerms}
+              onChange={(e) => setField("acceptTerms", e.target.checked)}
               value="no"
             />
           }
