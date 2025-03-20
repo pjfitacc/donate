@@ -114,7 +114,7 @@ function CreditCardInput() {
               size="small"
               value={cvv}
               onChange={handleCardChange}
-              style={{ borderColor: errors.ccNumber ? "red" : "" }}
+              style={{ borderColor: errors.cvv ? "red" : "" }}
             />
             {!!errors.cvv && (
               <FormHelperText error id="cvvError">
@@ -136,7 +136,7 @@ function CreditCardInput() {
               required
               size="small"
               value={ccName}
-              style={{ borderColor: errors.ccNumber ? "red" : "" }}
+              style={{ borderColor: errors.ccName ? "red" : "" }}
               onChange={handleCardChange}
             />
             {!!errors.ccName && (
@@ -157,7 +157,7 @@ function CreditCardInput() {
               required
               size="small"
               value={ccExpDate}
-              style={{ borderColor: errors.ccNumber ? "red" : "" }}
+              style={{ borderColor: errors.ccExpDate ? "red" : "" }}
               onChange={handleCardChange}
             />
             {!!errors.ccExpDate && (
