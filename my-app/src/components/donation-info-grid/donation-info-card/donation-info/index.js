@@ -38,7 +38,7 @@ function DonationInfo({ editable }) {
           type={editable ? "number" : "text"}
           defaultValue={"10"}
           value={amount}
-          onChange={(e) => setField("amount", Number(e.target.value))}
+          onChange={(e) => setField("amount", e.target.value)}
           readOnly={!editable}
           disableUnderline={!editable}
           required
