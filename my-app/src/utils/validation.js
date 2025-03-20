@@ -31,6 +31,8 @@ export const validateForm = (activeStep) => {
       return findDonorAndDonationErrors(form);
     case 1:
       return findPaymentErrors(form);
+    default:
+      return {};
   }
 };
 

@@ -18,9 +18,9 @@ import Review from "./forms/Review";
 
 function CheckoutGrid({ activeStep, steps, onNext, onBack }) {
   const handleNext = () => {
-    if (activeStep == 0) {
+    if (activeStep === 0) {
       onNext();
-    } else if (activeStep == 1) {
+    } else if (activeStep === 1) {
       onNext();
     }
   };

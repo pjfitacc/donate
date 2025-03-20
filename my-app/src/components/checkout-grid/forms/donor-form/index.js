@@ -7,7 +7,6 @@ import OutlinedInput from "@mui/material/OutlinedInput";
 import { styled } from "@mui/material/styles";
 import { Alert, FormHelperText, Link, Snackbar } from "@mui/material";
 import useFormStore from "../../../../formStore";
-import { donorModel } from "../../../models";
 import useErrorStore from "errorStore";
 
 const FormGrid = styled(Grid)(() => ({
@@ -15,7 +14,7 @@ const FormGrid = styled(Grid)(() => ({
   flexDirection: "column",
 }));
 
-export default function DonorForm({}) {
+export default function DonorForm() {
   const [openSnackbar, setOpenSnackbar] = React.useState(false);
 
   const firstName = useFormStore((state) => state.firstName);
