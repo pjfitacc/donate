@@ -150,7 +150,7 @@ export default function DonorForm() {
           onChange={(e) => setField("city", e.target.value)}
           type="city"
           placeholder="New York"
-          autoComplete="City"
+          autoComplete="address-level2"
           required
           size="small"
           error={!!errors.city}
@@ -173,7 +173,7 @@ export default function DonorForm() {
           onChange={(e) => setField("state", e.target.value)}
           type="state"
           placeholder="NY"
-          autoComplete="State"
+          autoComplete="address-level1"
           required
           size="small"
           error={!!errors.state}
@@ -219,7 +219,7 @@ export default function DonorForm() {
           onChange={(e) => setField("country", e.target.value)}
           type="country"
           placeholder="United States"
-          autoComplete="shipping country"
+          autoComplete="country"
           required
           size="small"
           error={!!errors.country}
