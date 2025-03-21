@@ -19,10 +19,8 @@ import { OptionalQGWdbeFields, RequiredQGWdbeFields } from "./quantumGateway";
 //   ccName: "", // CustomerVar
 //   ccExpDate: "", //ccmo ccyr
 
-export function mapFields(input) {
+export function mapFormValuesToQGWdbeFields(input) {
   const output = {
-    gwlogin: RequiredQGWdbeFields.gwlogin,
-    override_email_customer: OptionalQGWdbeFields.override_email_customer,
     FNAME: input.firstName,
     LNAME: input.lastName,
     BCUST_EMAIL: input.email,
@@ -43,5 +41,37 @@ export function mapFields(input) {
     invoice_description: `beneficiary: ${input.beneficiary}\ncomments: ${input.comments}\n`,
   };
 
-  return output;
+  return mergeAndCleanObjects([
+    output,
+    RequiredQGWdbeFields,
+    OptionalQGWdbeFields,
+  ]);
+}
+
+function mergeAndCleanObjects(objects) {
+  // Initialize an empty object to hold the merged result
+  const merged = {};
+
+  // Iterate over each object in the list
+  objects.forEach((obj) => {
+    // Iterate over each key in the current object
+    Object.keys(obj).forEach((key) => {
+      // If the key doesn't exist in the merged object or the existing value is empty,
+      // update it with the current object's value (if it's not empty)
+      if (!merged.hasOwnProperty(key) || merged[key] === "") {
+        if (obj[key] !== "") {
+          merged[key] = obj[key];
+        }
+      }
+    });
+  });
+
+  // Remove any fields in the merged object that have empty strings
+  Object.keys(merged).forEach((key) => {
+    if (merged[key] === "") {
+      delete merged[key];
+    }
+  });
+
+  return merged;
 }
