@@ -3,7 +3,7 @@ if (process.env.REACT_APP_API_URL) {
   console.log("grabbing from the environment...");
 } else {
   console.log("default env...");
-  GWLOGIN = process.env.REACT_APP_API_URL;
+  GWLOGIN = "phimar11Dev";
 }
 
 const RETURNUrlAPPROVED = "";
@@ -27,7 +27,7 @@ export const OptionalQGWdbeFields = {
   checkacct: "",
   ResponseMethod: "",
   BCUST_EMAIL: "",
-  override_email_customer: "",
+  override_email_customer: "Y",
   override_trans_email: "",
   RestrictKey: "",
   invoice_num: "",
