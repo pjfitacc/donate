@@ -6,21 +6,18 @@ import { validateForm } from "./utils/validation";
 import DonationInfoGrid from "./components/donation-info-grid";
 import CheckoutGrid from "./components/checkout-grid";
 import useErrorStore from "errorStore";
-import HiddenSubmitForm from "HiddenSubmitForm";
+import { mapFormValuesToQGWdbeFields } from "constants/mapping";
+import useFormStore from "formStore";
+import { TransQGWdbePOSTUrl } from "constants/quantumGateway";
 
 const steps = ["Donation Info", "Payment details", "Review your order"];
 
 export default function Checkout(props) {
   const [activeStep, setActiveStep] = React.useState(0);
-  const formRef = React.useRef(null);
 
-  React.useEffect(() => {
-    if (activeStep === steps.length - 1) formRef.current.focus();
-  }, [activeStep, formRef]);
-
-  const handleNext = React.useCallback(() => {
+  const handleNext = React.useCallback(async () => {
     if (activeStep === steps.length - 1) {
-      formRef.current?.submit(); // Submit hidden form on final step
+      await submitForm();
       return;
     }
 
@@ -68,7 +65,32 @@ export default function Checkout(props) {
           onBack={handleBack}
         ></CheckoutGrid>
       </Grid>
-      {activeStep === steps.length - 1 && <HiddenSubmitForm ref={formRef} />}
     </AppTheme>
   );
 }
+
+const submitForm = async () => {
+  const form = useFormStore.getState();
+  const QGWOptions = mapFormValuesToQGWdbeFields(form);
+
+  // Convert JSON object to URL-encoded format
+  const formData = new URLSearchParams();
+  Object.entries(QGWOptions).forEach(([key, value]) => {
+    formData.append(key, value);
+  });
+
+  try {
+    const response = await fetch(TransQGWdbePOSTUrl, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/x-www-form-urlencoded",
+      },
+      body: formData.toString(), // ✅ Correctly formatted body
+    });
+
+    const textResponse = await response.text();
+    console.log("Response:", textResponse);
+  } catch (error) {
+    console.error("Error:", error);
+  }
+};

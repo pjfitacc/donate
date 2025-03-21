@@ -1,3 +1,5 @@
+import isDev from "utils/DevDetect";
+
 if (process.env.REACT_APP_API_URL) {
   var GWLOGIN = process.env.REACT_APP_API_URL;
   console.log("grabbing from the environment...");
@@ -63,4 +65,39 @@ export const OptionalQGWdbeFields = {
   RID: "",
   initial_amount: "",
   recur_times: "",
+};
+
+export const TransQGWdbePOSTUrl = isDev()
+  ? "http://localhost:5000/process-payment"
+  : "https://secure.quantumgateway.com/cgi/tqgwdbe.php";
+export const RequiredTransQGWdbeFields = {
+  gwlogin: GWLOGIN,
+  trans_method: "",
+  trans_type: "",
+  amount: "",
+  BADDR1: "",
+  BZIP1: "",
+  BCUST_EMAIL: "",
+  override_email_customer: "",
+  override_trans_email: "",
+};
+
+export const OptionalTransQGWdbeFields = {
+  transID: "",
+  ccnum: "",
+  ccmo: "",
+  ccyr: "",
+  aba: "",
+  checkacct: "",
+  BNAME: "",
+  CVV2: "",
+  CVVtype: "",
+  RestrictKey: "",
+  Dsep: "",
+  MAXMIND: "",
+  override_recur: "",
+  RID: "",
+  initial_amount: "",
+  recur_times: "",
+  OverRideRecureDay: "",
 };
