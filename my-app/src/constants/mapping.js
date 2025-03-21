@@ -19,26 +19,26 @@ import { OptionalQGWdbeFields, RequiredQGWdbeFields } from "./quantumGateway";
 //   ccName: "", // CustomerVar
 //   ccExpDate: "", //ccmo ccyr
 
-export function mapFormValuesToQGWdbeFields(input) {
+export function mapFormValuesToQGWdbeFields(form) {
   const output = {
-    FNAME: input.firstName,
-    LNAME: input.lastName,
-    BCUST_EMAIL: input.email,
-    phone: input.phone,
-    BADDR1: input.address,
-    BCITY: input.city,
-    BSTATE: input.state,
-    BZIP1: input.zip,
-    BCOUNTRY: input.country,
-    amount: input.amount,
-    UserVar_beneficiary: input.beneficiary,
-    CustomerVar_beneficiary: input.beneficiary,
-    UserVar_comments: input.comments,
-    CustomerVar_comments: input.comments,
-    ccnum: input.ccNumber,
-    CVV2: input.cvv,
-    CustomerVar: input.ccName,
-    invoice_description: `beneficiary: ${input.beneficiary}\ncomments: ${input.comments}\n`,
+    FNAME: form.firstName,
+    LNAME: form.lastName,
+    BCUST_EMAIL: form.email,
+    phone: form.phone,
+    BADDR1: form.address,
+    BCITY: form.city,
+    BSTATE: form.state,
+    BZIP1: form.zip,
+    BCOUNTRY: form.country,
+    amount: form.amount,
+    UserVar_beneficiary: form.beneficiary,
+    CustomerVar_beneficiary: form.beneficiary,
+    UserVar_comments: form.comments,
+    CustomerVar_comments: form.comments,
+    ccnum: form.ccNumber,
+    CVV2: form.cvv,
+    CustomerVar: form.ccName,
+    invoice_description: `beneficiary: ${form.beneficiary}\ncomments: ${form.comments}\n`,
   };
 
   return mergeAndCleanObjects([

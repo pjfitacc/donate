@@ -151,7 +151,7 @@ function CheckoutGrid({ activeStep, steps, onNext, onBack }) {
                 onClick={handleNext}
                 sx={{ width: { xs: "100%", sm: "fit-content" } }}
               >
-                {activeStep === steps.length - 1 ? "Place order" : "Next"}
+                {activeStep === steps.length - 1 ? "Place donation" : "Next"}
               </Button>
             </Box>
           </React.Fragment>

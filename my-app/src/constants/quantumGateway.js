@@ -6,8 +6,8 @@ if (process.env.REACT_APP_API_URL) {
   GWLOGIN = "phimar11Dev";
 }
 
-const RETURNUrlAPPROVED = "";
-const RETURNUrlDECLINED = "";
+const RETURNUrlAPPROVED = "https://www.phjesuits.org/pjf/approved.php";
+const RETURNUrlDECLINED = "https://www.phjesuits.org/pjf/declined.html";
 
 export const RequiredQGWdbeFields = {
   gwlogin: GWLOGIN,

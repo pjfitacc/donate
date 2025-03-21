@@ -6,13 +6,24 @@ import { validateForm } from "./utils/validation";
 import DonationInfoGrid from "./components/donation-info-grid";
 import CheckoutGrid from "./components/checkout-grid";
 import useErrorStore from "errorStore";
+import HiddenSubmitForm from "HiddenSubmitForm";
 
 const steps = ["Donation Info", "Payment details", "Review your order"];
 
 export default function Checkout(props) {
   const [activeStep, setActiveStep] = React.useState(0);
+  const formRef = React.useRef(null);
+
+  React.useEffect(() => {
+    if (activeStep === steps.length - 1) formRef.current.focus();
+  }, [activeStep, formRef]);
 
   const handleNext = React.useCallback(() => {
+    if (activeStep === steps.length - 1) {
+      formRef.current?.submit(); // Submit hidden form on final step
+      return;
+    }
+
     const formSubmitErrors = validateForm(activeStep);
 
     useErrorStore.getState().resetForm();
@@ -57,6 +68,7 @@ export default function Checkout(props) {
           onBack={handleBack}
         ></CheckoutGrid>
       </Grid>
+      {activeStep === steps.length - 1 && <HiddenSubmitForm ref={formRef} />}
     </AppTheme>
   );
 }
