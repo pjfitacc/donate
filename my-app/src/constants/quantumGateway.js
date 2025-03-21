@@ -1,10 +1,21 @@
+if (process.env.REACT_APP_API_URL) {
+  var GWLOGIN = process.env.REACT_APP_API_URL;
+  console.log("grabbing from the environment...");
+} else {
+  console.log("default env...");
+  GWLOGIN = process.env.REACT_APP_API_URL;
+}
+
+const RETURNUrlAPPROVED = "";
+const RETURNUrlDECLINED = "";
+
 export const RequiredQGWdbeFields = {
-  gwlogin: "",
+  gwlogin: GWLOGIN,
   amount: "",
   BADDR1: "",
   BZIP1: "",
-  post_return_url_approved: "",
-  post_return_url_declined: "",
+  post_return_url_approved: RETURNUrlAPPROVED,
+  post_return_url_declined: RETURNUrlDECLINED,
 };
 
 export const OptionalQGWdbeFields = {
