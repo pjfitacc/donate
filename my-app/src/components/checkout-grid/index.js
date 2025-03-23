@@ -1,6 +1,7 @@
 import {
   Box,
   Button,
+  CircularProgress,
   Grid2,
   Stack,
   Step,
@@ -16,10 +17,7 @@ import DonorForm from "./forms/donor-form";
 import PaymentForm from "./forms/payment-form";
 import Review from "./forms/review-form";
 
-function CheckoutGrid({ activeStep, steps, onNext, onBack }) {
-  const handleNext = () => {
-    onNext();
-  };
+function CheckoutGrid({ activeStep, steps, onNext, onBack, isSubmitting }) {
 
   const getStepContent = (step) => {
     switch (step) {
@@ -130,6 +128,7 @@ function CheckoutGrid({ activeStep, steps, onNext, onBack }) {
                   onClick={onBack}
                   variant="text"
                   sx={{ display: { xs: "none", sm: "flex" } }}
+                  disabled={isSubmitting}
                 >
                   Previous
                 </Button>
@@ -141,6 +140,7 @@ function CheckoutGrid({ activeStep, steps, onNext, onBack }) {
                   variant="outlined"
                   fullWidth
                   sx={{ display: { xs: "flex", sm: "none" } }}
+                  disabled={isSubmitting}
                 >
                   Previous
                 </Button>
@@ -148,16 +148,29 @@ function CheckoutGrid({ activeStep, steps, onNext, onBack }) {
               <Button
                 variant="contained"
                 endIcon={<ChevronRightRoundedIcon />}
-                onClick={handleNext}
-                sx={{ width: { xs: "100%", sm: "fit-content" } }}
+                onClick={onNext}
+                sx={{
+                  width: { xs: "100%", sm: "fit-content" },
+                }}
+                disabled={isSubmitting}
+                loadingPosition="end"
+                loadingIndicator={<CircularProgress
+                  size={18}
+                  sx={{
+                    color: "yellow",
+                  }}
+
+                />}
+                loading={isSubmitting}
               >
-                {activeStep === steps.length - 1 ? "Place donation" : "Next"}
+                {isSubmitting ? <Typography color="yellow">Submitting</Typography> : <>{activeStep === steps.length - 1 ? "Place donation" : "Next"}</>}
+
               </Button>
             </Box>
           </React.Fragment>
         )}
       </Box>
-    </Grid2>
+    </Grid2 >
   );
 }
 

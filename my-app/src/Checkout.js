@@ -14,10 +14,13 @@ const steps = ["Donation Info", "Payment details", "Review your order"];
 
 export default function Checkout(props) {
   const [activeStep, setActiveStep] = React.useState(0);
+  const [isSubmitting, setIsSubmitting] = React.useState(false);
 
   const handleNext = React.useCallback(async () => {
     if (activeStep === steps.length - 1) {
+      setIsSubmitting(true);
       await submitForm();
+
       return;
     }
 
@@ -63,6 +66,7 @@ export default function Checkout(props) {
           steps={steps}
           onNext={handleNext}
           onBack={handleBack}
+          isSubmitting={isSubmitting}
         ></CheckoutGrid>
       </Grid>
     </AppTheme>
@@ -89,7 +93,7 @@ const submitForm = async () => {
     });
 
     const textResponse = await response.text();
-    console.log("Response:", textResponse);
+    console.log("Submitted Response:", textResponse);
   } catch (error) {
     console.error("Error:", error);
   }
