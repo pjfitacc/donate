@@ -9,17 +9,22 @@ import useErrorStore from "stores/errorStore";
 import { mapFormValuesToQGWdbeFields } from "constants/mapping";
 import useFormStore from "stores/formStore";
 import { TransQGWdbePOSTUrl } from "constants/quantumGateway";
+import Submitted from "./Submitted";
 
 const steps = ["Donation Info", "Payment details", "Review your order"];
+const FINALSTEP = steps.length - 1;
 
 export default function Checkout(props) {
   const [activeStep, setActiveStep] = React.useState(0);
   const [isSubmitting, setIsSubmitting] = React.useState(false);
+  const [submitResponse, setSubmitResponse] = React.useState(null);
 
   const handleNext = React.useCallback(async () => {
-    if (activeStep === steps.length - 1) {
+    if (activeStep === FINALSTEP) {
       setIsSubmitting(true);
-      await submitForm();
+      const response = await submitForm();
+
+      setSubmitResponse(response)
 
       return;
     }
@@ -56,20 +61,30 @@ export default function Checkout(props) {
           },
         }}
       >
-        <DonationInfoGrid
-          editable={activeStep === 0 ? true : false}
-          activeStep={activeStep}
-        ></DonationInfoGrid>
+        {
+          submitResponse &&
+          <Submitted transactionResponse={submitResponse} />
+        }
+        {
+          submitResponse === null &&
+          <>
+            <DonationInfoGrid
+              editable={activeStep === 0 ? true : false}
+              activeStep={activeStep}
+            ></DonationInfoGrid>
 
-        <CheckoutGrid
-          activeStep={activeStep}
-          steps={steps}
-          onNext={handleNext}
-          onBack={handleBack}
-          isSubmitting={isSubmitting}
-        ></CheckoutGrid>
+            <CheckoutGrid
+              activeStep={activeStep}
+              steps={steps}
+              onNext={handleNext}
+              onBack={handleBack}
+              isSubmitting={isSubmitting}
+            ></CheckoutGrid>
+          </>
+        }
+
       </Grid>
-    </AppTheme>
+    </AppTheme >
   );
 }
 
@@ -92,8 +107,10 @@ const submitForm = async () => {
       body: formData.toString(), // ✅ Correctly formatted body
     });
 
-    const textResponse = await response.text();
-    console.log("Submitted Response:", textResponse);
+    const jsonResponse = await response.json() // Convert response to JSON
+
+
+    return jsonResponse.response;
   } catch (error) {
     console.error("Error:", error);
   }

@@ -1,21 +1,16 @@
 import {
   Box,
-  Button,
-  CircularProgress,
   Grid2,
-  Stack,
   Step,
   StepLabel,
   Stepper,
-  Typography,
 } from "@mui/material";
 import React from "react";
-import ChevronLeftRoundedIcon from "@mui/icons-material/ChevronLeftRounded";
-import ChevronRightRoundedIcon from "@mui/icons-material/ChevronRightRounded";
 import MobileStepper from "../mobile/MobileStepper";
 import DonorForm from "./forms/donor-form";
 import PaymentForm from "./forms/payment-form";
 import Review from "./forms/review-form";
+import Buttons from "components/navigation/Buttons";
 
 function CheckoutGrid({ activeStep, steps, onNext, onBack, isSubmitting }) {
 
@@ -85,90 +80,8 @@ function CheckoutGrid({ activeStep, steps, onNext, onBack, isSubmitting }) {
       </Box>
       <Box sx={checkoutInnerBoxStyle}>
         <MobileStepper activeStep={activeStep} steps={steps} />
-        {activeStep === steps.length ? (
-          <Stack id="complete-donation" spacing={2} useFlexGap>
-            <Typography variant="h1">📦</Typography>
-            <Typography variant="h5">Thank you for your order!</Typography>
-            <Typography variant="body1" sx={{ color: "text.secondary" }}>
-              Your order number is
-              <strong>&nbsp;#140396</strong>. We have emailed your order
-              confirmation and will update you once its shipped.
-            </Typography>
-            <Button
-              variant="contained"
-              sx={{ alignSelf: "start", width: { xs: "100%", sm: "auto" } }}
-            >
-              Go to my orders
-            </Button>
-          </Stack>
-        ) : (
-          <React.Fragment>
-            {getStepContent(activeStep)}
-            <Box
-              id="navigation-buttons"
-              sx={[
-                {
-                  display: "flex",
-                  flexDirection: { xs: "column-reverse", sm: "row" },
-                  alignItems: "end",
-                  flexGrow: 1,
-                  gap: 1,
-                  pb: { xs: 12, sm: 0 },
-                  mt: { xs: 2, sm: 0 },
-                  mb: "60px",
-                },
-                activeStep !== 0
-                  ? { justifyContent: "space-between" }
-                  : { justifyContent: "flex-end" },
-              ]}
-            >
-              {activeStep !== 0 && (
-                <Button
-                  startIcon={<ChevronLeftRoundedIcon />}
-                  onClick={onBack}
-                  variant="text"
-                  sx={{ display: { xs: "none", sm: "flex" } }}
-                  disabled={isSubmitting}
-                >
-                  Previous
-                </Button>
-              )}
-              {activeStep !== 0 && (
-                <Button
-                  startIcon={<ChevronLeftRoundedIcon />}
-                  onClick={onBack}
-                  variant="outlined"
-                  fullWidth
-                  sx={{ display: { xs: "flex", sm: "none" } }}
-                  disabled={isSubmitting}
-                >
-                  Previous
-                </Button>
-              )}
-              <Button
-                variant="contained"
-                endIcon={<ChevronRightRoundedIcon />}
-                onClick={onNext}
-                sx={{
-                  width: { xs: "100%", sm: "fit-content" },
-                }}
-                disabled={isSubmitting}
-                loadingPosition="end"
-                loadingIndicator={<CircularProgress
-                  size={18}
-                  sx={{
-                    color: "yellow",
-                  }}
-
-                />}
-                loading={isSubmitting}
-              >
-                {isSubmitting ? <Typography color="yellow">Submitting</Typography> : <>{activeStep === steps.length - 1 ? "Place donation" : "Next"}</>}
-
-              </Button>
-            </Box>
-          </React.Fragment>
-        )}
+        {getStepContent(activeStep)}
+        <Buttons activeStep={activeStep} steps={steps} onNext={onNext} onBack={onBack} isSubmitting={isSubmitting} />
       </Box>
     </Grid2 >
   );
