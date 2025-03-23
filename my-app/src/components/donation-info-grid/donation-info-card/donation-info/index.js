@@ -3,8 +3,8 @@ import PropTypes from "prop-types";
 import Typography from "@mui/material/Typography";
 import BeneficiarySelect from "./beneficiary-select";
 import { FormControl, FormHelperText, FormLabel, Input } from "@mui/material";
-import useFormStore from "formStore";
-import useErrorStore from "errorStore";
+import useFormStore from "stores/formStore";
+import useErrorStore from "stores/errorStore";
 
 function DonationInfo({ editable }) {
   const amount = useFormStore((state) => state.amount);

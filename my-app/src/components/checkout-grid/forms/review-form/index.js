@@ -5,7 +5,7 @@ import ListItem from "@mui/material/ListItem";
 import ListItemText from "@mui/material/ListItemText";
 import Stack from "@mui/material/Stack";
 import Typography from "@mui/material/Typography";
-import useFormStore from "formStore";
+import useFormStore from "stores/formStore";
 import { Grid2 } from "@mui/material";
 
 export default function Review() {

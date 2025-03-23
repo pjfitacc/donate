@@ -6,8 +6,8 @@ import Grid from "@mui/material/Grid2";
 import OutlinedInput from "@mui/material/OutlinedInput";
 import { styled } from "@mui/material/styles";
 import { Alert, FormHelperText, Link, Snackbar } from "@mui/material";
-import useFormStore from "../../../../formStore";
-import useErrorStore from "errorStore";
+import useFormStore from "../../../../stores/formStore";
+import useErrorStore from "stores/errorStore";
 
 const FormGrid = styled(Grid)(() => ({
   display: "flex",

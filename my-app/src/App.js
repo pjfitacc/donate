@@ -1,7 +1,7 @@
 import React from "react";
 import "./App.css";
-import "./Checkout";
-import Checkout from "./Checkout";
+import "./pages/Checkout";
+import Checkout from "./pages/Checkout";
 
 function App() {
   return <Checkout />;
