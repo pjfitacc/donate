@@ -1,4 +1,6 @@
-import { OptionalQGWdbeFields, RequiredQGWdbeFields } from "../constants/quantumGateway";
+import { fakeQGWResponse } from "data/fake";
+import { OptionalQGWdbeFields, RequiredQGWdbeFields, TransQGWdbePOSTUrl } from "../constants/quantumGateway";
+import { validateQuantumGatewayResponse } from "./validation";
 
 //  FORM VALUES to QGWdb Engine Fields Mapping
 //   firstName: "", // FNAME
@@ -74,4 +76,42 @@ function mergeAndCleanObjects(objects) {
   });
 
   return merged;
+}
+
+export async function createQuantumGatewayTransaction(QGWOptions) {
+  // Convert JSON object to URL-encoded format
+  const formData = new URLSearchParams();
+  Object.entries(QGWOptions).forEach(([key, value]) => {
+    formData.append(key, value);
+  });
+
+  try {
+    const response = await getQGWResponse(formData)
+
+    if (!response.ok) {
+      throw new Error(`Response status from Payment Server: ${response.status}`);
+    }
+
+    const jsonResponse = await response.json() // Convert response to JSON
+
+    validateQuantumGatewayResponse(jsonResponse);
+
+    return jsonResponse;
+  } catch (error) {
+    return error;
+  }
+}
+
+async function getQGWResponse(formData) {
+  if (process.env.REACT_APP_FAKE) {
+    return fakeQGWResponse
+  }
+
+  return fetch(TransQGWdbePOSTUrl, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/x-www-form-urlencoded",
+    },
+    body: formData.toString(), // ✅ Correctly formatted body
+  });
 }
