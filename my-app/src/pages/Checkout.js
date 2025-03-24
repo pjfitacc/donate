@@ -1,7 +1,5 @@
 import * as React from "react";
-import CssBaseline from "@mui/material/CssBaseline";
 import Grid from "@mui/material/Grid2";
-import AppTheme from "../shared-theme/AppTheme";
 import { validateForm, validateQuantumGatewayResponse } from "../utils/validation";
 import DonationInfoGrid from "../components/donation-info-grid";
 import CheckoutGrid from "../components/checkout-grid";
@@ -10,12 +8,12 @@ import { mapFormValuesToQGWdbeFields } from "constants/mapping";
 import useFormStore from "stores/formStore";
 import { TransQGWdbePOSTUrl } from "constants/quantumGateway";
 import isDev from "utils/DevDetect";
-import { fakeApprovedQGWJsonResponse, fakeDeclinedQGWJsonResponse, fakeQGWResponse } from "data/fake";
+import { fakeQGWResponse } from "data/fake";
 
 const steps = ["Donation Info", "Payment details", "Review your order"];
 const FINALSTEP = steps.length - 1;
 
-export default function Checkout({ setSubmitResponse, ...props }) {
+export default function Checkout({ setSubmitResponse }) {
   const [activeStep, setActiveStep] = React.useState(0);
   const [isSubmitting, setIsSubmitting] = React.useState(false);
 
@@ -38,7 +36,7 @@ export default function Checkout({ setSubmitResponse, ...props }) {
     }
 
     setActiveStep(activeStep + 1);
-  }, [activeStep, setActiveStep]);
+  }, [activeStep, setActiveStep, setSubmitResponse]);
 
   const handleBack = React.useCallback(() => {
     setActiveStep(activeStep - 1);

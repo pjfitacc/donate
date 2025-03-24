@@ -1,8 +1,7 @@
-import { CssBaseline, Grid2 } from '@mui/material'
+import { Grid2 } from '@mui/material'
 import PaymentFailure from 'components/PaymentFailure'
 import PaymentSuccess from 'components/PaymentSuccess'
 import React from 'react'
-import AppTheme from 'shared-theme/AppTheme'
 
 // The response will either be
 // 1. an Error Object 
@@ -12,7 +11,7 @@ import AppTheme from 'shared-theme/AppTheme'
 // important note: 
 // notice how response 2 (JSON) says "APPROVED". a valid response from QuantumGateway but in a declined state will return as an Error Object.
 // If a response from QuantumGateway is declined, the message will be shown in the Error object's message key
-function Submitted({ response, ...props }) {
+function Submitted({ response }) {
     const content = () => {
         if (response instanceof Error || response === null) {
             return <PaymentFailure error={response} />

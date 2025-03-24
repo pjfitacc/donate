@@ -26,11 +26,11 @@ export const fakeFilledForm = {
 // Settings. SALES does not use AVS
 // and CVV2 settings. 
 // https://www.quantumgateway.com/files/QGW-Non-Interactive_API.pdf
-export const fakeApprovedQGWJsonResponse = {
+const fakeApprovedQGWJsonResponse = {
   "quantumGatewayTransactionResponse": ["APPROVED", "019452", "652145", "", "", "", "VI", "1111", "0"]
 }
 
-export const fakeDeclinedQGWJsonResponse = {
+const fakeDeclinedQGWJsonResponse = {
   "quantumGatewayTransactionResponse": ["DECLINED", "019452", "652145", "N", "N", "0.6", "INVALID EXP DATE", "205"]
 }
 
@@ -38,7 +38,7 @@ const jsonObject = fakeDeclinedQGWJsonResponse;
 const jsonString = JSON.stringify(jsonObject);
 
 export const fakeQGWResponse = new Response(jsonString, {
-  status: 400,
+  status: 200,
   headers: {
     'Content-Type': 'application/json'
   }
