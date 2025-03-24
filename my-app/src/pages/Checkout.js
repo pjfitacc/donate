@@ -45,36 +45,32 @@ export default function Checkout({ setSubmitResponse, ...props }) {
   }, [activeStep]);
 
   return (
-    <AppTheme {...props}>
-      <CssBaseline enableColorScheme />
+    <Grid
+      container
+      sx={{
+        height: {
+          xs: "100%",
+          sm: "calc(100dvh - var(--template-frame-height, 0px))",
+        },
+        mt: {
+          xs: 4,
+          sm: 0,
+        },
+      }}
+    >
+      <DonationInfoGrid
+        editable={activeStep === 0 ? true : false}
+        activeStep={activeStep}
+      ></DonationInfoGrid>
 
-      <Grid
-        container
-        sx={{
-          height: {
-            xs: "100%",
-            sm: "calc(100dvh - var(--template-frame-height, 0px))",
-          },
-          mt: {
-            xs: 4,
-            sm: 0,
-          },
-        }}
-      >
-        <DonationInfoGrid
-          editable={activeStep === 0 ? true : false}
-          activeStep={activeStep}
-        ></DonationInfoGrid>
-
-        <CheckoutGrid
-          activeStep={activeStep}
-          steps={steps}
-          onNext={handleNext}
-          onBack={handleBack}
-          isSubmitting={isSubmitting}
-        ></CheckoutGrid>
-      </Grid>
-    </AppTheme >
+      <CheckoutGrid
+        activeStep={activeStep}
+        steps={steps}
+        onNext={handleNext}
+        onBack={handleBack}
+        isSubmitting={isSubmitting}
+      ></CheckoutGrid>
+    </Grid>
   );
 }
 

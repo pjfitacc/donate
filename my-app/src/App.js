@@ -3,8 +3,10 @@ import "./App.css";
 import "./pages/Checkout";
 import Checkout from "./pages/Checkout";
 import Submitted from "pages/Submitted";
+import AppTheme from "shared-theme/AppTheme";
+import { CssBaseline } from "@mui/material";
 
-function App() {
+function App({ ...props }) {
   const [submitResponse, setSubmitResponse] = React.useState(null);
 
   const page = () => {
@@ -17,7 +19,13 @@ function App() {
   }
 
 
-  return page();
+  return (
+    <AppTheme {...props}>
+      <CssBaseline enableColorScheme />
+      {page()}
+    </AppTheme>
+  )
+
 }
 
 
