@@ -64,10 +64,12 @@ function findPaymentErrors(form) {
 
   const { ccNumber, cvv, ccExpDate } = form;
 
+  const digitsOnlyCCNumber = ccNumber.replace(/\D/g, "");
+
   if (
     !ccNumber ||
-    !/^[0-9]{13,16}$/.test(ccNumber) ||
-    !Object.values(cardPatterns).some((pattern) => pattern.test(ccNumber))
+    !/^[0-9]{13,16}$/.test(digitsOnlyCCNumber) ||
+    !Object.values(cardPatterns).some((pattern) => pattern.test(digitsOnlyCCNumber))
   ) {
     errors.ccNumber = "Invalid or unsupported credit card number.";
   }
