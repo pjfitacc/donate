@@ -21,14 +21,6 @@ function PaymentSuccess({ response }) {
                 The email <strong>{submittedForm.email}</strong> should get a receipt soon.
             </Typography>
 
-            <Typography variant="h6">Support Us Again</Typography>
-            Feel free to support us again by making this donation recurring.
-            <Button
-                variant="contained"
-                sx={{ alignSelf: "start", width: { xs: "100%", sm: "auto" } }}
-            >
-                Set up my recurring donation
-            </Button>
 
             <ContactCard />
         </Stack>
