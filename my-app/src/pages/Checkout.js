@@ -8,6 +8,7 @@ import useFormStore from "stores/formStore";
 import { TransQGWdbePOSTUrl } from "constants/quantumGateway";
 import isDev from "utils/DevDetect";
 import { fakeQGWResponse } from "data/fake";
+import { Grid2 } from "@mui/material";
 
 const steps = ["Donation Info", "Payment details", "Review your order"];
 const FINALSTEP = steps.length - 1;
@@ -42,7 +43,19 @@ export default function Checkout({ setSubmitResponse }) {
   }, [activeStep]);
 
   return (
-    <>
+    <Grid2
+      container
+      sx={{
+        height: {
+          xs: "100%",
+          sm: "calc(100dvh - var(--template-frame-height, 0px))",
+        },
+        pt: {
+          xs: 2,
+          sm: 0,
+        },
+      }}
+    >
       <DonationInfoGrid
         editable={activeStep === 0 ? true : false}
         activeStep={activeStep}
@@ -55,7 +68,7 @@ export default function Checkout({ setSubmitResponse }) {
         onBack={handleBack}
         isSubmitting={isSubmitting}
       ></CheckoutGrid>
-    </>
+    </Grid2 >
   );
 }
 

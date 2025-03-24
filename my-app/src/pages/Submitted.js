@@ -2,6 +2,7 @@ import { Card, CardContent, Typography } from '@mui/material'
 import PaymentSuccess from 'components/PaymentSuccess'
 import React from 'react'
 import PaymentFailure from 'components/PaymentFailure'
+import "./submitted.css"
 
 // The response will either be
 // 1. an Error Object 
@@ -21,11 +22,17 @@ function Submitted({ response }) {
     }
 
     return (
-        <Card sx={{ margin: "auto", minheight: "50%", minWidth: "40%", alignContent: "center", alignItems: "center" }}>
-            <CardContent>
-                {content()}
-            </CardContent>
-        </Card>
+        <div className="gradientBackground" style={{
+            height: "100vh", width: "100%", display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'center'
+        }}>
+            <Card sx={{ margin: "auto", minheight: "50%", minWidth: "40%", alignContent: "center", alignItems: "center" }}>
+                <CardContent>
+                    {content()}
+                </CardContent>
+            </Card>
+        </div>
     )
 }
 
