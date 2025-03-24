@@ -69,7 +69,7 @@ export const OptionalQGWdbeFields = {
 
 export const TransQGWdbePOSTUrl = isDev()
   ? "http://localhost:8000/api/donate.php"
-  : "https://secure.quantumgateway.com/cgi/tqgwdbe.php";
+  : "https://php-server-nine.vercel.app/api/donate.php";
 export const RequiredTransQGWdbeFields = {
   gwlogin: GWLOGIN,
   trans_method: "",
