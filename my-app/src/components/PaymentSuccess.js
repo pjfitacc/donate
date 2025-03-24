@@ -1,5 +1,6 @@
 import { Button, CardContent, Stack, Typography } from '@mui/material'
 import { TransQGWdbeApprovedResponseSequence } from 'constants/quantumGateway'
+import { ContactCard } from 'pages/Submitted';
 import React from 'react'
 import useFormStore from 'stores/formStore';
 
@@ -29,22 +30,7 @@ function PaymentSuccess({ response }) {
                 Set up my recurring donation
             </Button>
 
-            <CardContent>
-                <Typography variant="h6">Contact</Typography>
-                <Typography variant="body2" sx={{ color: 'text.secondary' }}>
-                    If you have any concerns regarding your donation, please contact:
-                    <br></br>
-
-                    <br></br>
-                    Ms. Fern L. Robles
-                    <br></br>
-                    Executive Director
-                    <br></br>
-                    pjf@phjesuits.org
-                    <br></br>
-                    Telephone number: (646) 370-1526
-                </Typography>
-            </CardContent>
+            <ContactCard />
         </Stack>
     )
 }

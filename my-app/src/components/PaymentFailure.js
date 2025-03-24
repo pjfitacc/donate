@@ -1,3 +1,4 @@
+import { ContactCard } from 'pages/Submitted'
 import React from 'react'
 
 function PaymentFailure({ error }) {
@@ -7,6 +8,7 @@ function PaymentFailure({ error }) {
             <br>
             </br>
             <div>Please contact pjfexecdir@gmail.com or pjfitacc@gmail.com for further help</div>
+            <ContactCard />
         </>
     )
 }
