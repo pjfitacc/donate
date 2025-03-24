@@ -1,7 +1,7 @@
 import { Button, Stack, Typography } from '@mui/material'
 import React from 'react'
 
-function PaymentSuccess() {
+function PaymentSuccess({ response }) {
     return (
         <Stack id="complete-donation" spacing={2} useFlexGap>
             <Typography variant="h1">📦</Typography>
