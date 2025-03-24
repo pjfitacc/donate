@@ -3,7 +3,7 @@ import { validateForm, validateQuantumGatewayResponse } from "../utils/validatio
 import DonationInfoGrid from "../components/donation-info-grid";
 import CheckoutGrid from "../components/checkout-grid";
 import useErrorStore from "stores/errorStore";
-import { mapFormValuesToQGWdbeFields } from "constants/mapping";
+import { mapFormValuesToQGWdbeFields } from "utils/quantumGateway";
 import useFormStore from "stores/formStore";
 import { TransQGWdbePOSTUrl } from "constants/quantumGateway";
 import isDev from "utils/DevDetect";

@@ -1,4 +1,4 @@
-import { OptionalQGWdbeFields, RequiredQGWdbeFields } from "./quantumGateway";
+import { OptionalQGWdbeFields, RequiredQGWdbeFields } from "../constants/quantumGateway";
 
 //  FORM VALUES to QGWdb Engine Fields Mapping
 //   firstName: "", // FNAME
