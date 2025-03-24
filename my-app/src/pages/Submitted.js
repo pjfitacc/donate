@@ -21,7 +21,7 @@ function Submitted({ response }) {
     }
 
     return (
-        <Card sx={{ margin: "auto", height: "50%", minWidth: "40%", alignContent: "center", alignItems: "center" }}>
+        <Card sx={{ margin: "auto", minheight: "50%", minWidth: "40%", alignContent: "center", alignItems: "center" }}>
             <CardContent>
                 {content()}
             </CardContent>

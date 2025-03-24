@@ -101,3 +101,27 @@ export const OptionalTransQGWdbeFields = {
   recur_times: "",
   OverRideRecureDay: "",
 };
+
+export const TransQGWdbeDeclinedResponseSequence = Object.freeze({
+  TRANSACTION_STATUS: 0,
+  AUTH_CODE: 1,
+  TRANSACTION_ID: 2,
+  AVS_RESPONSE: 3,
+  CVV2_RESPONSE: 4,
+  MAXMIND_SCORE: 5,
+  DECLINE_REASON: 6,
+  DECLINE_ERROR_NUMBER: 7
+});
+
+export const TransQGWdbeApprovedResponseSequence = Object.freeze({
+  TRANSACTION_STATUS: 0,
+  AUTH_CODE: 1,
+  TRANSACTION_ID: 2,
+  AVS_RESPONSE: 3,
+  CVV2_RESPONSE: 4,
+  MAXMIND_SCORE: 5,
+  CARD_PROVIDER: 6,
+  LAST_4_DIGITS: 7
+});
+
+
