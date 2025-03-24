@@ -9,9 +9,9 @@ import {
 import Box from "@mui/material/Box";
 import SimCardRoundedIcon from "@mui/icons-material/SimCardRounded";
 import { FormGrid, PaymentContainer } from "./styles";
-import useFormStore from "formStore";
+import useFormStore from "stores/formStore";
 import React from "react";
-import useErrorStore from "errorStore";
+import useErrorStore from "stores/errorStore";
 
 function CreditCardInput() {
   // Handlers to update form fields

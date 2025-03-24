@@ -1,4 +1,4 @@
-import { fakeFilledForm } from "data/fakeFormData";
+import { fakeFilledForm } from "data/fake";
 import isDev from "utils/DevDetect";
 import { create } from "zustand";
 

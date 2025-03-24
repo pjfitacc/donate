@@ -17,6 +17,7 @@ function DonationInfoGrid({ editable, activeStep }) {
           sm: "center",
           md: activeStep <= 1 ? "flex-start" : "center",
         }, // Center content vertically on xs
+        width: "100%",
         borderRight: { xs: "none", md: "1px solid" }, // Add border only on md+
         borderColor: { xs: "none", md: "divider" },
         pt: { xs: 2, md: 4 }, // Adjust padding
@@ -33,7 +34,6 @@ function DonationInfoGrid({ editable, activeStep }) {
           alignItems: "center",
           width: { xs: "100%", md: "100%" }, // Makes it smaller on mobile for better spacing
           transform: { md: activeStep > 1 ? "scale(3)" : "scale(1)" }, // Replace `x` with your scaling factor
-          transition: "transform 0.3s ease", // Optional: Add smooth transition
         }}
       >
         <PHJLogo />

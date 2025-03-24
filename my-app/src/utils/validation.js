@@ -1,26 +1,5 @@
-// const [donor, setDonor] = React.useState({
-//     firstName: '',
-//     lastName: '',
-//     email: '',
-//     phone: '',
-//     address: '',
-//     city: '',
-//     state: '',
-//     zip: '',
-//     country: '',
-//     acceptTerms: false,
-//   });
-
 import { donationModel, donorModel, paymentModel } from "components/models";
-import useFormStore from "formStore";
-
-// const [donation, setDonation] = React.useState(
-//     {
-//       amount: 10,
-//       beneficiary: '',
-//       comments: '',
-//     }
-//   );
+import useFormStore from "stores/formStore";
 
 // Only thing not required is the phone.
 export const validateForm = (activeStep) => {
@@ -116,34 +95,28 @@ function findPaymentErrors(form) {
   return errors;
 }
 
-// const handleCardNumberChange = (event, name) => {
-//   const value = event.target.value.replace(/\D/g, "");
-//   const formattedValue = value.replace(/(\d{4})(?=\d)/g, "$1 ");
-//   if (value.length <= 16) {
-//     setPayment((prevData) => ({
-//       ...prevData,
-//       [name]: formattedValue,
-//     }));
-//   }
-// };
 
-// const handleCvvChange = (event, name) => {
-//   const value = event.target.value.replace(/\D/g, "");
-//   if (value.length <= 3) {
-//     setPayment((prevData) => ({
-//       ...prevData,
-//       [name]: value,
-//     }));
-//   }
-// };
+// jsonResponse should be: https://developer.mozilla.org/en-US/docs/Web/API/Response/json_static
+export function validateQuantumGatewayResponse(jsonResponse) {
+  if (!("quantumGatewayTransactionResponse" in jsonResponse)) {
+    throw new Error("Unable to retrieve response from our Payment Gateway.")
+  }
 
-// const handleExpirationDateChange = (event, name) => {
-//   const value = event.target.value.replace(/\D/g, "");
-//   const formattedValue = value.replace(/(\d{2})(?=\d{2})/, "$1/");
-//   if (value.length <= 4) {
-//     setPayment((prevData) => ({
-//       ...prevData,
-//       [name]: formattedValue,
-//     }));
-//   }
-// };
+  const qgwTransResponse = jsonResponse["quantumGatewayTransactionResponse"]
+
+  if (!Array.isArray(qgwTransResponse)) {
+    throw new Error("Invalid response from our Payment Gateway.")
+  }
+
+  if (qgwTransResponse.length === 0) {
+    throw new Error("Empty transaction response from our Payment Gateway")
+  }
+
+  if (qgwTransResponse[0] === "DECLINED") {
+    throw new Error(`DECLINED: ${qgwTransResponse[Math.max(0, qgwTransResponse.length - 2)]}`)
+  }
+
+  if (qgwTransResponse[0] !== "APPROVED") {
+    throw new Error("Improper formatting from our Payment Gateway.")
+  }
+}
