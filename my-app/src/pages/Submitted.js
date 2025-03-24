@@ -1,7 +1,7 @@
-import { Grid2 } from '@mui/material'
-import PaymentFailure from 'components/PaymentFailure'
+import { Card, CardContent } from '@mui/material'
 import PaymentSuccess from 'components/PaymentSuccess'
 import React from 'react'
+import PaymentFailure from 'components/PaymentFailure'
 
 // The response will either be
 // 1. an Error Object 
@@ -21,9 +21,11 @@ function Submitted({ response }) {
     }
 
     return (
-        <Grid2>
-            {content()}
-        </Grid2>
+        <Card sx={{ margin: "auto", height: "50%", minWidth: "40%", alignContent: "center", alignItems: "center" }}>
+            <CardContent>
+                {content()}
+            </CardContent>
+        </Card>
     )
 }
 

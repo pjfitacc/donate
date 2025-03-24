@@ -1,0 +1,11 @@
+.gradientBackground {
+    background-color: #ffbd99;
+    background-image: 
+        radial-gradient(at 9% 57%, hsla(45,72%,65%,1) 0px, transparent 50%),
+        radial-gradient(at 56% 40%, hsla(21,91%,62%,1) 0px, transparent 50%),
+        radial-gradient(at 18% 75%, hsla(15,77%,69%,1) 0px, transparent 50%),
+        radial-gradient(at 31% 75%, hsla(5,97%,60%,1) 0px, transparent 50%),
+        radial-gradient(at 0% 58%, hsla(96,62%,63%,1) 0px, transparent 50%),
+        radial-gradient(at 39% 86%, hsla(162,62%,77%,1) 0px, transparent 50%),
+        radial-gradient(at 75% 39%, hsla(356,66%,63%,1) 0px, transparent 50%);
+}

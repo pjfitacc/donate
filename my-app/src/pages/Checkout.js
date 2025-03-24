@@ -1,5 +1,4 @@
 import * as React from "react";
-import Grid from "@mui/material/Grid2";
 import { validateForm, validateQuantumGatewayResponse } from "../utils/validation";
 import DonationInfoGrid from "../components/donation-info-grid";
 import CheckoutGrid from "../components/checkout-grid";
@@ -43,19 +42,7 @@ export default function Checkout({ setSubmitResponse }) {
   }, [activeStep]);
 
   return (
-    <Grid
-      container
-      sx={{
-        height: {
-          xs: "100%",
-          sm: "calc(100dvh - var(--template-frame-height, 0px))",
-        },
-        mt: {
-          xs: 4,
-          sm: 0,
-        },
-      }}
-    >
+    <>
       <DonationInfoGrid
         editable={activeStep === 0 ? true : false}
         activeStep={activeStep}
@@ -68,7 +55,7 @@ export default function Checkout({ setSubmitResponse }) {
         onBack={handleBack}
         isSubmitting={isSubmitting}
       ></CheckoutGrid>
-    </Grid>
+    </>
   );
 }
 
