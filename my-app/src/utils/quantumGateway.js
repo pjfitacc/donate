@@ -45,6 +45,10 @@ export function mapFormValuesToQGWdbeFields(form) {
     CVV2: form.cvv,
     UserVar_name_on_credit_card: form.ccName,
     CustomerVar_name_on_credit_card: form.ccName,
+    RID: form.recipeID,
+    recur_times: form.timesToRecur,
+    override_recur: form.overrideRecurPrice,
+    OverRideRecureDay: form.overrideRecurDay,
     invoice_description: `beneficiary: ${form.beneficiary}\ncomments: ${form.comments}\n`,
   };
 
