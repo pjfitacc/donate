@@ -1,5 +1,9 @@
 import { fakeQGWResponse } from "data/fake";
-import { OptionalQGWdbeFields, RequiredQGWdbeFields, TransQGWdbePOSTUrl } from "../constants/quantumGateway";
+import {
+  OptionalQGWdbeFields,
+  RequiredQGWdbeFields,
+  TransQGWdbePOSTUrl,
+} from "../constants/quantumGateway";
 import { validateQuantumGatewayResponse } from "./validation";
 
 //  FORM VALUES to QGWdb Engine Fields Mapping
@@ -87,13 +91,15 @@ export async function createQuantumGatewayTransaction(QGWOptions) {
   });
 
   try {
-    const response = await getQGWResponse(formData)
+    const response = await getQGWResponse(formData);
 
     if (!response.ok) {
-      throw new Error(`Response status from Payment Server: ${response.status}`);
+      throw new Error(
+        `Response status from Payment Server: ${response.status}`
+      );
     }
 
-    const jsonResponse = await response.json() // Convert response to JSON
+    const jsonResponse = await response.json(); // Convert response to JSON
 
     validateQuantumGatewayResponse(jsonResponse);
 
@@ -105,7 +111,7 @@ export async function createQuantumGatewayTransaction(QGWOptions) {
 
 async function getQGWResponse(formData) {
   if (process.env.REACT_APP_FAKE) {
-    return fakeQGWResponse
+    return fakeQGWResponse;
   }
 
   return fetch(TransQGWdbePOSTUrl, {
