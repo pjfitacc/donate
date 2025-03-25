@@ -39,7 +39,8 @@ export function mapFormValuesToQGWdbeFields(form) {
     CustomerVar_comments: form.comments,
     ccnum: form.ccNumber,
     CVV2: form.cvv,
-    CustomerVar: form.ccName,
+    UserVar_name_on_credit_card: form.ccName,
+    CustomerVar_name_on_credit_card: form.ccName,
     invoice_description: `beneficiary: ${form.beneficiary}\ncomments: ${form.comments}\n`,
   };
 
