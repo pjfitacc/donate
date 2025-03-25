@@ -21,6 +21,10 @@ const initialState = {
   cvv: "",
   ccName: "",
   ccExpDate: "",
+  recipeID: "",
+  timesToRecur: "",
+  overrideRecurPrice: "",
+  overrideRecurDay: "",
 };
 
 // Merge the fakeFilledDonor object with the initial state if in development
