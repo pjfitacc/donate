@@ -17,6 +17,10 @@ export const fakeFilledForm = {
   cvv: "999",
   ccName: "John Doe",
   ccExpDate: "12/25",
+  recipeID: "4",
+  timesToRecur: "",
+  overrideRecurPrice: "",
+  overrideRecurDay: "",
 };
 
 // TransparentQGWDB Engine Response: https://www.quantumgateway.com/view_developer.php?Cat1=3
@@ -24,7 +28,7 @@ export const fakeFilledForm = {
 // A SALE, same as CREDIT, is a charge
 // and will bypass the Processing
 // Settings. SALES does not use AVS
-// and CVV2 settings. 
+// and CVV2 settings.
 // https://www.quantumgateway.com/files/QGW-Non-Interactive_API.pdf
 const fakeApprovedQGWJsonResponse = {
   quantumGatewayTransactionResponse: [
