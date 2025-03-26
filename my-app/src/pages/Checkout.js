@@ -73,8 +73,19 @@ export default function Checkout({ setSubmitResponse }) {
 }
 
 const submitForm = async () => {
+  // Clear out Recurring Fields in the Form if the form's isRecurring method is false.
+  filterForm();
+
   const form = useFormStore.getState();
   const QGWOptions = mapFormValuesToQGWdbeFields(form);
 
   return createQuantumGatewayTransaction(QGWOptions);
+};
+
+const filterForm = () => {
+  const preFilteredForm = useFormStore.getState();
+  // Clear out Recurring Fields in the Form if the form's isRecurring method is false.
+  if (!preFilteredForm.isRecurring) {
+    preFilteredForm.clearRecurringFields();
+  }
 };

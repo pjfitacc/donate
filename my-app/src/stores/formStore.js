@@ -43,6 +43,13 @@ const useFormStore = create((set, get) => ({
   // Setters
   setField: (field, value) => set(() => ({ [field]: value })),
   setFormData: (data) => set(() => ({ ...data })),
+  clearRecurringFields: () =>
+    set(() => ({
+      recipeID: "",
+      timesToRecur: "",
+      overrideRecurPrice: "",
+      overrideRecurDay: "",
+    })),
   resetForm: () => set(() => initialState),
 }));
 
