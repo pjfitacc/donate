@@ -49,6 +49,8 @@ export function mapFormValuesToQGWdbeFields(form) {
     recur_times: form.timesToRecur,
     override_recur: form.overrideRecurPrice,
     OverRideRecureDay: form.overrideRecurDay,
+    UserVar_is_recurring_transaction: form.recipeID.trim().length > 0,
+    CustomerVar_is_recurring_transaction: form.recipeID.trim().length > 0,
     invoice_description: `beneficiary: ${form.beneficiary}\ncomments: ${form.comments}\n`,
   };
 
