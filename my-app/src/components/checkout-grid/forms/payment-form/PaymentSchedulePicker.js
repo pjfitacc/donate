@@ -10,6 +10,7 @@ import {
 } from "@mui/material";
 import MuiCard from "@mui/material/Card";
 import React from "react";
+import useFormStore from "stores/formStore";
 
 const Card = styled(MuiCard)(({ theme }) => ({
   border: "1px solid",
@@ -48,11 +49,13 @@ const Card = styled(MuiCard)(({ theme }) => ({
   ],
 }));
 
-function PaymentSchedulePicker({
-  isRecurring,
-  handlePaymentScheduleChange,
-  setRecurring,
-}) {
+function PaymentSchedulePicker({ isRecurring }) {
+  const setField = useFormStore((state) => state.setField);
+
+  const setRecurring = (value) => {
+    setField("isRecurring", value);
+  };
+
   return (
     <FormControl component="fieldset" fullWidth>
       <FormLabel htmlFor="">Donation Schedule</FormLabel>
@@ -60,7 +63,6 @@ function PaymentSchedulePicker({
         aria-label="Payment options"
         name="paymentSchedule"
         value={isRecurring ? "recurring" : "oneTime"}
-        onChange={handlePaymentScheduleChange}
         sx={{
           display: "flex",
           flexDirection: { xs: "column", sm: "row" },
