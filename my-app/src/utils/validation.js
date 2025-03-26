@@ -69,7 +69,9 @@ function findPaymentErrors(form) {
   if (
     !ccNumber ||
     !/^[0-9]{13,16}$/.test(digitsOnlyCCNumber) ||
-    !Object.values(cardPatterns).some((pattern) => pattern.test(digitsOnlyCCNumber))
+    !Object.values(cardPatterns).some((pattern) =>
+      pattern.test(digitsOnlyCCNumber)
+    )
   ) {
     errors.ccNumber = "Invalid or unsupported credit card number.";
   }
@@ -97,21 +99,20 @@ function findPaymentErrors(form) {
   return errors;
 }
 
-
 // jsonResponse should be: https://developer.mozilla.org/en-US/docs/Web/API/Response/json_static
 export function validateQuantumGatewayResponse(jsonResponse) {
   if (!("quantumGatewayTransactionResponse" in jsonResponse)) {
-    throw new Error("Unable to retrieve response from our Payment Gateway.")
+    throw new Error("Unable to retrieve response from our Payment Gateway.");
   }
 
-  const qgwTransResponse = jsonResponse["quantumGatewayTransactionResponse"]
+  const qgwTransResponse = jsonResponse["quantumGatewayTransactionResponse"];
 
   if (!Array.isArray(qgwTransResponse)) {
-    throw new Error("Invalid response from our Payment Gateway.")
+    throw new Error("Invalid response from our Payment Gateway.");
   }
 
   if (qgwTransResponse.length === 0) {
-    throw new Error("Empty transaction response from our Payment Gateway")
+    throw new Error("Empty transaction response from our Payment Gateway");
   }
 
   if (qgwTransResponse[0] === "DECLINED") {
@@ -123,6 +124,6 @@ export function validateQuantumGatewayResponse(jsonResponse) {
   }
 
   if (qgwTransResponse[0] !== "APPROVED") {
-    throw new Error("Improper formatting from our Payment Gateway.")
+    throw new Error("Improper formatting from our Payment Gateway.");
   }
 }
