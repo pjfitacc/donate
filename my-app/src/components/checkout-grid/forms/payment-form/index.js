@@ -4,7 +4,7 @@ import Stack from "@mui/material/Stack";
 
 import PaymentSchedulePicker from "./PaymentSchedulePicker";
 import CreditCardInput from "./credit-card-input";
-import RecurringInput from "./RecurringInput";
+import RecurringInput from "./recurring-input";
 
 export default function PaymentForm() {
   const [paymentSchedule, setPaymentSchedule] = React.useState("oneTime");
