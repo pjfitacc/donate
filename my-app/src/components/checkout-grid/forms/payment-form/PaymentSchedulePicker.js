@@ -49,9 +49,9 @@ const Card = styled(MuiCard)(({ theme }) => ({
 }));
 
 function PaymentSchedulePicker({
-  paymentSchedule,
+  isRecurring,
   handlePaymentScheduleChange,
-  setPaymentSchedule,
+  setRecurring,
 }) {
   return (
     <FormControl component="fieldset" fullWidth>
@@ -59,7 +59,7 @@ function PaymentSchedulePicker({
       <RadioGroup
         aria-label="Payment options"
         name="paymentSchedule"
-        value={paymentSchedule}
+        value={isRecurring ? "recurring" : "oneTime"}
         onChange={handlePaymentScheduleChange}
         sx={{
           display: "flex",
@@ -69,10 +69,10 @@ function PaymentSchedulePicker({
       >
         <Card
           // @ts-ignore
-          selected={paymentSchedule === "oneTime"}
+          selected={!isRecurring}
         >
           <CardActionArea
-            onClick={() => setPaymentSchedule("oneTime")}
+            onClick={() => setRecurring(false)}
             sx={{
               ".MuiCardActionArea-focusHighlight": {
                 backgroundColor: "transparent",
@@ -92,7 +92,7 @@ function PaymentSchedulePicker({
                       color: "grey.600",
                     }),
                   }),
-                  paymentSchedule === "oneTime" && {
+                  !isRecurring && {
                     color: "primary.main",
                   },
                 ]}
@@ -105,10 +105,10 @@ function PaymentSchedulePicker({
         </Card>
         <Card
           // @ts-ignore
-          selected={paymentSchedule === "recurring"}
+          selected={isRecurring}
         >
           <CardActionArea
-            onClick={() => setPaymentSchedule("recurring")}
+            onClick={() => setRecurring(true)}
             sx={{
               ".MuiCardActionArea-focusHighlight": {
                 backgroundColor: "transparent",
@@ -128,7 +128,7 @@ function PaymentSchedulePicker({
                       color: "grey.600",
                     }),
                   }),
-                  paymentSchedule === "recurring" && {
+                  isRecurring && {
                     color: "primary.main",
                   },
                 ]}
