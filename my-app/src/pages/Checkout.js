@@ -3,7 +3,10 @@ import { validateForm } from "../utils/validation";
 import DonationInfoGrid from "../components/donation-info-grid";
 import CheckoutGrid from "../components/checkout-grid";
 import useErrorStore from "stores/errorStore";
-import { createQuantumGatewayTransaction, mapFormValuesToQGWdbeFields } from "utils/quantumGateway";
+import {
+  createQuantumGatewayTransaction,
+  mapFormValuesToQGWdbeFields,
+} from "utils/quantumGateway";
 import useFormStore from "stores/formStore";
 import { Grid2 } from "@mui/material";
 
@@ -19,7 +22,7 @@ export default function Checkout({ setSubmitResponse }) {
       setIsSubmitting(true);
       const response = await submitForm();
 
-      setSubmitResponse(response)
+      setSubmitResponse(response);
 
       return;
     }
@@ -65,7 +68,7 @@ export default function Checkout({ setSubmitResponse }) {
         onBack={handleBack}
         isSubmitting={isSubmitting}
       ></CheckoutGrid>
-    </Grid2 >
+    </Grid2>
   );
 }
 
