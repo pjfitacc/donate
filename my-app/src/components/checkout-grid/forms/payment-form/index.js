@@ -7,20 +7,20 @@ import CreditCardInput from "./credit-card-input";
 import RecurringInput from "./recurring-input";
 
 export default function PaymentForm() {
-  const [paymentSchedule, setPaymentSchedule] = React.useState("oneTime");
+  const [isRecurring, setRecurring] = React.useState("oneTime");
 
   const handlePaymentScheduleChange = (event) => {
-    setPaymentSchedule(event.target.value);
+    setRecurring(event.target.value);
   };
 
   return (
     <Stack spacing={{ xs: 3, sm: 6 }} useFlexGap>
       <PaymentSchedulePicker
-        paymentSchedule={paymentSchedule}
+        paymentSchedule={isRecurring}
         handlePaymentScheduleChange={handlePaymentScheduleChange}
-        setPaymentSchedule={setPaymentSchedule}
+        setPaymentSchedule={setRecurring}
       />
-      {paymentSchedule === "recurring" && <RecurringInput />}
+      {isRecurring === "recurring" && <RecurringInput />}
       <CreditCardInput />
     </Stack>
   );
