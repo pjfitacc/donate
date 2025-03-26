@@ -115,7 +115,11 @@ export function validateQuantumGatewayResponse(jsonResponse) {
   }
 
   if (qgwTransResponse[0] === "DECLINED") {
-    throw new Error(`DECLINED: ${qgwTransResponse[Math.max(0, qgwTransResponse.length - 2)]}`)
+    throw new Error(
+      `DECLINED: ${
+        qgwTransResponse[Math.max(0, qgwTransResponse.length - 2)]
+      } ${qgwTransResponse[Math.max(0, qgwTransResponse.length - 1)]}`
+    );
   }
 
   if (qgwTransResponse[0] !== "APPROVED") {
