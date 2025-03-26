@@ -2,7 +2,7 @@
 export const fakeFilledForm = {
   firstName: "John",
   lastName: "Doe",
-  email: "john.doe@example.com",
+  email: "pjfitacc@gmail.com",
   phone: "123-456-7890",
   address: "123 Fake St",
   city: "Faketown",
