@@ -25,6 +25,7 @@ const initialState = {
   timesToRecur: "",
   overrideRecurPrice: "",
   overrideRecurDay: "",
+  isRecurring: false,
 };
 
 // Merge the fakeFilledDonor object with the initial state if in development
