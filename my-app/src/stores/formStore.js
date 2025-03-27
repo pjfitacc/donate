@@ -21,10 +21,8 @@ const initialState = {
   cvv: "",
   ccName: "",
   ccExpDate: "",
-  recipeID: "",
-  timesToRecur: "",
-  overrideRecurPrice: "",
-  overrideRecurDay: "",
+  initialIntervalAmount: null,
+  recurAmount: 10,
   isRecurring: false,
 };
 
@@ -49,6 +47,8 @@ const useFormStore = create((set, get) => ({
       timesToRecur: "",
       overrideRecurPrice: "",
       overrideRecurDay: "",
+      initialIntervalAmount: "",
+      recurAmount: "",
     })),
   resetForm: () => set(() => initialState),
 }));
