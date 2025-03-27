@@ -77,3 +77,12 @@ const initialPayment = {
 };
 
 export const paymentModel = isDev() ? fakeFilledPayment : initialPayment;
+
+export const recurringSettingsModel = {
+  recipeID: "",
+  timesToRecur: "",
+  overrideRecurPrice: "",
+  overrideRecurDay: "",
+  initialIntervalAmount: "",
+  recurAmount: "",
+};

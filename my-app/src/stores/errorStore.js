@@ -18,6 +18,12 @@ const useErrorStore = create((set, get) => ({
   cvv: "",
   ccName: "",
   ccExpDate: "",
+  recipeID: "",
+  timesToRecur: "",
+  overrideRecurPrice: "",
+  overrideRecurDay: "",
+  initialIntervalAmount: "",
+  recurAmount: "",
 
   // Getters
   getFormData: () => get(),

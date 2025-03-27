@@ -17,10 +17,6 @@ export const fakeFilledForm = {
   cvv: "999",
   ccName: "John Doe",
   ccExpDate: "12/25",
-  recipeID: "4",
-  timesToRecur: "",
-  overrideRecurPrice: "",
-  overrideRecurDay: "",
 };
 
 // TransparentQGWDB Engine Response: https://www.quantumgateway.com/view_developer.php?Cat1=3

@@ -1,4 +1,9 @@
-import { donationModel, donorModel, paymentModel } from "components/models";
+import {
+  donationModel,
+  donorModel,
+  paymentModel,
+  recurringSettingsModel,
+} from "components/models";
 import useFormStore from "stores/formStore";
 
 // Only thing not required is the phone.
@@ -52,6 +57,22 @@ export const cardPatterns = {
 
 function findPaymentErrors(form) {
   let errors = {};
+
+  if (form.isRecurring) {
+    for (const key in recurringSettingsModel) {
+      if (!form[key]) {
+        errors[key] = "This field is required";
+      }
+    }
+
+    if (form.initialIntervalAmount < 0) {
+      errors.initialIntervalAmount = "Must be greater than 0";
+    }
+
+    if (form.recurAmount < 0) {
+      errors.recurAmount = "Must be greater than 0";
+    }
+  }
 
   // Make a for loop that adds an error message to the errors object if the value of the key is empty.
   for (const key in paymentModel) {
