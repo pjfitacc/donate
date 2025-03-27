@@ -110,7 +110,7 @@ export const TransQGWdbeDeclinedResponseSequence = Object.freeze({
   CVV2_RESPONSE: 4,
   MAXMIND_SCORE: 5,
   DECLINE_REASON: 6,
-  DECLINE_ERROR_NUMBER: 7
+  DECLINE_ERROR_NUMBER: 7,
 });
 
 export const TransQGWdbeApprovedResponseSequence = Object.freeze({
@@ -121,7 +121,33 @@ export const TransQGWdbeApprovedResponseSequence = Object.freeze({
   CVV2_RESPONSE: 4,
   MAXMIND_SCORE: 5,
   CARD_PROVIDER: 6,
-  LAST_4_DIGITS: 7
+  LAST_4_DIGITS: 7,
 });
 
-
+// Developer Recurring Recipes
+export const RecurringRecipes = Object.freeze({
+  WEEKLY_FORM_SUBMIT: {
+    rid: "4",
+    recurAmount: 2.0,
+    type: "Weekly",
+    cycleDay: "Monday",
+  },
+  MONTHLY_FORM_SUBMIT: {
+    rid: "5",
+    recurAmount: 8.0,
+    type: "Monthly",
+    cycleDay: "05",
+  },
+  STANDARD_QUARTERLY_FORM_SUBMIT: {
+    rid: "6",
+    recurAmount: 24.0,
+    type: "Standard Quarterly",
+    cycleDay: "01",
+  },
+  STANDARD_YEARLY_FORM_SUBMIT: {
+    rid: "7",
+    recurAmount: 96.0,
+    type: "Standard Yearly",
+    cycleDay: "01",
+  },
+});
