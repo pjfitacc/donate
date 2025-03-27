@@ -26,6 +26,10 @@ function RecurringInput() {
   );
   const amount = useFormStore((state) => state.amount);
 
+  if (initialIntervalAmount === null) {
+    setField("initialIntervalAmount", amount);
+  }
+
   const errors = useErrorStore((state) => state);
 
   return (
@@ -41,9 +45,7 @@ function RecurringInput() {
           <OutlinedInput
             id="initialIntervalAmount"
             name="initialIntervalAmount"
-            value={
-              initialIntervalAmount === null ? amount : initialIntervalAmount
-            }
+            value={initialIntervalAmount}
             onChange={(e) => setField("initialIntervalAmount", e.target.value)}
             type="number"
             autoComplete="number"
