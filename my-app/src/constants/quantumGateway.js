@@ -125,27 +125,27 @@ export const TransQGWdbeApprovedResponseSequence = Object.freeze({
 });
 
 // Developer Recurring Recipes
-export const RecurringRecipes = Object.freeze({
-  WEEKLY_FORM_SUBMIT: {
-    rid: "4",
+export const RecurringRecipeIDs = Object.freeze({
+  4: {
+    name: "WEEKLY_FORM_SUBMIT",
     recurAmount: 2.0,
     type: "Weekly",
     cycleDay: "Monday",
   },
-  MONTHLY_FORM_SUBMIT: {
-    rid: "5",
+  5: {
+    name: "MONTHLY_FORM_SUBMIT",
     recurAmount: 8.0,
     type: "Monthly",
     cycleDay: "05",
   },
-  STANDARD_QUARTERLY_FORM_SUBMIT: {
-    rid: "6",
+  6: {
+    name: "QUARTERLY_FORM_SUBMIT",
     recurAmount: 24.0,
     type: "Standard Quarterly",
     cycleDay: "01",
   },
-  STANDARD_YEARLY_FORM_SUBMIT: {
-    rid: "7",
+  7: {
+    name: "YEARLY_FORM_SUBMIT",
     recurAmount: 96.0,
     type: "Standard Yearly",
     cycleDay: "01",

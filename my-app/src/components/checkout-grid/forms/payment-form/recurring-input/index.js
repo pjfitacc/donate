@@ -10,6 +10,7 @@ import Box from "@mui/material/Box";
 import React from "react";
 import useFormStore from "stores/formStore";
 import useErrorStore from "stores/errorStore";
+import RecipeIDSelect from "./recipe-id-select";
 
 const FormGrid = styled(Grid)(() => ({
   display: "flex",
@@ -30,6 +31,10 @@ function RecurringInput() {
     setField("initialIntervalAmount", amount);
   }
 
+  // TODO:
+  // 2. timesToRecur - number
+  // 3. overrideRecurDay - "Y"/"N" if the donor wants to override the default RecurringRecipes cycleDay to today.
+
   const errors = useErrorStore((state) => state);
 
   return (
@@ -38,6 +43,9 @@ function RecurringInput() {
         Donation Plan Setup
       </Typography>
       <Grid container spacing={3}>
+        <FormGrid size={{ xs: 12, md: 6 }}>
+          <RecipeIDSelect />
+        </FormGrid>
         <FormGrid size={{ xs: 12, md: 6 }}>
           <FormLabel htmlFor="initialIntervalAmount" required>
             Custom Interval 1 Price
