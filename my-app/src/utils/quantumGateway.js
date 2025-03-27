@@ -1,7 +1,9 @@
 import { fakeQGWResponse } from "data/fake";
 import {
   OptionalQGWdbeFields,
+  OptionalTransQGWdbeFields,
   RequiredQGWdbeFields,
+  RequiredTransQGWdbeFields,
   TransQGWdbePOSTUrl,
 } from "../constants/quantumGateway";
 import { validateQuantumGatewayResponse } from "./validation";
@@ -49,8 +51,8 @@ export function mapFormValuesToQGWdbeFields(form) {
     recur_times: form.timesToRecur,
     override_recur: form.overrideRecurPrice,
     OverRideRecureDay: form.overrideRecurDay,
-    UserVar_is_recurring_transaction: form.recipeID.trim().length > 0,
-    CustomerVar_is_recurring_transaction: form.recipeID.trim().length > 0,
+    UserVar_is_recurring_transaction: form.recipeID?.trim().length > 0,
+    CustomerVar_is_recurring_transaction: form.recipeID?.trim().length > 0,
     invoice_description: `beneficiary: ${form.beneficiary}\ncomments: ${form.comments}\n`,
   };
 
@@ -127,4 +129,46 @@ async function getQGWResponse(formData) {
     },
     body: formData.toString(), // ✅ Correctly formatted body
   });
+}
+
+export async function changeTransactionToRecurring(oldTransID, newQGWOptions) {
+  // Create New Recurring Transaction that acts as the Single transaction replacement
+  delete newQGWOptions.transID;
+
+  if (newQGWOptions.RID?.trim().length === 0 || !newQGWOptions.RID) {
+    return new Error("RID is empty. Cannot create recurring transaction.");
+  }
+
+  const newRecurringTransaction = await createQuantumGatewayTransaction(
+    newQGWOptions
+  );
+
+  if (newRecurringTransaction instanceof Error) {
+    return newRecurringTransaction;
+  }
+
+  // Delete the old transaction
+  const voidResponse = deleteQuantumGatewayTransaction(oldTransID);
+  if (voidResponse instanceof Error) {
+    return voidResponse;
+  }
+
+  // Return the new transaction response
+  return newRecurringTransaction;
+}
+
+async function deleteQuantumGatewayTransaction(transID) {
+  const QGWOptions = {
+    ...RequiredTransQGWdbeFields,
+    ...OptionalTransQGWdbeFields,
+  };
+
+  if (transID === "") {
+    return new Error("transID is empty. Cannot delete transaction.");
+  }
+
+  QGWOptions.transID = transID;
+  QGWOptions.trans_type = "VOID";
+
+  return await createQuantumGatewayTransaction(QGWOptions);
 }
