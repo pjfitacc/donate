@@ -61,6 +61,9 @@ function findPaymentErrors(form) {
   if (form.isRecurring) {
     for (const key in recurringSettingsModel) {
       if (!form[key]) {
+        if (key === "timesToRecur" && form[key] === 0) {
+          continue;
+        }
         errors[key] = "This field is required";
       }
     }
