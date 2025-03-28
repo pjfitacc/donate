@@ -7,6 +7,7 @@ import Stack from "@mui/material/Stack";
 import Typography from "@mui/material/Typography";
 import useFormStore from "stores/formStore";
 import { Grid2 } from "@mui/material";
+import { RecurringRecipeIDs } from "constants/quantumGateway";
 
 export default function Review() {
   const {
@@ -25,6 +26,11 @@ export default function Review() {
     ccNumber,
     ccName,
     ccExpDate,
+    recipeID,
+    timesToRecur,
+    initialIntervalAmount,
+    recurAmount,
+    isRecurring,
   } = useFormStore((state) => state);
   const addresses = [address, city, state, zip, country];
 
@@ -34,6 +40,41 @@ export default function Review() {
     { name: "Card number:", detail: formatAndMaskCreditCard(ccNumber) },
     { name: "Expiry date:", detail: ccExpDate },
   ];
+
+  const recurringInfo = [
+    {
+      label: "Initial Donation Amount on Submit",
+      value: `${initialIntervalAmount} USD`,
+    },
+    { label: "Recurring Amount", value: `${recurAmount} USD` },
+    { label: "Recurring Frequency", value: RecurringRecipeIDs[recipeID].type },
+    {
+      label: "Times to recur:",
+      value: `${timesToRecur === 0 ? "Indefinite" : timesToRecur}`,
+    },
+  ];
+
+  const reviewAmount = () => {
+    if (isRecurring) {
+      return recurringInfo.map((info) => (
+        <ListItem sx={{ py: 1, px: 0 }} key={info.label}>
+          <ListItemText primary={info.label} />
+          <Typography variant="subtitle1" sx={{ fontWeight: 700 }}>
+            {info.value}
+          </Typography>
+        </ListItem>
+      ));
+    } else {
+      return (
+        <ListItem sx={{ py: 1, px: 0 }}>
+          <ListItemText primary="Total" />
+          <Typography variant="subtitle1" sx={{ fontWeight: 700 }}>
+            {amount} USD
+          </Typography>
+        </ListItem>
+      );
+    }
+  };
 
   return (
     <Stack spacing={2}>
@@ -48,12 +89,7 @@ export default function Review() {
             <em>{comments ? comments : "None"}</em>
           </Typography>
         </ListItem>
-        <ListItem sx={{ py: 1, px: 0 }}>
-          <ListItemText primary="Total" />
-          <Typography variant="subtitle1" sx={{ fontWeight: 700 }}>
-            {amount} USD
-          </Typography>
-        </ListItem>
+        {reviewAmount()}
       </List>
       <Divider />
       <Stack
