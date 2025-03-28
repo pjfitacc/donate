@@ -47,7 +47,7 @@ export default function Review() {
       value: `${initialIntervalAmount} USD`,
     },
     { label: "Recurring Amount", value: `${recurAmount} USD` },
-    { label: "Recurring Frequency", value: RecurringRecipeIDs[recipeID].type },
+    { label: "Recurring Frequency", value: RecurringRecipeIDs[recipeID]?.type },
     {
       label: "Times to recur:",
       value: `${timesToRecur === 0 ? "Indefinite" : timesToRecur}`,
