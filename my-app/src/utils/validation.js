@@ -39,6 +39,14 @@ function findDonorAndDonationErrors(form) {
     if (!form[key]) {
       errors[key] = "This field is required";
     }
+
+    // if the form's beneficiary contains custom and the customBeneficiary is empty, add an error
+    // for custom beneficiaries
+
+    if (key === "beneficiary" && form[key].toLowerCase().includes("custom") && !form.customBeneficiary) {
+      // Custom beneficiary is required if the beneficiary contains the word "custom"
+      errors.customBeneficiary = "Custom beneficiary is required when 'Custom' is selected as beneficiary.";
+    }
   }
 
   return errors;

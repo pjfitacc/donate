@@ -50,5 +50,9 @@ export const beneficiaries = [
     {
       "name": "Tanging Yaman Foundation",
       "price": "10.00"
+    },
+    {
+      "name": "Custom (other beneficiaries not in this list)",
+      "price": "10.00"
     }
   ];

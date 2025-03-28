@@ -57,6 +57,15 @@ export function mapFormValuesToQGWdbeFields(form) {
     invoice_description: `beneficiary: ${form.beneficiary}\ncomments: ${form.comments}\n`,
   };
 
+  // if beneficiary contains the word "custom", set UserVar_beneficiary and CustomerVar_beneficiary to the custom beneficiary value
+  // This is to handle custom beneficiaries
+  if (form.beneficiary && form.beneficiary.toLowerCase().includes("custom")) {
+    output.UserVar_customBeneficiary = form.customBeneficiary;
+    output.CustomerVar_customBeneficiary = form.customBeneficiary;
+    // Ensure invoice_description reflects the custom beneficiary
+    output.invoice_description = `beneficiary: ${output.UserVar_beneficiary}\ncustom beneficiary: ${output.UserVar_customBeneficiary}\ncomments: ${form.comments}\n`;
+  }
+
   return mergeAndCleanObjects([
     output,
     RequiredQGWdbeFields,

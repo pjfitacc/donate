@@ -22,6 +22,7 @@ export default function Review() {
     country,
     amount,
     beneficiary,
+    customBeneficiary,
     comments,
     ccNumber,
     ccName,
@@ -81,7 +82,7 @@ export default function Review() {
       <List disablePadding>
         <ListItem sx={{ py: 1, px: 0 }}>
           <ListItemText primary="Donation to" />
-          <Typography variant="body2">{beneficiary}</Typography>
+          <Typography variant="body2">{beneficiary.toLowerCase().includes("custom") ? `Custom Beneficiary: ${customBeneficiary}`: beneficiary}</Typography>
         </ListItem>
         <ListItem sx={{ py: 1, px: 0 }}>
           <ListItemText primary="Comments" />
