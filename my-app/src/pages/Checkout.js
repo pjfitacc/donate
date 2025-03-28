@@ -18,20 +18,20 @@ export default function Checkout({ setSubmitResponse }) {
   const [isSubmitting, setIsSubmitting] = React.useState(false);
 
   const handleNext = React.useCallback(async () => {
+    const formSubmitErrors = validateForm(activeStep);
+
+    useErrorStore.getState().resetForm();
+    if (Object.keys(formSubmitErrors).length > 0) {
+      useErrorStore.setState(formSubmitErrors);
+      return;
+    }
+
     if (activeStep === FINALSTEP) {
       setIsSubmitting(true);
       const response = await submitForm();
 
       setSubmitResponse(response);
 
-      return;
-    }
-
-    const formSubmitErrors = validateForm(activeStep);
-
-    useErrorStore.getState().resetForm();
-    if (Object.keys(formSubmitErrors).length > 0) {
-      useErrorStore.setState(formSubmitErrors);
       return;
     }
 

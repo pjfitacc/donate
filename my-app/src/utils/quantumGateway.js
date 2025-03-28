@@ -55,6 +55,8 @@ export function mapFormValuesToQGWdbeFields(form) {
     UserVar_is_recurring_transaction: form.recipeID?.trim().length > 0,
     CustomerVar_is_recurring_transaction: form.recipeID?.trim().length > 0,
     invoice_description: `beneficiary: ${form.beneficiary}\ncomments: ${form.comments}\n`,
+    UserVar_recurringEmailedReceiptFrequency: form.isRecurring ? form.recurringEmailedReceiptFrequency : "",
+    CustomerVar_recurringEmailedReceiptFrequency: form.isRecurring ? form.recurringEmailedReceiptFrequency : "",
   };
 
   // if beneficiary contains the word "custom", set UserVar_beneficiary and CustomerVar_beneficiary to the custom beneficiary value
@@ -65,7 +67,6 @@ export function mapFormValuesToQGWdbeFields(form) {
     // Ensure invoice_description reflects the custom beneficiary
     output.invoice_description = `beneficiary: ${output.UserVar_beneficiary}\ncustom beneficiary: ${output.UserVar_customBeneficiary}\ncomments: ${form.comments}\n`;
   }
-
   return mergeAndCleanObjects([
     output,
     RequiredQGWdbeFields,

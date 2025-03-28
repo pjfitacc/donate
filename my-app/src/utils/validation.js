@@ -15,6 +15,8 @@ export const validateForm = (activeStep) => {
       return findDonorAndDonationErrors(form);
     case 1:
       return findPaymentErrors(form);
+    case 2:
+      return findReviewErrors(form);
     default:
       return {};
   }
@@ -140,6 +142,16 @@ function findPaymentErrors(form) {
     if (year < currentYear || (year === currentYear && month < currentMonth)) {
       errors.ccExpDate = "Credit card is expired.";
     }
+  }
+
+  return errors;
+}
+
+function findReviewErrors(form) {
+  let errors = {};
+
+  if (form.isRecurring && form.recurringEmailedReceiptFrequency === "") {
+    errors.recurringEmailedReceiptFrequency = "Select how often you get emailed receipts for recurring donations.";
   }
 
   return errors;

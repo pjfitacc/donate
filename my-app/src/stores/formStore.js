@@ -28,6 +28,7 @@ const initialState = {
   overrideRecurDay: "N",
   initialIntervalAmount: null,
   recurAmount: 10,
+  recurringEmailedReceiptFrequency: "",
   isRecurring: false,
 };
 
