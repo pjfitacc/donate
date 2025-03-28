@@ -11,6 +11,7 @@ import React from "react";
 import useFormStore from "stores/formStore";
 import useErrorStore from "stores/errorStore";
 import RecipeIDSelect from "./recipe-id-select";
+import NumberOfIntervals from "./intervals-select";
 
 const FormGrid = styled(Grid)(() => ({
   display: "flex",
@@ -20,6 +21,7 @@ const FormGrid = styled(Grid)(() => ({
 function RecurringInput() {
   const setField = useFormStore((state) => state.setField);
   setField("overrideRecurPrice", "Y");
+  const timesToRecur = useFormStore((state) => state.timesToRecur);
 
   const recurAmount = useFormStore((state) => state.recurAmount);
   const initialIntervalAmount = useFormStore(
@@ -32,7 +34,6 @@ function RecurringInput() {
   }
 
   // TODO:
-  // 2. timesToRecur - number
   // 3. overrideRecurDay - "Y"/"N" if the donor wants to override the default RecurringRecipes cycleDay to today.
 
   const errors = useErrorStore((state) => state);
@@ -46,9 +47,14 @@ function RecurringInput() {
         <FormGrid size={{ xs: 12, md: 6 }}>
           <RecipeIDSelect />
         </FormGrid>
+        <NumberOfIntervals
+          timesToRecur={timesToRecur}
+          setField={setField}
+          errors={errors}
+        />
         <FormGrid size={{ xs: 12, md: 6 }}>
           <FormLabel htmlFor="initialIntervalAmount" required>
-            Custom Interval 1 Price
+            Initial donation amount on submit (USD)
           </FormLabel>
           <OutlinedInput
             id="initialIntervalAmount"
@@ -70,7 +76,7 @@ function RecurringInput() {
         </FormGrid>
         <FormGrid size={{ xs: 12, md: 6 }}>
           <FormLabel htmlFor="recurAmount" required>
-            Price per Interval
+            Price per Interval (USD)
           </FormLabel>
           <OutlinedInput
             id="recurAmount"
@@ -89,38 +95,6 @@ function RecurringInput() {
           )}
         </FormGrid>
       </Grid>
-      <Box sx={{ display: "flex", gap: 1 }}>
-        <Typography variant="body1" sx={{ color: "text.secondary" }}>
-          Default Options:
-        </Typography>
-        <Typography variant="body1" sx={{ fontWeight: "medium" }}>
-          Monthly, Quarterly, Yearly
-        </Typography>
-      </Box>
-      <Box sx={{ display: "flex", gap: 1 }}>
-        <Typography variant="body1" sx={{ color: "text.secondary" }}>
-          Payment Start Date:
-        </Typography>
-        <Typography variant="body1" sx={{ fontWeight: "medium" }}>
-          May 4th 2025 (info ?)
-        </Typography>
-      </Box>
-      <Box sx={{ display: "flex", gap: 1 }}>
-        <Typography variant="body1" sx={{ color: "text.secondary" }}>
-          Frequency:
-        </Typography>
-        <Typography variant="body1" sx={{ fontWeight: "medium" }}>
-          Weekly
-        </Typography>
-      </Box>
-      <Box sx={{ display: "flex", gap: 1 }}>
-        <Typography variant="body1" sx={{ color: "text.secondary" }}>
-          End of Recurring Cycle:
-        </Typography>
-        <Typography variant="body1" sx={{ fontWeight: "medium" }}>
-          June 2025
-        </Typography>
-      </Box>
     </Box>
   );
 }

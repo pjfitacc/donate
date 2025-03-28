@@ -68,6 +68,16 @@ function findPaymentErrors(form) {
       }
     }
 
+    // Validate timesToRecur
+    if (form.timesToRecur < 0) {
+      errors.timesToRecur = "Must be greater than 0";
+    }
+
+    // Validate timesToRecur is a number
+    if (isNaN(form.timesToRecur)) {
+      errors.timesToRecur = "Must be a number";
+    }
+
     if (form.initialIntervalAmount < 0) {
       errors.initialIntervalAmount = "Must be greater than 0";
     }
