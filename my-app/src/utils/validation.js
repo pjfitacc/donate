@@ -27,10 +27,6 @@ function findDonorAndDonationErrors(form) {
     errors.email = "Invalid email format";
   }
 
-  if (form.amount < 0) {
-    errors.amount = "Donation amount must be greater than 0";
-  }
-
   // Make a for loop that adds an error message to the errors object if the value of the key is empty.
   for (const key in donorModel) {
     if (!form[key] && key !== "phone") {
@@ -40,7 +36,7 @@ function findDonorAndDonationErrors(form) {
 
   // Make a for loop that adds an error message to the errors object if the value of the key is empty.
   for (const key in donationModel) {
-    if (!form[key] && key !== "comments") {
+    if (!form[key]) {
       errors[key] = "This field is required";
     }
   }
@@ -84,6 +80,14 @@ function findPaymentErrors(form) {
 
     if (form.recurAmount < 0) {
       errors.recurAmount = "Must be greater than 0";
+    }
+  } else {
+    if (!form.amount) {
+      errors.amount = "This field is required";
+    }
+
+    if (form.amount < 0) {
+      errors.amount = "Donation amount must be greater than 0";
     }
   }
 

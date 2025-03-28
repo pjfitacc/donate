@@ -49,15 +49,11 @@ const fakeFilledDonor = {
 export const donorModel = isDev() ? fakeFilledDonor : initialDonor;
 
 const initialDonation = {
-  amount: 10,
   beneficiary: "",
-  comments: "",
 };
 
 const fakeFilledDonation = {
-  amount: 1000,
   beneficiary: "Ateneo de Manila University",
-  comments: "Please donate it to this sponsor!",
 };
 
 export const donationModel = isDev() ? fakeFilledDonation : initialDonation;
