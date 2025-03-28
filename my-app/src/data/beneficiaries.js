@@ -4,11 +4,11 @@ export const beneficiaries = [
       price: '10.00',
     },
     {
-      "name": "Philippine Jesuits' Aged and Infirm Fund (for our Sick and Senior Jesuits)",
+      "name": "Philippine Jesuits' Elderly and Infirm Fund (for our Sick and Senior Jesuits)",
       "price": "10.00"
     },
     {
-      "name": "Philippine Jesuits' Formation Fund (for the Education and Support of our Young Jesuits)",
+      "name": "Philippine Jesuits' Formation Fund (for the Education and Support of Jesuits in training)",
       "price": "10.00"
     },
     {
