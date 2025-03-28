@@ -34,7 +34,7 @@ const NumberOfIntervals = ({ timesToRecur, setField, errors }) => {
 
   const handleNumberChange = (e) => {
     const value = e.target.value;
-    if (value != "" && value < 1) {
+    if (value !== "" && value < 1) {
       setMode("indefinite");
       setField("timesToRecur", 0);
       return;
