@@ -129,25 +129,25 @@ export const RecurringRecipeIDs = Object.freeze({
   4: {
     name: "WEEKLY_FORM_SUBMIT",
     recurAmount: 2.0,
-    type: "Weekly",
+    type: "Weekly (Every Monday)",
     cycleDay: "Monday",
   },
   5: {
     name: "MONTHLY_FORM_SUBMIT",
     recurAmount: 8.0,
-    type: "Monthly",
+    type: "Monthly (Every 5th)",
     cycleDay: "05",
   },
   6: {
     name: "QUARTERLY_FORM_SUBMIT",
     recurAmount: 24.0,
-    type: "Standard Quarterly",
+    type: "Standard Quarterly (1st of Jan, Apr, Jul, Oct)",
     cycleDay: "01",
   },
   7: {
     name: "YEARLY_FORM_SUBMIT",
     recurAmount: 96.0,
-    type: "Standard Yearly",
+    type: "Standard Yearly (Every January 1st)",
     cycleDay: "01",
   },
 });
