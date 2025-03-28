@@ -49,7 +49,7 @@ export const ContactCard = () => {
             <br></br>
             Executive Director
             <br></br>
-            pjf@phjesuits.org
+            Email: pjf@phjesuits.org (preferred method of contact)
             <br></br>
             Telephone number: (646) 370-1526
         </Typography>
