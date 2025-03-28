@@ -20,6 +20,12 @@ function PaymentSuccess({ response }) {
                 This donation's number is <strong>#{transactionID}</strong>.
                 <br></br>
                 The email <strong>{submittedForm.email}</strong> should get a receipt soon.
+                <br></br>
+                <br></br>
+
+                {!submittedForm.isRecurring &&
+                <>Please consider setting up a recurring donation plan with PJF on this same donation form for further support.</>}
+
             </Typography>
 
 
