@@ -12,7 +12,7 @@ export default function PaymentForm() {
   const isRecurring = useFormStore((state) => state.isRecurring);
 
   return (
-    <Stack spacing={{ xs: 3, sm: 6 }} useFlexGap>
+    <Stack spacing={{ xs: 6, sm: 6 }} useFlexGap>
       <PaymentSchedulePicker isRecurring={isRecurring} />
       {isRecurring && <RecurringInput />}
       {!isRecurring && <SinglePaymentInput />}
