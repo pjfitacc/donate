@@ -1,6 +1,6 @@
 import * as React from "react";
 import { Box } from "@mui/material";
-import logo from "../assets/pjflogo.webp"; // Adjust the path as necessary
+import logo from "../../assets/pjflogo.webp"; // Adjust the path as necessary
 
 export default function PHJLogo() {
   return (
