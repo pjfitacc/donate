@@ -1,10 +1,10 @@
 import React from "react";
 import "./App.css";
-import "./pages/Checkout";
+import "./pages/CreditCardCheckout";
 import Submitted from "pages/Submitted";
 import AppTheme from "shared-theme/AppTheme";
 import { CssBaseline } from "@mui/material";
-import Checkout from "./pages/Checkout";
+import Checkout from "./pages/CreditCardCheckout";
 import InitialPaymentSelect from "pages/InitialPaymentSelect";
 
 function App({ ...props }) {
