@@ -3,7 +3,7 @@ import {
   donorModel,
   paymentModel,
   recurringSettingsModel,
-} from "components/models";
+} from "constants/models";
 import useFormStore from "stores/formStore";
 
 // Only thing not required is the phone.
@@ -45,9 +45,14 @@ function findDonorAndDonationErrors(form) {
     // if the form's beneficiary contains custom and the customBeneficiary is empty, add an error
     // for custom beneficiaries
 
-    if (key === "beneficiary" && form[key].toLowerCase().includes("custom") && !form.customBeneficiary) {
+    if (
+      key === "beneficiary" &&
+      form[key].toLowerCase().includes("custom") &&
+      !form.customBeneficiary
+    ) {
       // Custom beneficiary is required if the beneficiary contains the word "custom"
-      errors.customBeneficiary = "Custom beneficiary is required when 'Custom' is selected as beneficiary.";
+      errors.customBeneficiary =
+        "Custom beneficiary is required when 'Custom' is selected as beneficiary.";
     }
   }
 
@@ -151,7 +156,8 @@ function findReviewErrors(form) {
   let errors = {};
 
   if (form.isRecurring && form.recurringEmailedReceiptFrequency === "") {
-    errors.recurringEmailedReceiptFrequency = "Select how often you get emailed receipts for recurring donations.";
+    errors.recurringEmailedReceiptFrequency =
+      "Select how often you get emailed receipts for recurring donations.";
   }
 
   return errors;
