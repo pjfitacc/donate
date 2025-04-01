@@ -28,7 +28,7 @@ const Card = styled(MuiCard)(({ theme }) => ({
   }),
 }));
 
-const InitialPaymentSelectContainer = styled(Stack)(({ theme }) => ({
+const Container = styled(Stack)(({ theme }) => ({
   height: "calc((1 - var(--template-frame-height, 0)) * 100dvh)",
   minHeight: "100%",
   padding: theme.spacing(2),
@@ -52,7 +52,7 @@ const InitialPaymentSelectContainer = styled(Stack)(({ theme }) => ({
   },
 }));
 
-function InitialPaymentSelect({ setPaymentType, ...props }) {
+function InitialPaymentSelectContainer({ setPaymentType }) {
   const { mode, setMode } = useColorScheme();
 
   React.useEffect(() => {
@@ -72,10 +72,7 @@ function InitialPaymentSelect({ setPaymentType, ...props }) {
   }
 
   return (
-    <InitialPaymentSelectContainer
-      direction="column"
-      justifyContent="space-between"
-    >
+    <Container direction="column" justifyContent="space-between">
       {/* <ColorModeSelect sx={{ position: "fixed", top: "1rem", right: "1rem" }} /> */}
       <Card variant="outlined">
         <PHJLogo sx={{ alignSelf: "center" }} />
@@ -124,15 +121,15 @@ function InitialPaymentSelect({ setPaymentType, ...props }) {
             </Typography> */}
         </Box>
       </Card>
-    </InitialPaymentSelectContainer>
+    </Container>
   );
 }
 
-export default function ({ setPaymentType }) {
+export default function InitialPaymentSelect({ setPaymentType }) {
   return (
     <GradientBackground
       ChildComponent={() => (
-        <InitialPaymentSelect setPaymentType={setPaymentType} />
+        <InitialPaymentSelectContainer setPaymentType={setPaymentType} />
       )}
     />
   );
