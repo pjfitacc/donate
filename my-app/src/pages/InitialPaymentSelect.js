@@ -21,7 +21,7 @@ const Card = styled(MuiCard)(({ theme }) => ({
   gap: theme.spacing(2),
   margin: "auto",
   [theme.breakpoints.up("sm")]: {
-    maxWidth: "450px",
+    maxWidth: "600px",
   },
   boxShadow:
     "hsla(220, 30%, 5%, 0.05) 0px 5px 15px 0px, hsla(220, 25%, 10%, 0.05) 0px 15px 35px -5px",
@@ -67,11 +67,15 @@ function InitialPaymentSelect({ setPaymentType, ...props }) {
           sx={{ position: "fixed", top: "1rem", right: "1rem" }}
         />
         <Card variant="outlined">
-          <PHJLogo />
+          <PHJLogo sx={{ alignSelf: "center" }} />
           <Typography
             component="h1"
             variant="h4"
-            sx={{ width: "100%", fontSize: "clamp(2rem, 10vw, 2.15rem)" }}
+            sx={{
+              width: "100%",
+              textAlign: "center",
+              fontSize: "clamp(2rem, 10vw, 2.15rem)",
+            }}
           >
             Philippine Jesuit Foundation
           </Typography>
