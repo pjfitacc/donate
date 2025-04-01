@@ -1,8 +1,7 @@
-import { Card, CardContent } from "@mui/material";
 import React from "react";
 import "./background.css";
 
-export default function GradientBackground({ cardContent }) {
+export default function GradientBackground({ ChildComponent }) {
   return (
     <div
       className="gradientBackground"
@@ -14,17 +13,7 @@ export default function GradientBackground({ cardContent }) {
         alignItems: "center",
       }}
     >
-      <Card
-        sx={{
-          margin: "auto",
-          minheight: "50%",
-          minWidth: "40%",
-          alignContent: "center",
-          alignItems: "center",
-        }}
-      >
-        <CardContent>{cardContent()}</CardContent>
-      </Card>
+      <ChildComponent />
     </div>
   );
 }

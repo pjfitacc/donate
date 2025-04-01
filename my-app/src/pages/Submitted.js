@@ -1,4 +1,4 @@
-import { CardContent, Typography } from "@mui/material";
+import { Card, CardContent, Typography } from "@mui/material";
 import PaymentSuccess from "components/submitted-card/PaymentSuccess";
 import React from "react";
 import PaymentFailure from "components/submitted-card/PaymentFailure";
@@ -21,7 +21,23 @@ function Submitted({ response }) {
     return <PaymentSuccess response={response} />;
   };
 
-  return <GradientBackground cardContent={content} />;
+  return (
+    <GradientBackground
+      ChildComponent={() => (
+        <Card
+          sx={{
+            margin: "auto",
+            minheight: "50%",
+            minWidth: "40%",
+            alignContent: "center",
+            alignItems: "center",
+          }}
+        >
+          <CardContent>{content()}</CardContent>
+        </Card>
+      )}
+    />
+  );
 }
 
 export const ContactCard = () => {
