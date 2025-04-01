@@ -17,7 +17,12 @@ function App({ ...props }) {
   const creditCardPage = () => {
     switch (submitResponse) {
       case null:
-        return <Checkout setSubmitResponse={setSubmitResponse} />;
+        return (
+          <Checkout
+            setSubmitResponse={setSubmitResponse}
+            setPaymentType={setPaymentType}
+          />
+        );
       default:
         return <Submitted response={submitResponse} />;
     }

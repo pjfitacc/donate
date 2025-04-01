@@ -13,7 +13,7 @@ import { Grid2 } from "@mui/material";
 const steps = ["Donation Info", "Payment details", "Review your order"];
 const FINALSTEP = steps.length - 1;
 
-export default function Checkout({ setSubmitResponse }) {
+export default function Checkout({ setSubmitResponse, setPaymentType }) {
   const [activeStep, setActiveStep] = React.useState(0);
   const [isSubmitting, setIsSubmitting] = React.useState(false);
 
@@ -39,6 +39,10 @@ export default function Checkout({ setSubmitResponse }) {
   }, [activeStep, setActiveStep, setSubmitResponse]);
 
   const handleBack = React.useCallback(() => {
+    if (activeStep === 0) {
+      setPaymentType("");
+      return;
+    }
     setActiveStep(activeStep - 1);
   }, [activeStep]);
 
