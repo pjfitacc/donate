@@ -1,14 +1,11 @@
 import * as React from "react";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
-import CssBaseline from "@mui/material/CssBaseline";
 import Divider from "@mui/material/Divider";
 import Typography from "@mui/material/Typography";
 import Stack from "@mui/material/Stack";
 import MuiCard from "@mui/material/Card";
-import { styled } from "@mui/material/styles";
-import AppTheme from "../shared-theme/AppTheme";
-import ColorModeSelect from "../shared-theme/ColorModeSelect";
+import { styled, useColorScheme } from "@mui/material/styles";
 import PHJLogo from "components/logos/PHJLogo";
 import GradientBackground from "components/background/GradientBackground";
 import { AccountBalance, CreditCard } from "@mui/icons-material";
@@ -56,12 +53,30 @@ const InitialPaymentSelectContainer = styled(Stack)(({ theme }) => ({
 }));
 
 function InitialPaymentSelect({ setPaymentType, ...props }) {
+  const { mode, setMode } = useColorScheme();
+
+  React.useEffect(() => {
+    setMode("dark");
+    // Cleanup function (runs on unmount)
+    return () => {
+      setMode("light");
+    };
+  }, [setMode]);
+
+  if (!mode) {
+    return null;
+  }
+
+  if (mode === "light") {
+    return null;
+  }
+
   return (
     <InitialPaymentSelectContainer
       direction="column"
       justifyContent="space-between"
     >
-      <ColorModeSelect sx={{ position: "fixed", top: "1rem", right: "1rem" }} />
+      {/* <ColorModeSelect sx={{ position: "fixed", top: "1rem", right: "1rem" }} /> */}
       <Card variant="outlined">
         <PHJLogo sx={{ alignSelf: "center" }} />
         <Typography
