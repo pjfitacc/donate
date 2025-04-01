@@ -57,51 +57,47 @@ const InitialPaymentSelectContainer = styled(Stack)(({ theme }) => ({
 
 function InitialPaymentSelect({ setPaymentType, ...props }) {
   return (
-    <AppTheme {...props}>
-      <CssBaseline enableColorScheme />
-      <InitialPaymentSelectContainer
-        direction="column"
-        justifyContent="space-between"
-      >
-        <ColorModeSelect
-          sx={{ position: "fixed", top: "1rem", right: "1rem" }}
-        />
-        <Card variant="outlined">
-          <PHJLogo sx={{ alignSelf: "center" }} />
-          <Typography
-            component="h1"
-            variant="h4"
-            sx={{
-              width: "100%",
-              textAlign: "center",
-              fontSize: "clamp(2rem, 10vw, 2.15rem)",
+    <InitialPaymentSelectContainer
+      direction="column"
+      justifyContent="space-between"
+    >
+      <ColorModeSelect sx={{ position: "fixed", top: "1rem", right: "1rem" }} />
+      <Card variant="outlined">
+        <PHJLogo sx={{ alignSelf: "center" }} />
+        <Typography
+          component="h1"
+          variant="h4"
+          sx={{
+            width: "100%",
+            textAlign: "center",
+            fontSize: "clamp(2rem, 10vw, 2.15rem)",
+          }}
+        >
+          Philippine Jesuit Foundation Donation Page
+        </Typography>
+        <Divider>Choose Payment Type</Divider>
+        <Box sx={{ display: "flex", flexDirection: "row", gap: 2 }}>
+          <Button
+            fullWidth
+            onClick={() => {
+              setPaymentType("creditCard");
             }}
+            variant="outlined"
+            startIcon={<CreditCard />}
           >
-            Philippine Jesuit Foundation Donation Page
-          </Typography>
-          <Divider>Choose Payment Type</Divider>
-          <Box sx={{ display: "flex", flexDirection: "row", gap: 2 }}>
-            <Button
-              fullWidth
-              onClick={() => {
-                setPaymentType("creditCard");
-              }}
-              variant="outlined"
-              startIcon={<CreditCard />}
-            >
-              Credit Card
-            </Button>
-            <Button
-              fullWidth
-              onClick={() => {
-                setPaymentType("bank");
-              }}
-              variant="outlined"
-              startIcon={<AccountBalance />}
-            >
-              Bank
-            </Button>
-            {/* <Typography sx={{ textAlign: "center" }}>
+            Credit Card
+          </Button>
+          <Button
+            fullWidth
+            onClick={() => {
+              setPaymentType("bank");
+            }}
+            variant="outlined"
+            startIcon={<AccountBalance />}
+          >
+            Bank
+          </Button>
+          {/* <Typography sx={{ textAlign: "center" }}>
               Don&apos;t have an account?{" "}
               <Link
                 href="/material-ui/getting-started/templates/sign-in/"
@@ -111,10 +107,9 @@ function InitialPaymentSelect({ setPaymentType, ...props }) {
                 Donate as a Guest
               </Link>
             </Typography> */}
-          </Box>
-        </Card>
-      </InitialPaymentSelectContainer>
-    </AppTheme>
+        </Box>
+      </Card>
+    </InitialPaymentSelectContainer>
   );
 }
 
