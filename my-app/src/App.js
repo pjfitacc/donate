@@ -6,6 +6,7 @@ import AppTheme from "shared-theme/AppTheme";
 import { CssBaseline } from "@mui/material";
 import Checkout from "./pages/CreditCardCheckout";
 import InitialPaymentSelect from "pages/InitialPaymentSelect";
+import Bank from "pages/Bank";
 
 function App({ ...props }) {
   // Payment Type State
@@ -32,7 +33,7 @@ function App({ ...props }) {
 
       {paymentType === "creditCard" && creditCardPage()}
 
-      {paymentType === "bank" && creditCardPage()}
+      {paymentType === "bank" && <Bank />}
     </AppTheme>
   );
 }
