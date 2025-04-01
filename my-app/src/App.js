@@ -38,7 +38,7 @@ function App({ ...props }) {
 
       {paymentType === "creditCard" && creditCardPage()}
 
-      {paymentType === "bank" && <Bank />}
+      {paymentType === "bank" && <Bank setPaymentType={setPaymentType} />}
     </AppTheme>
   );
 }
