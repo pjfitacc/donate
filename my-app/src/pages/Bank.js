@@ -1,13 +1,6 @@
 import React, { useState } from "react";
 import GradientBackground from "components/background/GradientBackground";
-import {
-  CircularProgress,
-  Box,
-  Typography,
-  Button,
-  Grid,
-  Grid2,
-} from "@mui/material"; // Import Material UI components
+import { CircularProgress, Box, Button, Grid2 } from "@mui/material"; // Import Material UI components
 import PHJLogo from "components/logos/PHJLogo";
 import ChevronLeftRoundedIcon from "@mui/icons-material/ChevronLeftRounded";
 

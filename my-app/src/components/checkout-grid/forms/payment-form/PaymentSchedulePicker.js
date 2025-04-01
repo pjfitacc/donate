@@ -1,9 +1,4 @@
-import {
-  CardGiftcard,
-  Favorite,
-  HearingTwoTone,
-  Repeat,
-} from "@mui/icons-material";
+import { CardGiftcard, Favorite, Repeat } from "@mui/icons-material";
 import {
   CardActionArea,
   CardContent,
