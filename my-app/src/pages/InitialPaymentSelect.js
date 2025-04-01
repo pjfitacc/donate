@@ -77,7 +77,7 @@ function InitialPaymentSelect({ setPaymentType, ...props }) {
               fontSize: "clamp(2rem, 10vw, 2.15rem)",
             }}
           >
-            Philippine Jesuit Foundation
+            Philippine Jesuit Foundation Donation Page
           </Typography>
           <Divider>Choose Payment Type</Divider>
           <Box sx={{ display: "flex", flexDirection: "row", gap: 2 }}>
