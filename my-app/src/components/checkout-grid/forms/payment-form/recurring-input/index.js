@@ -8,11 +8,12 @@ import {
 } from "@mui/material";
 import Grid from "@mui/material/Grid2";
 import Box from "@mui/material/Box";
-import React from "react";
+import React, { useState } from "react";
 import useFormStore from "stores/formStore";
 import useErrorStore from "stores/errorStore";
 import RecipeIDSelect from "./recipe-id-select";
 import NumberOfIntervals from "./intervals-select";
+import CalendarModal from "./CalendarModal";
 
 const FormGrid = styled(Grid)(() => ({
   display: "flex",
@@ -29,6 +30,16 @@ function RecurringInput() {
     (state) => state.initialIntervalAmount
   );
   const amount = useFormStore((state) => state.amount);
+
+  const [calendarOpen, setCalendarOpen] = useState(false);
+
+  const handleOpen = () => {
+    setCalendarOpen(true);
+  };
+
+  const handleClose = () => {
+    setCalendarOpen(false);
+  };
 
   if (initialIntervalAmount === null) {
     setField("initialIntervalAmount", amount);
@@ -96,9 +107,10 @@ function RecurringInput() {
           )}
         </FormGrid>
         <FormGrid size={{ xs: 12, md: 3 }}>
-          <Button variant="contained" color="info">
+          <Button variant="contained" color="info" onClick={handleOpen}>
             Preview Recurring Calendar
           </Button>
+          <CalendarModal open={calendarOpen} handleClose={handleClose} />
         </FormGrid>
       </Grid>
     </Box>
