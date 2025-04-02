@@ -55,12 +55,7 @@ function CalendarModal({ open, handleClose }) {
   );
 }
 
-function calculateRecurringAmountsAndDates(
-  recipeID,
-  timesToRecur,
-  recurAmount,
-  initialIntervalAmount
-) {
+function calculateRecurringDates(recipeID, timesToRecur) {
   // recipeID determines:
   // 1. the time length between each recurring interval
   // - ex: weekly
@@ -70,9 +65,20 @@ function calculateRecurringAmountsAndDates(
   // timesToRecur determines when we end the recurring interval
   // - ex: how long the list of our recurring dates will be.
   //
-  // recurAmount determines how much money USD each cycle will be.
+  // returned: a list of date objects where a recurring interval should happen.
+  // it does not include today's date that's tied to the initial amount that a customer pays upfront.
+  // however, it could just so happen that the first recurring date will be today's date. if the first item in this list is today's date,
+  // do not assume that it is the date associated with the initial amount.
   //
-  // InitialIntervalAmount will show USD price on time of submission (today)
+  // example:
+  // When a customer submits a recurring donation, they provide two things:
+  // 1. a SEPARATE initial amount for today.
+  // 2. a list of days where they will get billed based on the recurring settings
+  // The Customer submits a recurring payment today on Tuesday, and they set the recurring cycle to happen every Tuesday.
+  // The separate initial amount will fall on Today's Tuesday, but also:
+  // the return list would look like [Today's Tuesday, Next Tuesday, Week after next Tuesday, etc.]
+  // [Today's Tuesday...] in this list is associated with "2. a list of days where they will get billed based on the recurring settings"
+  // and not associated with "1. a SEPARATE initial amount for today."
 }
 
 export default CalendarModal;
