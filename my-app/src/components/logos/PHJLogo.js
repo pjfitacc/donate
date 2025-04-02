@@ -1,8 +1,8 @@
 import * as React from "react";
 import { Box } from "@mui/material";
-import logo from "../assets/pjflogo.webp"; // Adjust the path as necessary
+import logo from "../../assets/pjflogo.webp"; // Adjust the path as necessary
 
-export default function PHJLogo() {
+export default function PHJLogo({ ...props }) {
   return (
     <Box
       component="img"
@@ -11,6 +11,7 @@ export default function PHJLogo() {
         width: 100,
         maxHeight: { xs: 233, md: 167 },
         maxWidth: { xs: 350, md: 250 },
+        ...props.sx,
       }}
       alt="PH Jesuits Logo"
       src={logo}

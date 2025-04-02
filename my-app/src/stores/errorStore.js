@@ -13,6 +13,7 @@ const useErrorStore = create((set, get) => ({
   acceptTerms: "",
   amount: "",
   beneficiary: "",
+  customBeneficiary: "", // Used for custom beneficiaries
   comments: "",
   ccNumber: "",
   cvv: "",
@@ -24,6 +25,7 @@ const useErrorStore = create((set, get) => ({
   overrideRecurDay: "",
   initialIntervalAmount: "",
   recurAmount: "",
+  recurringEmailedReceiptFrequency: "",
 
   // Getters
   getFormData: () => get(),
@@ -46,6 +48,7 @@ const useErrorStore = create((set, get) => ({
       acceptTerms: "",
       amount: "",
       beneficiary: "",
+      customBeneficiary: "", // Used for custom beneficiaries
       comments: "",
       ccNumber: "",
       cvv: "",
@@ -57,6 +60,7 @@ const useErrorStore = create((set, get) => ({
       overrideRecurDay: "",
       initialIntervalAmount: "",
       recurAmount: "",
+      recurringEmailedReceiptFrequency: "", // Resetting the recurring emailed receipt frequency
     })),
 }));
 

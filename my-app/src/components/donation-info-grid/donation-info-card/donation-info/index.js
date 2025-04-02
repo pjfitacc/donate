@@ -2,13 +2,15 @@ import * as React from "react";
 import PropTypes from "prop-types";
 import Typography from "@mui/material/Typography";
 import BeneficiarySelect from "./beneficiary-select";
-import { FormControl, FormHelperText, Input } from "@mui/material";
+import { FormControl, FormHelperText, FormLabel, Input } from "@mui/material";
 import useFormStore from "stores/formStore";
 import useErrorStore from "stores/errorStore";
 
 function DonationInfo({ editable }) {
   const comments = useFormStore((state) => state.comments);
   const setField = useFormStore((state) => state.setField);
+  const beneficiary = useFormStore((state) => state.beneficiary);
+  const customBeneficiary = useFormStore((state) => state.customBeneficiary); // Used for custom beneficiaries
 
   const errors = useErrorStore((state) => state);
 
@@ -21,6 +23,45 @@ function DonationInfo({ editable }) {
         </FormHelperText>
       )}
 
+      {/* If the beneficiary contains the word "custom" render an additional input element */}
+      {/* This is to handle custom beneficiaries */}
+      {beneficiary && beneficiary.toLowerCase().includes("custom") && (
+        <>
+        <FormControl fullWidth sx={{ mb: 4 }} required>
+          <FormLabel
+            htmlFor="beneficiary"
+            sx={{ mb: -1 }}
+            required={editable ? true : false}
+          >
+            {!editable && "Selected "}Custom Beneficiary
+          </FormLabel>
+          <Input
+            multiline
+            sx={{ my: 2}}
+            id="customBeneficiary"
+            name="customBeneficiary"
+            type="text"
+            defaultValue={customBeneficiary} // Use comments to store the custom beneficiary
+            value={customBeneficiary} // Use comments to store the custom beneficiary
+            onChange={(e) => setField("customBeneficiary", e.target.value)} // Update the comments field
+            readOnly={!editable} // Make it read-only if not editable
+            disableUnderline={!editable} // Disable underline if not editable
+            placeholder={
+              editable
+                ? "Please specify the name of the custom beneficiary."
+                : "Custom beneficiary specified in comments"
+
+            }
+          ></Input>
+          </FormControl>
+          {!!errors.customBeneficiary && (
+        <FormHelperText error id="customBeneficiaryError" sx={{ mb: 3, mt: -3 }}>
+          Please specfiy a custom Beneficiary
+        </FormHelperText>
+      )}
+        </>
+      )}
+
       <FormControl fullWidth>
         <Typography
           variant="subtitle2"
@@ -30,7 +71,7 @@ function DonationInfo({ editable }) {
         </Typography>
         <Input
           multiline
-          sx={{ my: 2, fontWeight: editable ? "" : "bold" }}
+          sx={{ my: 2}}
           id="comments"
           name="comments"
           type="text"
