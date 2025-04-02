@@ -10,9 +10,10 @@ import SinglePaymentInput from "./single-payment-input";
 
 export default function PaymentForm() {
   const isRecurring = useFormStore((state) => state.isRecurring);
+  const smFormSpacingSize = isRecurring ? 3 : 6;
 
   return (
-    <Stack spacing={{ xs: 3, sm: 6 }} useFlexGap>
+    <Stack spacing={{ xs: 3, sm: smFormSpacingSize }} useFlexGap>
       <PaymentSchedulePicker isRecurring={isRecurring} />
       {isRecurring && <RecurringInput />}
       {!isRecurring && <SinglePaymentInput />}
