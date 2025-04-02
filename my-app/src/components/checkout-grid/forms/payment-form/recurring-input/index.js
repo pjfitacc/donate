@@ -1,4 +1,5 @@
 import {
+  Button,
   FormHelperText,
   FormLabel,
   OutlinedInput,
@@ -93,6 +94,11 @@ function RecurringInput() {
               {errors.recurAmount}
             </FormHelperText>
           )}
+        </FormGrid>
+        <FormGrid size={{ xs: 12, md: 3 }}>
+          <Button variant="contained" color="info">
+            Preview Recurring Calendar
+          </Button>
         </FormGrid>
       </Grid>
     </Box>
