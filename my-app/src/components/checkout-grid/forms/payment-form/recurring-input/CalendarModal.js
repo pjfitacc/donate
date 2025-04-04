@@ -36,23 +36,34 @@ const style = {
 
 // For further information on the Recurring Fields: https://www.quantumgateway.com/files/recurring_help.pdf
 
-function RecurDay(props: PickersDayProps<Dayjs> & { highlightedDays?: number[] }) {
-  const { highlightedDays = [], day, outsideCurrentMonth, ...other } = props;
+function RecurDay(
+  props: PickersDayProps<Dayjs> & { 
+    highlightedDays?: number[], 
+    recurAmount: number,
+    initialIntervalAmount: number,
+    todayDate: Dayjs,
+  }
+) {
+  const { highlightedDays = [], day, outsideCurrentMonth, recurAmount, initialIntervalAmount, todayDate, ...other } = props;
 
   const isSelected =
-    !props.outsideCurrentMonth && highlightedDays.indexOf(props.day.date()) >= 0;
+    !outsideCurrentMonth && highlightedDays.indexOf(day.date()) >= 0;
+
+  const isToday = day.isSame(todayDate, 'day');
+  const badgeAmount = isSelected ? (isToday ? initialIntervalAmount : recurAmount) : undefined;
 
   return (
     <Badge
-      key={props.day.toString()}
+      key={day.toString()}
       overlap="circular"
-      badgeContent={isSelected ? '$100' : undefined}
-      color="secondary"
+      badgeContent={badgeAmount !== undefined ? `$${badgeAmount}` : undefined}
+      color={isToday ? "secondary" : "success"}
     >
-      <PickersDay {...other} outsideCurrentMonth={outsideCurrentMonth} day={day} selected={isSelected}/>
+      <PickersDay {...other} outsideCurrentMonth={outsideCurrentMonth} day={day} selected={isSelected} />
     </Badge>
   );
 }
+
 
 function getFilteredDates(recurringDates, month, year) {
   return recurringDates
@@ -67,12 +78,25 @@ function getFilteredDates(recurringDates, month, year) {
 function CalendarModal({ open, handleClose }) {
   const recipeID = useFormStore(state => state.recipeID);
   const timesToRecur = useFormStore(state => state.timesToRecur);
+  const recurAmount = useFormStore(state => state.recurAmount);
+  const initialIntervalAmount = useFormStore(state => state.initialIntervalAmount);
   const recurringRecipes = RecurringRecipeIDs;
 
-  const recurringDates = calculateRecurringDates(recipeID, timesToRecur, recurringRecipes);
-  const [currentMonth, setCurrentMonth] = React.useState(dayjs()); // tracks the current month in view
-  const [highlightedDays, setHighlightedDays] = React.useState(getFilteredDates(recurringDates, currentMonth.month(), currentMonth.year()));
+  const today = dayjs();
+  let recurringDates = calculateRecurringDates(recipeID, timesToRecur, recurringRecipes);
 
+  // Check if today's date is already in the list (by day/month/year only)
+  const isTodayAlreadyIncluded = recurringDates.some(date => dayjs(date).isSame(today, 'day'));
+
+  // Add today if it's not already included
+  if (!isTodayAlreadyIncluded) {
+    recurringDates = [...recurringDates, today.toDate()];
+  }
+
+  const [currentMonth, setCurrentMonth] = React.useState(today);
+  const [highlightedDays, setHighlightedDays] = React.useState(
+    getFilteredDates(recurringDates, currentMonth.month(), currentMonth.year())
+  );
 
   return (
     <Modal
@@ -103,6 +127,9 @@ function CalendarModal({ open, handleClose }) {
             slotProps={{
               day: {
                 highlightedDays,
+                recurAmount,
+                initialIntervalAmount,
+                todayDate: today,
               }
             }}
           />
@@ -111,6 +138,7 @@ function CalendarModal({ open, handleClose }) {
     </Modal>
   );
 }
+
 
 
 export default CalendarModal;
