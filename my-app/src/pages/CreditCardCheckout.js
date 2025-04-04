@@ -10,7 +10,7 @@ import {
 import useFormStore from "stores/formStore";
 import { Grid2 } from "@mui/material";
 
-const steps = ["Donation Info", "Payment details", "Review your order"];
+const steps = ["Donation Info", "Payment details", "Review your donation"];
 const FINALSTEP = steps.length - 1;
 
 export default function Checkout({ setSubmitResponse, setPaymentType }) {

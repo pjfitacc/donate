@@ -98,9 +98,26 @@ function PaymentSchedulePicker({ isRecurring }) {
         <Card
           // @ts-ignore
           selected={!isRecurring}
+          onClick={() => setRecurring(false)}
+          // Hand pointer on hover
+          sx={{
+            cursor: "pointer",
+            "&:hover": {
+              background:
+                "linear-gradient(to bottom right, hsla(210, 100%, 97%, 0.5) 25%, hsla(210, 100%, 90%, 0.3) 100%)",
+              borderColor: "primary.light",
+              boxShadow: "0px 2px 8px hsla(0, 0%, 0%, 0.1)",
+              ...theme.applyStyles("dark", {
+                background:
+                  "linear-gradient(to right bottom, hsla(210, 100%, 12%, 0.2) 25%, hsla(210, 100%, 16%, 0.2) 100%)",
+                borderColor: "primary.dark",
+                boxShadow: "0px 1px 8px hsla(210, 100%, 25%, 0.5) ",
+              }),
+            },
+          }}
+
         >
           <CardActionArea
-            onClick={() => setRecurring(false)}
             sx={{
               ".MuiCardActionArea-focusHighlight": {
                 backgroundColor: "transparent",
@@ -134,6 +151,22 @@ function PaymentSchedulePicker({ isRecurring }) {
         <Card
           // @ts-ignore
           selected={isRecurring}
+          onClick={() => setRecurring(true)}
+          sx={{
+            cursor: "pointer",
+            "&:hover": {
+              background:
+                "linear-gradient(to bottom right, hsla(210, 100%, 97%, 0.5) 25%, hsla(210, 100%, 90%, 0.3) 100%)",
+              borderColor: "primary.light",
+              boxShadow: "0px 2px 8px hsla(0, 0%, 0%, 0.1)",
+              ...theme.applyStyles("dark", {
+                background:
+                  "linear-gradient(to right bottom, hsla(210, 100%, 12%, 0.2) 25%, hsla(210, 100%, 16%, 0.2) 100%)",
+                borderColor: "primary.dark",
+                boxShadow: "0px 1px 8px hsla(210, 100%, 25%, 0.5) ",
+              }),
+            },
+          }}
         >
           <HtmlTooltip
             title={
@@ -163,7 +196,6 @@ function PaymentSchedulePicker({ isRecurring }) {
             }}
           >
             <CardActionArea
-              onClick={() => setRecurring(true)}
               sx={{
                 ".MuiCardActionArea-focusHighlight": {
                   backgroundColor: "transparent",

@@ -134,6 +134,11 @@ function findPaymentErrors(form) {
     errors.cvv = "Invalid CVV. Must be 3 or 4 digits.";
   }
 
+  // Validate Amex CVV
+  if (cardPatterns.Amex.test(digitsOnlyCCNumber) && cvv.length !== 4) {
+    errors.cvv = "Amex CVV must be 4 digits.";
+  }
+
   // Validate Expiration Date (MM/YY format)
   if (!ccExpDate || !/^(0[1-9]|1[0-2])\/([0-9]{2})$/.test(ccExpDate)) {
     errors.ccExpDate = "Invalid expiration date format. Use MM/YY.";

@@ -10,7 +10,7 @@ import Box from "@mui/material/Box";
 import SimCardRoundedIcon from "@mui/icons-material/SimCardRounded";
 import { FormGrid, PaymentContainer } from "./styles";
 import useFormStore from "stores/formStore";
-import React from "react";
+import React, { useState } from "react";
 import useErrorStore from "stores/errorStore";
 
 function CreditCardInput() {
@@ -22,6 +22,8 @@ function CreditCardInput() {
   const setField = useFormStore((state) => state.setField);
 
   const errors = useErrorStore((state) => state);
+
+  const [cardType, setCardType] = useState("");
 
   const handleCardChange = (e) => {
     const { name, value } = e.target;
@@ -39,14 +41,35 @@ function CreditCardInput() {
   const handleCardNumberChange = (event, name) => {
     const value = event.target.value.replace(/\D/g, "");
     const formattedValue = value.replace(/(\d{4})(?=\d)/g, "$1 ");
-    if (value.length <= 16) {
+
+    // detect if the card is an Amex Card or not. 
+    // Amex cards have 15 digits and start with 34 or 37
+    const inputIsAmex = value.startsWith("34") || value.startsWith("37");
+
+    // if our cardType is not Amex, and the inputted card number isAmex, set the cardType to Amex
+    if (inputIsAmex) {
+      setCardType("Amex");
+    } else if (!inputIsAmex) {
+      setCardType("");
+      // if the cvv is 4 digits, set it to 3 digits
+      setField("cvv", cvv.substring(0, 3));
+    }
+
+    if (inputIsAmex && value.length <= 15) {
+      setField(name, formattedValue);
+    } else if (!inputIsAmex && value.length <= 16) {
       setField(name, formattedValue);
     }
+    
   };
 
   const handleCvvChange = (event, name) => {
     const value = event.target.value.replace(/\D/g, "");
-    if (value.length <= 3) {
+    const isAmex = cardType === "Amex";
+
+    if (isAmex && value.length <= 4) {
+      setField(name, value);
+    } else if (!isAmex && value.length <= 3) {
       setField(name, value);
     }
   };
@@ -88,7 +111,7 @@ function CreditCardInput() {
               id="ccNumber"
               name="ccNumber"
               autoComplete="cc Number"
-              placeholder="0000 0000 0000 0000"
+              placeholder={"0000 0000 0000 000" + (cardType === "Amex" ? "" : "0")}
               required
               size="small"
               value={ccNumber}
@@ -109,7 +132,7 @@ function CreditCardInput() {
               id="cvv"
               name="cvv"
               autoComplete="cvv"
-              placeholder="123"
+              placeholder={cardType === "Amex" ? "1234" : "123"}
               required
               size="small"
               value={cvv}
