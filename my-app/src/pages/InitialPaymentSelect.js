@@ -150,7 +150,7 @@ function InitialPaymentSelectContainer({ setPaymentType }) {
             variant="outlined"
             startIcon={<AccountBalance />}
           >
-            Bank
+            Debit / ACH
           </BlackButton>
           {/* <Typography sx={{ textAlign: "center" }}>
               Don&apos;t have an account?{" "}
