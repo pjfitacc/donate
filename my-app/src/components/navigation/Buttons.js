@@ -60,7 +60,7 @@ function Buttons({ activeStep, steps, onNext, onBack, isSubmitting }) {
         {isSubmitting ? (
           <Typography color="yellow">Submitting</Typography>
         ) : (
-          <>{activeStep === steps.length - 1 ? "Place donation" : "Next"}</>
+          <>{activeStep === steps.length - 1 ? "Submit donation" : "Next"}</>
         )}
       </Button>
     </Box>
