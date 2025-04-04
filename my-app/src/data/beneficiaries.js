@@ -52,7 +52,7 @@ export const beneficiaries = [
       "price": "10.00"
     },
     {
-      "name": "Custom (other beneficiaries not in this list)",
+      "name": "Custom (Other Philippine Province Ministries)",
       "price": "10.00"
     }
   ];
