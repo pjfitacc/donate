@@ -82,6 +82,8 @@ function CalendarModal({ open, handleClose }) {
   const initialIntervalAmount = useFormStore(state => state.initialIntervalAmount);
   const recurringRecipes = RecurringRecipeIDs;
 
+  
+
   const today = dayjs();
   let recurringDates = calculateRecurringDates(recipeID, timesToRecur, recurringRecipes);
 
@@ -97,6 +99,22 @@ function CalendarModal({ open, handleClose }) {
   const [highlightedDays, setHighlightedDays] = React.useState(
     getFilteredDates(recurringDates, currentMonth.month(), currentMonth.year())
   );
+
+  React.useEffect(() => {
+    let updatedRecurringDates = calculateRecurringDates(recipeID, timesToRecur, recurringRecipes);
+    const today = dayjs();
+  
+    const isTodayAlreadyIncluded = updatedRecurringDates.some(date =>
+      dayjs(date).isSame(today, 'day')
+    );
+  
+    if (!isTodayAlreadyIncluded) {
+      updatedRecurringDates = [...updatedRecurringDates, today.toDate()];
+    }
+  
+    const filtered = getFilteredDates(updatedRecurringDates, currentMonth.month(), currentMonth.year());
+    setHighlightedDays(filtered);
+  }, [recipeID, timesToRecur, currentMonth, recurringRecipes]);
 
   return (
     <Modal
