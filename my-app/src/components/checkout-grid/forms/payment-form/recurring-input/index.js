@@ -106,7 +106,7 @@ function RecurringInput() {
             </FormHelperText>
           )}
         </FormGrid>
-        <FormGrid size={{ xs: 12, md: 3 }}>
+        <FormGrid size={{ xs: 12}}>
           <Button variant="contained" color="info" onClick={handleOpen}>
             Preview Recurring Calendar
           </Button>
