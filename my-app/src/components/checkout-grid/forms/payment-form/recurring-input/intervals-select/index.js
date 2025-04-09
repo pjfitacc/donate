@@ -10,6 +10,9 @@ import {
   FormHelperText,
 } from "@mui/material";
 import React from "react";
+import { calculateRecurringDates } from "utils/calendarCalculations";
+import { RecurringRecipeIDs } from "constants/quantumGateway";
+import useFormStore from "stores/formStore";
 
 const FormGrid = styled(Grid)(() => ({
   display: "flex",
@@ -20,6 +23,26 @@ const NumberOfIntervals = ({ timesToRecur, setField, errors }) => {
   const [mode, setMode] = useState(
     timesToRecur === 0 ? "indefinite" : "setAmount"
   );
+
+  const recipeID = useFormStore((state) => state.recipeID);
+  const recurringDates = calculateRecurringDates(
+    recipeID,
+    timesToRecur,
+    RecurringRecipeIDs
+  );
+  const lastRecurringDate = recurringDates[recurringDates.length - 1];
+  const lastRecurringDateString = lastRecurringDate.toLocaleDateString(
+    "en-US",
+    {
+      year: "numeric",
+      month: "2-digit",
+      day: "2-digit",
+    }
+  );
+  const lastRecurringDateMessage =
+    mode === "setAmount"
+      ? ` (Last Recurring Donation Date: ${lastRecurringDateString})`
+      : "";
 
   const handleModeChange = (e) => {
     const newMode = e.target.value;
@@ -46,7 +69,7 @@ const NumberOfIntervals = ({ timesToRecur, setField, errors }) => {
   return (
     <FormGrid size={{ xs: 12, md: 6 }}>
       <FormLabel htmlFor="timesToRecur" required>
-        Number of Intervals
+        Number of Intervals {lastRecurringDateMessage}
       </FormLabel>
       <FormControl
         variant="outlined"
