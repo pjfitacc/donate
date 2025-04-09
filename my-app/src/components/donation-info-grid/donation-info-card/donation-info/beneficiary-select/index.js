@@ -1,5 +1,4 @@
 import React from "react";
-import { beneficiaries } from "../../../../../data/beneficiaries";
 import {
   FormControl,
   FormLabel,
@@ -8,7 +7,8 @@ import {
   Select,
   Typography,
 } from "@mui/material";
-import useFormStore from "../../../../../stores/formStore";
+import { beneficiaries } from "data/beneficiaries";
+import useFormStore from "stores/formStore";
 
 const MenuProps = {
   PaperProps: {
@@ -74,7 +74,6 @@ function BeneficiarySelect({ editable }) {
       )}
       {!editable && (
         <Input
-          sx={{ fontWeight: "bold" }}
           id="beneficiary"
           name="beneficiary"
           type="text"

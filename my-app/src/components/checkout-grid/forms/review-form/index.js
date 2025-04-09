@@ -6,8 +6,10 @@ import ListItemText from "@mui/material/ListItemText";
 import Stack from "@mui/material/Stack";
 import Typography from "@mui/material/Typography";
 import useFormStore from "stores/formStore";
-import { Grid2 } from "@mui/material";
+import { FormControl, FormControlLabel, FormHelperText, FormLabel, Grid2, Radio, RadioGroup, Tooltip } from "@mui/material";
 import { RecurringRecipeIDs } from "constants/quantumGateway";
+import { InfoOutlined } from '@mui/icons-material';
+import useErrorStore from "stores/errorStore";
 
 export default function Review() {
   const {
@@ -22,6 +24,7 @@ export default function Review() {
     country,
     amount,
     beneficiary,
+    customBeneficiary,
     comments,
     ccNumber,
     ccName,
@@ -81,7 +84,7 @@ export default function Review() {
       <List disablePadding>
         <ListItem sx={{ py: 1, px: 0 }}>
           <ListItemText primary="Donation to" />
-          <Typography variant="body2">{beneficiary}</Typography>
+          <Typography variant="body2">{beneficiary.toLowerCase().includes("custom") ? `Custom Beneficiary: ${customBeneficiary}`: beneficiary}</Typography>
         </ListItem>
         <ListItem sx={{ py: 1, px: 0 }}>
           <ListItemText primary="Comments" />
@@ -139,6 +142,17 @@ export default function Review() {
             ))}
           </Grid2>
         </div>
+        {
+          isRecurring &&
+        <div>
+          <Typography variant="subtitle2" gutterBottom>
+            Recurring Receipt (Acknowledgement Letter) details  
+          
+          </Typography>
+          
+          {RowRadioButtonsGroup()}
+        </div>
+        }
       </Stack>
     </Stack>
   );
@@ -181,4 +195,41 @@ function getCardBrand(creditCardString) {
 
   // If no brand matches, return "Unknown"
   return "Unknown";
+}
+
+function RowRadioButtonsGroup() {
+  const errors = useErrorStore((state) => state);
+  const setField = useFormStore((state) => state.setField);
+  const recurTimes = useFormStore((state) => state.timesToRecur);
+  const isIndefinite = recurTimes === 0; // Check if the recurring interval is indefinite
+
+  return (
+    <>
+    <FormControl size="small" sx={{mt: "5px"}}>
+      <FormLabel id="demo-row-radio-buttons-group-label" required>
+      <Typography gutterBottom sx={{ color: "text.secondary", display: 'inline-flex', alignItems: 'center' }}>
+          Get a receipt emailed for every donation or a consolidated email {isIndefinite ? "on December of the present year?" : `at the end of your ${recurTimes} time billing cycle?`}
+          <Tooltip title={`For every recurring donation you make, we email a receipt you can use for tax purposes. Instead of getting emailed every time, you can just get a single one with all of the recurring donations totalled at the end of ${isIndefinite ? "the year on December" : "your billing cycle"}.`} placement="top" sx={{fontSize: "20px", ml: "3px", mb:"2px"}} arrow>
+            <InfoOutlined />
+          </Tooltip>
+          </Typography>
+      </FormLabel>
+      <RadioGroup
+        row
+        aria-labelledby="demo-row-radio-buttons-group-label"
+        name="row-radio-buttons-group"
+        sx={{mt: "-15px"}}
+        onChange={(event) => {setField("recurringEmailedReceiptFrequency", event.target.value)}}
+      >
+        <FormControlLabel value={`One consolidated email end of ${isIndefinite ? "year" : "billing cycle"}`} control={<Radio />} label={`consolidated (one ${isIndefinite ? "yearly" : ""} email${!isIndefinite ? " at the end": ""})`} />
+        <FormControlLabel value="Email every donation" control={<Radio />} label="every donation" />
+      </RadioGroup>
+    </FormControl>
+    {!!errors.recurringEmailedReceiptFrequency && (
+              <FormHelperText error id="recurringEmailedReceiptFrequencyError">
+                {errors.recurringEmailedReceiptFrequency}
+              </FormHelperText>
+            )}
+    </>
+  );
 }

@@ -3,7 +3,7 @@ import {
   donorModel,
   paymentModel,
   recurringSettingsModel,
-} from "components/models";
+} from "constants/models";
 import useFormStore from "stores/formStore";
 
 // Only thing not required is the phone.
@@ -15,6 +15,8 @@ export const validateForm = (activeStep) => {
       return findDonorAndDonationErrors(form);
     case 1:
       return findPaymentErrors(form);
+    case 2:
+      return findReviewErrors(form);
     default:
       return {};
   }
@@ -38,6 +40,19 @@ function findDonorAndDonationErrors(form) {
   for (const key in donationModel) {
     if (!form[key]) {
       errors[key] = "This field is required";
+    }
+
+    // if the form's beneficiary contains custom and the customBeneficiary is empty, add an error
+    // for custom beneficiaries
+
+    if (
+      key === "beneficiary" &&
+      form[key].toLowerCase().includes("custom") &&
+      !form.customBeneficiary
+    ) {
+      // Custom beneficiary is required if the beneficiary contains the word "custom"
+      errors.customBeneficiary =
+        "Custom beneficiary is required when 'Custom' is selected as beneficiary.";
     }
   }
 
@@ -119,6 +134,11 @@ function findPaymentErrors(form) {
     errors.cvv = "Invalid CVV. Must be 3 or 4 digits.";
   }
 
+  // Validate Amex CVV
+  if (cardPatterns.Amex.test(digitsOnlyCCNumber) && cvv.length !== 4) {
+    errors.cvv = "Amex CVV must be 4 digits.";
+  }
+
   // Validate Expiration Date (MM/YY format)
   if (!ccExpDate || !/^(0[1-9]|1[0-2])\/([0-9]{2})$/.test(ccExpDate)) {
     errors.ccExpDate = "Invalid expiration date format. Use MM/YY.";
@@ -132,6 +152,17 @@ function findPaymentErrors(form) {
     if (year < currentYear || (year === currentYear && month < currentMonth)) {
       errors.ccExpDate = "Credit card is expired.";
     }
+  }
+
+  return errors;
+}
+
+function findReviewErrors(form) {
+  let errors = {};
+
+  if (form.isRecurring && form.recurringEmailedReceiptFrequency === "") {
+    errors.recurringEmailedReceiptFrequency =
+      "Select how often you get emailed receipts for recurring donations.";
   }
 
   return errors;

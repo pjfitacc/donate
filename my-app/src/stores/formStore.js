@@ -16,6 +16,7 @@ const initialState = {
   acceptTerms: false,
   amount: 10,
   beneficiary: "",
+  customBeneficiary: "", // Used for custom beneficiaries
   comments: "",
   ccNumber: "",
   cvv: "",
@@ -27,6 +28,7 @@ const initialState = {
   overrideRecurDay: "N",
   initialIntervalAmount: null,
   recurAmount: 10,
+  recurringEmailedReceiptFrequency: "",
   isRecurring: false,
 };
 

@@ -1,6 +1,6 @@
 import { Box, Grid2 } from "@mui/material";
 import React from "react";
-import PHJLogo from "../PHJLogo";
+import PHJLogo from "../logos/PHJLogo";
 import DonationInfoCard from "./donation-info-card";
 
 function DonationInfoGrid({ editable, activeStep }) {

@@ -10,14 +10,22 @@ import {
 import useFormStore from "stores/formStore";
 import { Grid2 } from "@mui/material";
 
-const steps = ["Donation Info", "Payment details", "Review your order"];
+const steps = ["Donation Info", "Payment details", "Review your donation"];
 const FINALSTEP = steps.length - 1;
 
-export default function Checkout({ setSubmitResponse }) {
+export default function Checkout({ setSubmitResponse, setPaymentType }) {
   const [activeStep, setActiveStep] = React.useState(0);
   const [isSubmitting, setIsSubmitting] = React.useState(false);
 
   const handleNext = React.useCallback(async () => {
+    const formSubmitErrors = validateForm(activeStep);
+
+    useErrorStore.getState().resetForm();
+    if (Object.keys(formSubmitErrors).length > 0) {
+      useErrorStore.setState(formSubmitErrors);
+      return;
+    }
+
     if (activeStep === FINALSTEP) {
       setIsSubmitting(true);
       const response = await submitForm();
@@ -27,18 +35,14 @@ export default function Checkout({ setSubmitResponse }) {
       return;
     }
 
-    const formSubmitErrors = validateForm(activeStep);
-
-    useErrorStore.getState().resetForm();
-    if (Object.keys(formSubmitErrors).length > 0) {
-      useErrorStore.setState(formSubmitErrors);
-      return;
-    }
-
     setActiveStep(activeStep + 1);
   }, [activeStep, setActiveStep, setSubmitResponse]);
 
   const handleBack = React.useCallback(() => {
+    if (activeStep === 0) {
+      setPaymentType("");
+      return;
+    }
     setActiveStep(activeStep - 1);
   }, [activeStep]);
 
