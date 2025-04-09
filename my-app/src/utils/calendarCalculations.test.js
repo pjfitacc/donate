@@ -139,4 +139,13 @@ describe("calculateRecurringDates", () => {
       });
     });
   });
+
+  describe("Recurring Dates Limit", () => {
+    it("cut off the recurring dates so that the last element should be 20 years from now, even if the recurring times should be more than that.", () => {
+      const result = calculateRecurringDates(4, 80, RECURRING_RECIPES);
+      const lastDate = dayjs(result[result.length - 1]);
+
+      expect(lastDate.year()).toBe(2045); // Last date should be in 2045
+    });
+  });
 });

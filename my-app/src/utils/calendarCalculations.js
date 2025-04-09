@@ -65,7 +65,8 @@ export function calculateRecurringDates(
   const { type, cycleDay } = settings;
   const recurringType = type.split("(")[0].trim().toLowerCase();
   const recurringDates = [];
-  let currentDate = dayjs().startOf("day");
+  const today = dayjs();
+  let currentDate = today.startOf("day");
   const maxOccurrences = timesToRecur === 0 ? 10 : timesToRecur;
 
   if (type !== "weekly") {
@@ -78,7 +79,10 @@ export function calculateRecurringDates(
     currentDate = firstRecurringDate;
   }
 
-  while (recurringDates.length < maxOccurrences) {
+  while (
+    recurringDates.length < maxOccurrences &&
+    currentDate.year() < today.year() + 20
+  ) {
     let nextDate = getNextRecurringDate(currentDate, recurringType, cycleDay);
     recurringDates.push(nextDate.toDate());
     currentDate = nextDate;
