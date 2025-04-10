@@ -5,11 +5,12 @@ import Divider from "@mui/material/Divider";
 import Typography from "@mui/material/Typography";
 import Stack from "@mui/material/Stack";
 import MuiCard from "@mui/material/Card";
-import { styled, useColorScheme } from "@mui/material/styles";
+import { styled } from "@mui/material/styles";
 import PHJLogo from "components/logos/PHJLogo";
 import GradientBackground from "components/background/GradientBackground";
 import { AccountBalance, CreditCard } from "@mui/icons-material";
-import ColorModeSelect from "shared-theme/ColorModeSelect";
+import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
+
 const Card = styled(MuiCard)(({ theme }) => ({
   display: "flex",
   flexDirection: "column",
@@ -59,23 +60,6 @@ const Container = styled(Stack)(({ theme }) => ({
   },
 }));
 
-// const BlackButton = styled(Button)(({ theme }) => ({
-//   backgroundColor: "rgb(11, 14, 20)",
-//   borderBottomColor: "rgb(51, 60, 77)",
-//   borderLeftColor: "rgb(51, 60, 77)",
-//   borderRightColor: "rgb(51, 60, 77)",
-//   borderTopColor: "rgb(51, 60, 77)",
-//   color: "rgb(255, 255, 255)",
-//   "&:hover": {
-//     backgroundColor: "rgb(30, 35, 45)", // Darker shade on hover
-//     // You can also change border colors on hover if needed
-//     borderBottomColor: "rgb(70, 80, 100)",
-//     borderLeftColor: "rgb(70, 80, 100)",
-//     borderRightColor: "rgb(70, 80, 100)",
-//     borderTopColor: "rgb(70, 80, 100)",
-//   },
-// }));
-
 const BlackButton = styled(Button)(({ theme }) => ({
   backgroundColor: "rgb(11, 14, 20)",
   borderBottomColor: "rgb(51, 60, 77)",
@@ -113,6 +97,28 @@ const BlackButton = styled(Button)(({ theme }) => ({
     border: "1px solid black !important",
   },
 }));
+
+function MassCardButton() {
+  return (
+    <Button
+      variant="text"
+      sx={{
+        display: "flex",
+        flexDirection: "row",
+        alignItems: "center",
+        padding: 2,
+        ":hover": {
+          backgroundColor: "rgba(255, 255, 255, 0.1)",
+        },
+        color: "white",
+      }}
+    >
+      <Typography>Send Electronic Mass Cards</Typography>
+      <ArrowForwardIcon />
+    </Button>
+  );
+}
+
 function InitialPaymentSelectContainer({ setPaymentType }) {
   return (
     <Container direction="column" justifyContent="space-between">
@@ -130,7 +136,7 @@ function InitialPaymentSelectContainer({ setPaymentType }) {
         >
           Philippine Jesuit Foundation Donation Page
         </Typography>
-        <Divider>Choose Payment Type</Divider>
+        <Divider>Choose Donation Payment Type</Divider>
         <Box sx={{ display: "flex", flexDirection: "row", gap: 2 }}>
           <BlackButton
             fullWidth
@@ -152,17 +158,10 @@ function InitialPaymentSelectContainer({ setPaymentType }) {
           >
             Debit / ACH
           </BlackButton>
-          {/* <Typography sx={{ textAlign: "center" }}>
-              Don&apos;t have an account?{" "}
-              <Link
-                href="/material-ui/getting-started/templates/sign-in/"
-                variant="body2"
-                sx={{ alignSelf: "center" }}
-              >
-                Donate as a Guest
-              </Link>
-            </Typography> */}
         </Box>
+        <br></br>
+        <Divider>Other Donation Options</Divider>
+        <MassCardButton></MassCardButton>
       </Card>
     </Container>
   );
