@@ -98,7 +98,7 @@ const BlackButton = styled(Button)(({ theme }) => ({
   },
 }));
 
-function MassCardButton() {
+function MassCardButton({ setPaymentType }) {
   return (
     <Button
       variant="text"
@@ -111,6 +111,9 @@ function MassCardButton() {
           backgroundColor: "rgba(255, 255, 255, 0.1)",
         },
         color: "white",
+      }}
+      onClick={() => {
+        setPaymentType("massCard");
       }}
     >
       <Typography>Send Electronic Mass Cards</Typography>
@@ -161,7 +164,7 @@ function InitialPaymentSelectContainer({ setPaymentType }) {
         </Box>
         <br></br>
         <Divider>Other Donation Options</Divider>
-        <MassCardButton></MassCardButton>
+        <MassCardButton setPaymentType={setPaymentType}></MassCardButton>
       </Card>
     </Container>
   );

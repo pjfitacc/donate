@@ -7,6 +7,7 @@ import { CssBaseline } from "@mui/material";
 import Checkout from "./pages/CreditCardCheckout";
 import InitialPaymentSelect from "pages/InitialPaymentSelect";
 import Bank from "pages/Bank";
+import MassCards from "pages/MassCards";
 
 function App({ ...props }) {
   // Payment Type State
@@ -39,6 +40,10 @@ function App({ ...props }) {
       {paymentType === "creditCard" && creditCardPage()}
 
       {paymentType === "bank" && <Bank setPaymentType={setPaymentType} />}
+
+      {paymentType === "massCard" && (
+        <MassCards setPaymentType={setPaymentType} />
+      )}
     </AppTheme>
   );
 }
