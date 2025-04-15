@@ -153,7 +153,7 @@ export default function CardInfoForm() {
           onClick={() => console.log('Pay with Debit / ACH')}
           startIcon={<AccountBalance />}
         >
-          Pay with Debit / ACHCH
+          Pay with Debit / ACH
         </Button>
       </Box>
     </Card>
