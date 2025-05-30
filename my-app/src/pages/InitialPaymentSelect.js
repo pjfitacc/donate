@@ -5,11 +5,10 @@ import Divider from "@mui/material/Divider";
 import Typography from "@mui/material/Typography";
 import Stack from "@mui/material/Stack";
 import MuiCard from "@mui/material/Card";
-import { styled, useColorScheme } from "@mui/material/styles";
+import { styled } from "@mui/material/styles";
 import PHJLogo from "components/logos/PHJLogo";
 import GradientBackground from "components/background/GradientBackground";
 import { AccountBalance, CreditCard } from "@mui/icons-material";
-import ColorModeSelect from "shared-theme/ColorModeSelect";
 const Card = styled(MuiCard)(({ theme }) => ({
   display: "flex",
   flexDirection: "column",

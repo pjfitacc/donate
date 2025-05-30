@@ -40,19 +40,6 @@ const fakeApprovedQGWJsonResponse = {
   ],
 };
 
-const fakeDeclinedQGWJsonResponse = {
-  quantumGatewayTransactionResponse: [
-    "DECLINED",
-    "019452",
-    "652145",
-    "N",
-    "N",
-    "0.6",
-    "INVALID EXP DATE",
-    "205",
-  ],
-};
-
 const jsonObject = fakeApprovedQGWJsonResponse;
 const jsonString = JSON.stringify(jsonObject);
 

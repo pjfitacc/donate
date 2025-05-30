@@ -44,7 +44,7 @@ export default function Checkout({ setSubmitResponse, setPaymentType }) {
       return;
     }
     setActiveStep(activeStep - 1);
-  }, [activeStep]);
+  }, [activeStep, setPaymentType]);
 
   return (
     <Grid2
